@@ -15,6 +15,68 @@ datasource db {
 
 //Tablas BD
 model EJEESTRATEGICO {
-  eje_id Int @id @default(autoincrement())
-  nombre_eje String
+  eje_id      Int @id @default(autoincrement())
+  nombre_eje  String
+  objetivos    OBJETIVOESTRATEGICO[]
+}
+
+model OBJETIVOESTRATEGICO {
+  obj_id      Int @id @default(autoincrement())
+  eje_id      Int
+  cod_obj     String
+  nombre_obj  String
+  planes      PLANDEACCION[]
+  eje         EJEESTRATEGICO @relation(fields: [eje_id], references: [eje_id], onDelete: Cascade)
+}
+
+model PLANDEACCION {
+  plan_id         Int @id @default(autoincrement())
+  obj_id          Int
+  user_id         Int
+  nombre_plan     String
+  fecha_creacion  DateTime
+  indica_plan     INDICADORPLAN[]
+  indica_objetivo INDICADOROBJETIVO[]
+  actividades     ACTIVIDAD[]
+  responsable     USUARIO @relation(fields: [user_id], references: [id_cuenta])
+  objetivo        OBJETIVOESTRATEGICO @relation(fields: [obj_id], references: [obj_id], onDelete: Cascade)
+}
+
+model USUARIO {
+  id_cuenta   Int @id @default(autoincrement())
+  correo      String
+  contrasena  String
+  nombre      String
+  cargo       String
+  is_admin    Boolean
+  planes      PLANDEACCION[]
+}
+
+model INDICADOROBJETIVO {
+  ind_obj_id      Int @id @default(autoincrement())
+  plan_id         Int
+  desc_indicaobj  String
+  plan            PLANDEACCION @relation(fields: [plan_id], references: [plan_id], onDelete: Cascade)
+}
+
+model INDICADORPLAN {
+  ind_plan_id     Int @id @default(autoincrement())
+  plan_id         Int
+  form_calculo    String
+  meta_plazo      String
+  desc_indicaplan String
+  fecha_inicio    DateTime
+  fecha_fin       DateTime
+  plan            PLANDEACCION @relation(fields: [plan_id], references: [plan_id], onDelete: Cascade)
+}
+
+model ACTIVIDAD {
+  act_id        Int @id @default(autoincrement())
+  plan_id       Int
+  desc_act      String
+  responsable   String
+  plazo         String
+  fecha_inicio  DateTime
+  fecha_fin     DateTime
+  plan          PLANDEACCION @relation(fields: [plan_id], references: [plan_id], onDelete: Cascade)
 }
