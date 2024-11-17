@@ -1,0 +1,39 @@
+h1{
+  color:#303880;
+}
+
+#head{
+  /*position: fixed;*/
+  width: 100%;
+  top: 0;
+  background-color: #303880;
+  z-index: 1000;
+}
+.navbar{
+  padding: 0px;
+}
+.nav-item{
+  font-size: 20px;
+}
+
+#imagen{
+  width: 200%;
+  height: 100px;
+  background-size: 300px;
+  background-repeat: no-repeat;
+  position: relative;
+  top: 15px;
+  left: 30px;
+}
+#list{
+  color: white;
+}
+#btn{
+  color: #303880;
+  background-color: #DEB01F;
+
+}
+
+body{
+  background-color: #DEB01F;
+}

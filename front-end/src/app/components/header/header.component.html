@@ -1,0 +1,31 @@
+
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div id="head" class="container-fluid">
+    <div class="col" id="imagen" ></div>
+        <button id="btn" class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a id="list" class="nav-link active text-white hover:bg-blue-500	 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-3 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" aria-current="page" [routerLink]="['/']">Inicio</a>
+        </li>
+        <li class="nav-item">
+          <a *ngIf="isLoggedAdmin" id="list" class="nav-link text-white hover:bg-blue-500	 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-3 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" [routerLink]="['/lista-egresados']">Egresados</a>
+        </li>
+        <li class="nav-item">
+          <a *ngIf="id!=''" id="list" class="nav-link text-white hover:bg-blue-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-3 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" [routerLink]="'/ver-datos/' + id">Perfil de Egresado</a>
+
+        </li>
+        <li class="nav-item">
+          <a id="list" class="nav-link text-white hover:bg-blue-500	 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-3 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" aria-disabled="true" [routerLink]="['/carreras']">Carreras</a>
+        </li>
+        <li class="nav-item">
+          <a *ngIf="!isLogged" id="list" class="nav-link text-white hover:bg-blue-500	 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-3 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" aria-disabled="true" [routerLink]="['/login']">Iniciar sesión</a>
+          <a *ngIf="isLogged" (click)="cerrarSesion()" id="list" class="nav-link text-white hover:bg-blue-500	 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-3 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" aria-disabled="true" [routerLink]="['/']">Cerrar sesión</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
