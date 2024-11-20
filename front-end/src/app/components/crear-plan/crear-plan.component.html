@@ -1,3 +1,16 @@
-<div class="text-center py-3">
+<div class="flex flex-col items-center py-3">
   <span class="font-bold text-2xl">{{titulo}}</span>
+  <form class="mt-5 w-9/12" [formGroup]="planForm" (ngSubmit)="ingresar()">
+    <div class="form-group mb-3 w-full">
+      <p>Nombre del Plan de Acción</p>
+      <mat-form-field appearance="outline" class="w-full" hideRequiredMarker="true" color="primary">
+          <mat-label>Ingrese el nombre del plan</mat-label>
+          <input type="text" matInput formControlName="nombre" [errorStateMatcher]="matcher">
+          <mat-error *ngIf="planForm.controls['nombre'].hasError('required')">
+            El nombre del plan es <strong>requerido</strong>
+          </mat-error>
+        </mat-form-field>
+    </div>
+    
+  </form>
 </div>

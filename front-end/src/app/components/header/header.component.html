@@ -1,12 +1,20 @@
-<nav id="head" class="navbar w-full flex py-6 justify-between items-center">
+<nav id="head" class="navbar p-0 w-full flex justify-between items-center">
+    <div class="flex" >
     <img [src]="logo" alt="logo" class="h-14 mx-10 my-2"/>
-    <ul class="list-none sm:flex hidden justify-end items-center flex-1">
+    <ul class="list-none sm:flex gap-5 items-center">
       <li class="text-white">
-        Mapa Estrategico
+        <a class="no-underline visited:text-white" [routerLink]="['/mapa-estrategico']">Mapa Estrategico</a>
       </li>
       <li class="text-white">
-        Gestión de Usuarios
+        <a *ngIf="isLoggedAdmin" class="no-underline visited:text-white" [routerLink]="['/crear-usuario']">Gestión de Usuarios</a>
+      </li>
+      <li class="text-white">
+        <a class="no-underline visited:text-white" [routerLink]="['/']">Planes Asignados</a>
       </li>
     </ul>
+    </div>
+    <div class="mx-10 text-white">
+      <a class="no-underline visited:text-white" [routerLink]="['/']">Cerrar Sesión</a>
+    </div>
 </nav>
 

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PdiService } from 'src/app/services/pdi.service';
+import { MyErrorStateMatcher } from '../crear-usuario/crear-usuario.component';
 
 @Component({
   selector: 'app-crear-plan',
@@ -13,6 +14,7 @@ export class CrearPlanComponent {
   id: string | null;
   planForm : FormGroup
   objetivos = []
+  matcher = new MyErrorStateMatcher();
 
   constructor( 
     private formBuilder: FormBuilder,
@@ -36,6 +38,10 @@ export class CrearPlanComponent {
 
   ngOnInit(): void{
     this.esEditar();
+  }
+
+  ingresar(){
+
   }
 
   esEditar(){
