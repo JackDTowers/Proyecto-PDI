@@ -1,0 +1,66 @@
+<div class="flex justify-center mt-5 mb-9">
+  <mat-card appearance="outlined" class="text-center w-2/4">
+    <mat-card-content class="">
+      <span class="font-bold text-2xl">{{titulo}}</span>
+      <form class="mt-5" [formGroup]="userForm" (ngSubmit)="ingresar()">
+          <div class="mb-3">
+              <div class="form-group sm:justify-center">
+                  <span><i class="fa-solid fa-user text-4xl px-5"></i></span>
+                  <mat-form-field appearance="outline" class="w-9/12" hideRequiredMarker="true" color="primary">
+                      <mat-label>Nombre Completo</mat-label>
+                      <input type="text" matInput placeholder="Ej. JUAN PEDRO PEREZ VERNAL" formControlName="nombre" [errorStateMatcher]="matcher">
+                      <mat-error *ngIf="userForm.controls['nombre'].hasError('required')">
+                          El nombre completo es <strong>requerido</strong>
+                      </mat-error>
+                  </mat-form-field>
+              </div>
+          </div>
+          <div class="mb-3">
+              <div class="form-group sm:justify-center">
+                  <span><i class="fa-regular fa-envelope text-4xl px-5"></i></span>
+                  <mat-form-field appearance="outline" class="w-9/12" hideRequiredMarker="true" color="primary">
+                      <mat-label>Correo Electrónico</mat-label>
+                      <input type="email" matInput placeholder="Ej. pat@example.com" formControlName="correo" [errorStateMatcher]="matcher">
+                      <mat-error *ngIf="userForm.controls['correo'].hasError('email') && !userForm.controls['correo'].hasError('required')">
+                          Por favor ingrese un email valido
+                      </mat-error>
+                      <mat-error *ngIf="userForm.controls['correo'].hasError('required')">
+                          El email es <strong>requerido</strong>
+                      </mat-error>
+                  </mat-form-field>
+              </div>
+          </div>
+          <div class="mb-3">
+            <div class="form-group sm:justify-center">
+                <span><i class="fa-solid fa-user-tie text-4xl px-5"></i></span>
+                <mat-form-field appearance="outline" class="w-9/12" hideRequiredMarker="true" color="primary">
+                    <mat-label>Cargo</mat-label>
+                    <input type="text" matInput placeholder="" formControlName="cargo" [errorStateMatcher]="matcher">
+                    <mat-error *ngIf="userForm.controls['cargo'].hasError('required')">
+                        El cergo es <strong>requerido</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+          </div>
+          <div class="mb-3 row" >
+              <div class="form-group sm:justify-start">
+                <div class="col-sm-2"></div>
+                  <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="egreso" formControlName="admin">
+                    <label class="form-check-label" for="egreso">Es administrador</label>
+                  </div>
+              </div>
+          </div>
+          <div class="mb-3 row">
+              <div class="col-4">
+                <button class="text-white bg-gray-600 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-lg px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700" routerLink="/lista-egresados">Volver</button>
+              </div>
+              <div class="col-4"></div>
+              <div class="col-4 ">
+                  <button class="text-white bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-lg px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" type="submit" [disabled]="!userForm.valid">Ingresar</button>
+              </div>
+          </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
