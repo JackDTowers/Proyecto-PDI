@@ -25,6 +25,7 @@ export class CrearPlanComponent {
     this.planForm = this.formBuilder.group({
       nombre: ['', Validators.required],
       responsable_plan: ['', Validators.required],
+      objetivo: ['', Validators.required],
       indicador_plan: ['', Validators.required],
       formula: ['', Validators.required],
       meta: ['', Validators.required],

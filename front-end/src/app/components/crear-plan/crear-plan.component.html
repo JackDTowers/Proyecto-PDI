@@ -1,16 +1,62 @@
 <div class="flex flex-col items-center py-3">
-  <span class="font-bold text-2xl">{{titulo}}</span>
+  <span class="font-semibold text-2xl font-sans">{{titulo}}</span>
   <form class="mt-5 w-9/12" [formGroup]="planForm" (ngSubmit)="ingresar()">
-    <div class="form-group mb-3 w-full">
-      <p>Nombre del Plan de Acción</p>
+    <div class="form-group w-full">
+      <p class="font-semibold font-sans">NOMBRE DEL PLAN DE ACCIÓN</p>
       <mat-form-field appearance="outline" class="w-full" hideRequiredMarker="true" color="primary">
-          <mat-label>Ingrese el nombre del plan</mat-label>
-          <input type="text" matInput formControlName="nombre" [errorStateMatcher]="matcher">
-          <mat-error *ngIf="planForm.controls['nombre'].hasError('required')">
-            El nombre del plan es <strong>requerido</strong>
-          </mat-error>
-        </mat-form-field>
+        <mat-label>Ingrese el nombre del plan</mat-label>
+        <input type="text" matInput formControlName="nombre" [errorStateMatcher]="matcher">
+        <mat-error *ngIf="planForm.controls['nombre'].hasError('required')">
+          El nombre del plan es <strong>requerido</strong>
+        </mat-error>
+      </mat-form-field>
     </div>
-    
+    <div class="form-group w-full">
+      <p class="font-semibold font-sans">RESPONSABLE DEL PLAN DE ACCIÓN</p>
+      <mat-form-field appearance="outline" class="w-6/12" hideRequiredMarker="true" color="primary">
+        <mat-label>Ingrese responsable</mat-label>
+        <input type="text" matInput formControlName="responsable_plan" [errorStateMatcher]="matcher">
+        <mat-error *ngIf="planForm.controls['responsable_plan'].hasError('required')">
+          El nombre del responsable es <strong>requerido</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="form-group">
+      <p class="font-semibold font-sans">OBJETIVO ESTRATÉGICO</p>
+      <div class="flex flex-row gap-7">
+        <div class="w-1/12">
+          <p class="font-semibold font-sans text-xs">CÓDIGO</p>
+          <div>
+            <mat-form-field appearance="outline" class="w-full" hideRequiredMarker="true" color="primary">
+              <mat-label>Cod</mat-label>
+              <mat-select formControlName="objetivo" required>
+                <mat-option>--</mat-option>
+                <mat-option *ngFor="let objetivo of objetivos" [value]="objetivo">
+                  {{objetivo}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="w-11/12">
+          <p class="font-semibold font-sans text-xs">OBJETIVO</p>
+          <div>
+            <mat-form-field appearance="outline" class="w-full" hideRequiredMarker="true" color="primary">
+              <mat-label>Objetivo</mat-label>
+              <mat-select formControlName="objetivo" required>
+                <mat-option>--</mat-option>
+                <mat-option *ngFor="let objetivo of objetivos" [value]="objetivo">
+                  {{objetivo}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <mat-error *ngIf="planForm.controls['objetivo'].hasError('required')">
+        El objetivo es <strong>requerido</strong>
+      </mat-error>
+    </div>
+    <p class="font-semibold font-sans">INDICADORES DE CUMPLIMIENTO</p>
   </form>
 </div>
