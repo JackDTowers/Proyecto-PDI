@@ -33,6 +33,10 @@ export class CrearPlanComponent {
       plazo: ['', Validators.required],
       actividad: ['', Validators.required],
       carrera: ['', Validators.required],
+      ini_ind: ['', Validators.required],
+      fin_ind: ['', Validators.required],
+      ini_act: ['', Validators.required],
+      fin_act: ['', Validators.required],
     })
     this.id = this.aRouter.snapshot.paramMap.get('id')
   }

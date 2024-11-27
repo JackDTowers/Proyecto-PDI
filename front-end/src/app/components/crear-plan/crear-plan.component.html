@@ -1,3 +1,5 @@
+<!-- Nota: no se usa la clase form-group, en este caso solo es para identificar un grupo de formularios, no produce ningun cambio
+ quitarlo -->
 <div class="flex flex-col items-center py-3">
   <span class="font-semibold text-2xl font-sans">{{titulo}}</span>
   <form class="mt-5 w-9/12" [formGroup]="planForm" (ngSubmit)="ingresar()">
@@ -49,14 +51,119 @@
                   {{objetivo}}
                 </mat-option>
               </mat-select>
+              <mat-error *ngIf="planForm.controls['objetivo'].hasError('required')">
+                El objetivo es <strong>requerido</strong>
+              </mat-error>
             </mat-form-field>
           </div>
         </div>
       </div>
-      <mat-error *ngIf="planForm.controls['objetivo'].hasError('required')">
-        El objetivo es <strong>requerido</strong>
-      </mat-error>
     </div>
     <p class="font-semibold font-sans">INDICADORES DE CUMPLIMIENTO</p>
+    <div class="flex flex-row gap-5">
+      <div class="w-4/12">
+        <p class="font-semibold font-sans text-xs">Indicador de cumplimiento</p>
+        <mat-form-field appearance="outline" class="w-full" hideRequiredMarker="true" color="primary">
+          <mat-label>Ingrese indicador de cumplimiento</mat-label>
+          <input type="text" matInput formControlName="indicador_plan" [errorStateMatcher]="matcher">
+          <mat-error *ngIf="planForm.controls['indicador_plan'].hasError('required')">
+            El indicador de cumplimiento es <strong>requerido</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="w-2/12">
+        <p class="font-semibold font-sans text-xs">Fórmula de cálculo</p>
+        <mat-form-field appearance="outline" class="w-full" hideRequiredMarker="true" color="primary">
+          <mat-label>Ingrese fórmula</mat-label>
+          <input type="text" matInput formControlName="indicador_plan" [errorStateMatcher]="matcher">
+          <mat-error *ngIf="planForm.controls['indicador_plan'].hasError('required')">
+            El indicador de cumplimiento es <strong>requerido</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="w-2/12">
+        <p class="font-semibold font-sans text-xs">Meta/Plazo</p>
+        <mat-form-field appearance="outline" class="w-full" hideRequiredMarker="true" color="primary">
+          <mat-label>Ingrese meta/plazo</mat-label>
+          <input type="text" matInput formControlName="meta" [errorStateMatcher]="matcher">
+          <mat-error *ngIf="planForm.controls['meta'].hasError('required')">
+            La meta o plazo es <strong>requerido</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="w-2/12">
+        <p class="font-semibold font-sans text-xs">Fecha de Inicio</p>
+        <mat-form-field appearance="outline" class="w-full" hideRequiredMarker="true" color="primary">
+          <mat-label>Fecha Inicio</mat-label>
+          <input type="text" matInput formControlName="ini_ind" [errorStateMatcher]="matcher">
+          <mat-error *ngIf="planForm.controls['ini_ind'].hasError('required')">
+            La fecha de inicio es <strong>requerida</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="w-2/12">
+        <p class="font-semibold font-sans text-xs">Fecha de Fin</p>
+        <mat-form-field appearance="outline" class="w-full" hideRequiredMarker="true" color="primary">
+          <mat-label>Fecha Fin</mat-label>
+          <input type="text" matInput formControlName="fin_ind" [errorStateMatcher]="matcher">
+          <mat-error *ngIf="planForm.controls['fin_ind'].hasError('required')">
+            La fecha de fin es <strong>requerida</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <p class="font-semibold font-sans">ACTIVIDADES</p>
+    <div class="flex flex-row gap-5">
+      <div class="w-4/12">
+        <p class="font-semibold font-sans text-xs">Actividad</p>
+        <mat-form-field appearance="outline" class="w-full" hideRequiredMarker="true" color="primary">
+          <mat-label>Ingrese nombre de actividad</mat-label>
+          <input type="text" matInput formControlName="actividad" [errorStateMatcher]="matcher">
+          <mat-error *ngIf="planForm.controls['actividad'].hasError('required')">
+            El nombre de actividad es <strong>requerido</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="w-2/12">
+        <p class="font-semibold font-sans text-xs">Responsable</p>
+        <mat-form-field appearance="outline" class="w-full" hideRequiredMarker="true" color="primary">
+          <mat-label>Ingrese responsable</mat-label>
+          <input type="text" matInput formControlName="responsable" [errorStateMatcher]="matcher">
+          <mat-error *ngIf="planForm.controls['responsable'].hasError('required')">
+            El responsable es <strong>requerido</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="w-2/12">
+        <p class="font-semibold font-sans text-xs">Plazo</p>
+        <mat-form-field appearance="outline" class="w-full" hideRequiredMarker="true" color="primary">
+          <mat-label>Ingrese plazo</mat-label>
+          <input type="text" matInput formControlName="plazo" [errorStateMatcher]="matcher">
+          <mat-error *ngIf="planForm.controls['plazo'].hasError('required')">
+            El plazo es <strong>requerido</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="w-2/12">
+        <p class="font-semibold font-sans text-xs">Fecha de Inicio</p>
+        <mat-form-field appearance="outline" class="w-full" hideRequiredMarker="true" color="primary">
+          <mat-label>Fecha Inicio</mat-label>
+          <input type="text" matInput formControlName="ini_act" [errorStateMatcher]="matcher">
+          <mat-error *ngIf="planForm.controls['ini_act'].hasError('required')">
+            La fecha de inicio es <strong>requerida</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="w-2/12">
+        <p class="font-semibold font-sans text-xs">Fecha de Fin</p>
+        <mat-form-field appearance="outline" class="w-full" hideRequiredMarker="true" color="primary">
+          <mat-label>Fecha Fin</mat-label>
+          <input type="text" matInput formControlName="fin_act" [errorStateMatcher]="matcher">
+          <mat-error *ngIf="planForm.controls['fin_act'].hasError('required')">
+            La fecha de fin es <strong>requerida</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
   </form>
 </div>
