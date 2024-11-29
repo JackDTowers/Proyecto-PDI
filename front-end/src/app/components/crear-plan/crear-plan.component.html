@@ -95,7 +95,10 @@
         <p class="font-semibold font-sans text-xs">Fecha de Inicio</p>
         <mat-form-field appearance="outline" class="w-full" hideRequiredMarker="true" color="primary">
           <mat-label>Fecha Inicio</mat-label>
-          <input type="text" matInput formControlName="ini_ind" [errorStateMatcher]="matcher">
+          <input matInput [matDatepicker]="pickerinind" formControlName="ini_ind" [errorStateMatcher]="matcher">
+          <mat-hint>MM/DD/YYYY</mat-hint>
+          <mat-datepicker-toggle matIconSuffix [for]="pickerinind"></mat-datepicker-toggle>
+          <mat-datepicker #pickerinind></mat-datepicker>
           <mat-error *ngIf="planForm.controls['ini_ind'].hasError('required')">
             La fecha de inicio es <strong>requerida</strong>
           </mat-error>
@@ -105,7 +108,10 @@
         <p class="font-semibold font-sans text-xs">Fecha de Fin</p>
         <mat-form-field appearance="outline" class="w-full" hideRequiredMarker="true" color="primary">
           <mat-label>Fecha Fin</mat-label>
-          <input type="text" matInput formControlName="fin_ind" [errorStateMatcher]="matcher">
+          <input matInput [matDatepicker]="pickerfinind" formControlName="fin_ind" [errorStateMatcher]="matcher">
+          <mat-hint>MM/DD/YYYY</mat-hint>
+          <mat-datepicker-toggle matIconSuffix [for]="pickerfinind"></mat-datepicker-toggle>
+          <mat-datepicker #pickerfinind></mat-datepicker>
           <mat-error *ngIf="planForm.controls['fin_ind'].hasError('required')">
             La fecha de fin es <strong>requerida</strong>
           </mat-error>
@@ -148,7 +154,10 @@
         <p class="font-semibold font-sans text-xs">Fecha de Inicio</p>
         <mat-form-field appearance="outline" class="w-full" hideRequiredMarker="true" color="primary">
           <mat-label>Fecha Inicio</mat-label>
-          <input type="text" matInput formControlName="ini_act" [errorStateMatcher]="matcher">
+          <input matInput [matDatepicker]="pickerinact" formControlName="ini_act" [errorStateMatcher]="matcher">
+          <mat-hint>MM/DD/YYYY</mat-hint>
+          <mat-datepicker-toggle matIconSuffix [for]="pickerinact"></mat-datepicker-toggle>
+          <mat-datepicker #pickerinact></mat-datepicker>
           <mat-error *ngIf="planForm.controls['ini_act'].hasError('required')">
             La fecha de inicio es <strong>requerida</strong>
           </mat-error>
@@ -158,7 +167,10 @@
         <p class="font-semibold font-sans text-xs">Fecha de Fin</p>
         <mat-form-field appearance="outline" class="w-full" hideRequiredMarker="true" color="primary">
           <mat-label>Fecha Fin</mat-label>
-          <input type="text" matInput formControlName="fin_act" [errorStateMatcher]="matcher">
+          <input matInput [matDatepicker]="pickerfinact" formControlName="fin_act" [errorStateMatcher]="matcher">
+          <mat-hint>MM/DD/YYYY</mat-hint>
+          <mat-datepicker-toggle matIconSuffix [for]="pickerfinact"></mat-datepicker-toggle>
+          <mat-datepicker #pickerfinact></mat-datepicker>
           <mat-error *ngIf="planForm.controls['fin_act'].hasError('required')">
             La fecha de fin es <strong>requerida</strong>
           </mat-error>
