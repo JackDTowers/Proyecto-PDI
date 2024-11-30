@@ -30,6 +30,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CrearPlanComponent } from './components/crear-plan/crear-plan.component';
 import { CrearUsuarioComponent } from './components/crear-usuario/crear-usuario.component';
 import { FormIndicadorPlanComponent } from './components/form-indicador-plan/form-indicador-plan.component';
+import { ContainerpdiDirective } from './directives/containerpdi.directive';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { FormIndicadorPlanComponent } from './components/form-indicador-plan/for
     MapaEstrategicoComponent,
     CrearPlanComponent,
     CrearUsuarioComponent,
-    FormIndicadorPlanComponent
+    FormIndicadorPlanComponent,
+    ContainerpdiDirective
   ],
   imports: [
     BrowserModule,

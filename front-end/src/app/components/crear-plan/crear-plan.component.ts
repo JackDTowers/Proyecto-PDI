@@ -1,27 +1,33 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { AfterViewInit, Component, ViewChild, ViewContainerRef } from '@angular/core';
+import { FormArray, FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PdiService } from 'src/app/services/pdi.service';
 import { MyErrorStateMatcher } from '../crear-usuario/crear-usuario.component';
 import { FormIndicadorPlanComponent } from '../form-indicador-plan/form-indicador-plan.component';
+import { ContainerpdiDirective } from 'src/app/directives/containerpdi.directive';
 
 @Component({
   selector: 'app-crear-plan',
   templateUrl: './crear-plan.component.html',
   styleUrls: ['./crear-plan.component.css']
 })
-export class CrearPlanComponent {
+export class CrearPlanComponent{
   titulo = 'Creación Plan de Acción';
   id: string | null;
   planForm : FormGroup
   objetivos = []
   matcher = new MyErrorStateMatcher();
+  @ViewChild('actContainer', {read: ViewContainerRef, static: true}) actContainerr!: ViewContainerRef;
+
+  get indicadores() {
+    return this.planForm.controls["indicadores"] as FormArray<FormGroup>;
+  }
 
   constructor( 
     private formBuilder: FormBuilder,
     private aRouter: ActivatedRoute,
     private router: Router,
-    private pdiService: PdiService
+    private pdiService: PdiService,
   ) {
     this.planForm = this.formBuilder.group({
       nombre: ['', Validators.required],
@@ -38,6 +44,8 @@ export class CrearPlanComponent {
       fin_ind: ['', Validators.required],
       ini_act: ['', Validators.required],
       fin_act: ['', Validators.required],
+      indicadores: this.formBuilder.array([]),
+      actividades: this.formBuilder.array([]),
     })
     this.id = this.aRouter.snapshot.paramMap.get('id')
   }
@@ -53,6 +61,31 @@ export class CrearPlanComponent {
   esEditar(){
     if (this.id != null){
       this.titulo = "Edición Plan de Acción"
+    }
+  }
+
+  agregarIndicador(){
+    const indicadorForm = this.formBuilder.group({
+      indicador_plan: ['', Validators.required],
+      formula: ['', Validators.required],
+      meta: ['', Validators.required],
+      ini_ind: ['', Validators.required],
+      fin_ind: ['', Validators.required],
+    })
+
+    this.indicadores.push(indicadorForm);
+  }
+
+  eliminarIndicador(indicadorIndex: number) {
+    this.indicadores.removeAt(indicadorIndex);
+  }
+
+  cargarComponente() {
+    if (this.actContainerr){
+      const viewContainerRef = this.actContainerr;
+      //viewContainerRef.clear();  // Limpia cualquier componente previo
+      viewContainerRef.createComponent(FormIndicadorPlanComponent);  // Carga el componente
+      
     }
   }
 
