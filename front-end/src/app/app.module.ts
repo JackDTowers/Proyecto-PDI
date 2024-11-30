@@ -29,6 +29,7 @@ import { MapaEstrategicoComponent } from './components/mapa-estrategico/mapa-est
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CrearPlanComponent } from './components/crear-plan/crear-plan.component';
 import { CrearUsuarioComponent } from './components/crear-usuario/crear-usuario.component';
+import { FormIndicadorPlanComponent } from './components/form-indicador-plan/form-indicador-plan.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { CrearUsuarioComponent } from './components/crear-usuario/crear-usuario.
     HeaderComponent,
     MapaEstrategicoComponent,
     CrearPlanComponent,
-    CrearUsuarioComponent
+    CrearUsuarioComponent,
+    FormIndicadorPlanComponent
   ],
   imports: [
     BrowserModule,

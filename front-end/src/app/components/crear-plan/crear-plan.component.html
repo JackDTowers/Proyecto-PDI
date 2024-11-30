@@ -75,9 +75,9 @@
         <p class="font-semibold font-sans text-xs">Fórmula de cálculo</p>
         <mat-form-field appearance="outline" class="w-full" hideRequiredMarker="true" color="primary">
           <mat-label>Ingrese fórmula</mat-label>
-          <input type="text" matInput formControlName="indicador_plan" [errorStateMatcher]="matcher">
-          <mat-error *ngIf="planForm.controls['indicador_plan'].hasError('required')">
-            El indicador de cumplimiento es <strong>requerido</strong>
+          <input type="text" matInput formControlName="formula" [errorStateMatcher]="matcher">
+          <mat-error *ngIf="planForm.controls['formula'].hasError('required')">
+            La fórmula es <strong>requerida</strong>
           </mat-error>
         </mat-form-field>
       </div>

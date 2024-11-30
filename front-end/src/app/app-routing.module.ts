@@ -3,12 +3,14 @@ import { RouterModule, Routes } from '@angular/router';
 import { MapaEstrategicoComponent } from './components/mapa-estrategico/mapa-estrategico.component';
 import { CrearPlanComponent } from './components/crear-plan/crear-plan.component';
 import { CrearUsuarioComponent } from './components/crear-usuario/crear-usuario.component';
+import { FormIndicadorPlanComponent } from './components/form-indicador-plan/form-indicador-plan.component';
 
 const routes: Routes = [
   { path: 'mapa-estrategico', component: MapaEstrategicoComponent },
   { path: 'crear-plan', component: CrearPlanComponent },
   { path: 'editar-plan/:id', component: CrearPlanComponent },
   { path: 'crear-usuario', component: CrearUsuarioComponent },
+  { path: 'indicador', component: FormIndicadorPlanComponent },
   { path: '', component: MapaEstrategicoComponent, pathMatch: 'full' },
   { path: '**', redirectTo: '/', pathMatch: 'full' },
 ];
