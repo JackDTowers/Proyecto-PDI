@@ -23,6 +23,10 @@ export class CrearPlanComponent{
     return this.planForm.controls["indicadores"] as FormArray<FormGroup>;
   }
 
+  get actividades() {
+    return this.planForm.controls["actividades"] as FormArray<FormGroup>;
+  }
+
   constructor( 
     private formBuilder: FormBuilder,
     private aRouter: ActivatedRoute,
@@ -66,19 +70,34 @@ export class CrearPlanComponent{
 
   agregarIndicador(){
     const indicadorForm = this.formBuilder.group({
-      indicador_plan: ['', Validators.required],
-      formula: ['', Validators.required],
-      meta: ['', Validators.required],
-      ini_ind: ['', Validators.required],
-      fin_ind: ['', Validators.required],
+      dindicador_plan: ['', Validators.required],
+      dformula: ['', Validators.required],
+      dmeta: ['', Validators.required],
+      dini_ind: ['', Validators.required],
+      dfin_ind: ['', Validators.required],
     })
-
     this.indicadores.push(indicadorForm);
+  }
+
+  agregarActividad(){
+    const actividadForm = this.formBuilder.group({
+      dresponsable: ['', Validators.required],
+      dplazo: ['', Validators.required],
+      dactividad: ['', Validators.required],
+      dini_act: ['', Validators.required],
+      dfin_act: ['', Validators.required],
+    })
+    this.actividades.push(actividadForm);
   }
 
   eliminarIndicador(indicadorIndex: number) {
     this.indicadores.removeAt(indicadorIndex);
   }
+
+  eliminarActividad(actividadIndex: number) {
+    this.actividades.removeAt(actividadIndex);
+  }
+
 
   cargarComponente() {
     if (this.actContainerr){
