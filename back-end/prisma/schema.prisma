@@ -21,12 +21,21 @@ model EJEESTRATEGICO {
 }
 
 model OBJETIVOESTRATEGICO {
-  obj_id      Int @id @default(autoincrement())
-  eje_id      Int
-  cod_obj     String
-  nombre_obj  String
-  planes      PLANDEACCION[]
-  eje         EJEESTRATEGICO @relation(fields: [eje_id], references: [eje_id], onDelete: Cascade)
+  obj_id          Int @id @default(autoincrement())
+  eje_id          Int
+  cod_obj         String @unique
+  nombre_obj      String
+  indica_objetivo INDICADOROBJETIVO[]
+  planes          PLANDEACCION[]
+  eje             EJEESTRATEGICO @relation(fields: [eje_id], references: [eje_id], onDelete: Cascade)
+}
+
+model INDICADOROBJETIVO {
+  ind_obj_id      Int @id @default(autoincrement())
+  obj_id          Int
+  desc_indicaobj  String
+  plan_impa_ind   PLANIMPACTAINDICADOR[]
+  objetivo        OBJETIVOESTRATEGICO @relation(fields: [obj_id], references: [obj_id], onDelete: Cascade)
 }
 
 model PLANDEACCION {
@@ -35,8 +44,9 @@ model PLANDEACCION {
   user_id         Int
   nombre_plan     String
   fecha_creacion  DateTime
+  observaciones   String
   indica_plan     INDICADORPLAN[]
-  indica_objetivo INDICADOROBJETIVO[]
+  plan_impa_ind   PLANIMPACTAINDICADOR[]
   actividades     ACTIVIDAD[]
   responsable     USUARIO @relation(fields: [user_id], references: [id_cuenta])
   objetivo        OBJETIVOESTRATEGICO @relation(fields: [obj_id], references: [obj_id], onDelete: Cascade)
@@ -52,11 +62,12 @@ model USUARIO {
   planes      PLANDEACCION[]
 }
 
-model INDICADOROBJETIVO {
-  ind_obj_id      Int @id @default(autoincrement())
+model PLANIMPACTAINDICADOR {
+  pii_id          Int @id @default(autoincrement())
+  ind_obj_id      Int
   plan_id         Int
-  desc_indicaobj  String
   plan            PLANDEACCION @relation(fields: [plan_id], references: [plan_id], onDelete: Cascade)
+  objetivo        INDICADOROBJETIVO @relation(fields: [ind_obj_id], references: [ind_obj_id], onDelete: Cascade)
 }
 
 model INDICADORPLAN {
