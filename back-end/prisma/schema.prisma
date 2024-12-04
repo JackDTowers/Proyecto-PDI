@@ -58,7 +58,7 @@ model USUARIO {
   contrasena  String
   nombre      String
   cargo       String
-  is_admin    Boolean
+  is_admin    Int
   planes      PLANDEACCION[]
 }
 
