@@ -33,7 +33,7 @@ export const crearUsuario = async (req, res) => {
         // Verificar si 'meta' y 'meta.target' existen y son del tipo esperado
         if (e.meta && typeof e.meta === 'object' && Array.isArray(e.meta.target)) {
           let conflictingField = e.meta.target.join(', ');
-          if (conflictingField === 'email') {
+          if (conflictingField === 'correo') {
             let errorMessage = `El Correo Electrónico ya esta en uso`;
             return res.status(400).json({
               message: errorMessage

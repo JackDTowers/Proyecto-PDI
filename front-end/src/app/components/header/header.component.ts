@@ -9,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 export class HeaderComponent implements OnInit{
   logo = '../../../assets/img/logo.png';
   isLogged = true;
-  isLoggedAdmin = false;
+  isLoggedAdmin = true;
   id = ''
   constructor() { }
   ngOnInit(): void {

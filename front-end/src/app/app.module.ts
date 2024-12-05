@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 // Import FormsModule and ReactiveFormsModule for handling forms
 import { FormsModule, ReactiveFormsModule, NgForm } from '@angular/forms';
+// Import ToastrModule for displaying toast notifications
+import { ToastrModule } from 'ngx-toastr';
 // Angular Material modules
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -65,7 +67,8 @@ import { ContainerpdiDirective } from './directives/containerpdi.directive';
     MatSnackBarModule,
     MatCheckboxModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    ToastrModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]
