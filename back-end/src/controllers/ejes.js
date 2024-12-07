@@ -41,6 +41,7 @@ export const getEje = async (req,res) => {
   }
 }
 
+//Crar Eje
 export const crearEje = async (req,res) => {
   try {
     const { numero_eje, nombre_eje } = await req.body;

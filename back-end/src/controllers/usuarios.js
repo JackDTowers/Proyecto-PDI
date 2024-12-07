@@ -1,6 +1,28 @@
 import { prisma } from '../config/db.js';
 import { hash } from 'bcrypt';
 
+//Obtener todos los usuarios
+export const getUsers = async (req,res) => {
+  try {
+    const users = await prisma.uSUARIO.findMany({
+      select: {
+        id_cuenta: true,
+        correo: true,
+        nombre: true,
+        cargo: true,
+        is_admin: true,
+      }
+    })
+
+    res.json(users)
+  } catch (error) {
+    return res.status(500).json({
+      message:"Something goes wrong"
+    })
+  }
+}
+
+//Crear Usuario
 export const crearUsuario = async (req, res) => {
   try {
     const { correo, contrasena, nombre, cargo, isAdmin } = await req.body;

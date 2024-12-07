@@ -23,7 +23,11 @@ export const getObjetivo = async (req,res) => {
     }
 
     const objetivo = await prisma.oBJETIVOESTRATEGICO.findUnique({
-      where: { objetivo_id: parseInt(id) }
+      where: { obj_id: parseInt(id) },
+      include: { 
+        planes: true,
+        indica_objetivo: true
+      }
     })
 
     if (!objetivo) {
@@ -41,6 +45,7 @@ export const getObjetivo = async (req,res) => {
   }
 }
 
+//Crear Objetivo
 export const crearObjetivo = async (req,res) => {
   try {
     const { eje_id, cod_obj, nombre_obj } = await req.body;

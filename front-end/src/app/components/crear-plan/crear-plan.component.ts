@@ -5,6 +5,8 @@ import { PdiService } from 'src/app/services/pdi.service';
 import { MyErrorStateMatcher } from '../crear-usuario/crear-usuario.component';
 import { FormIndicadorPlanComponent } from '../form-indicador-plan/form-indicador-plan.component';
 import { ContainerpdiDirective } from 'src/app/directives/containerpdi.directive';
+import { Objetivo } from 'src/app/models/objetivo';
+import { User } from 'src/app/models/user';
 
 @Component({
   selector: 'app-crear-plan',
@@ -15,7 +17,8 @@ export class CrearPlanComponent{
   titulo = 'Creación Plan de Acción';
   id: string | null;
   planForm : FormGroup
-  objetivos = []
+  usuarios : User[] = []
+  objetivos : Objetivo[] = []
   matcher = new MyErrorStateMatcher();
   @ViewChild('actContainer', {read: ViewContainerRef, static: true}) actContainerr!: ViewContainerRef;
 
@@ -52,10 +55,17 @@ export class CrearPlanComponent{
       actividades: this.formBuilder.array([]),
     })
     this.id = this.aRouter.snapshot.paramMap.get('id')
+    this.pdiService.getUsuarios().subscribe((users) => {
+      this.usuarios = users;
+    })
+    this.pdiService.getObjetivos().subscribe((objetivos) => {
+      this.objetivos = objetivos;
+    })
   }
 
   ngOnInit(): void{
     this.esEditar();
+    
   }
 
   ingresar(){
