@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { PdiService } from 'src/app/services/pdi.service';
 import { HttpClient } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
+import { User } from 'src/app/models/user';
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -56,7 +57,7 @@ export class CrearUsuarioComponent {
       is_admin = 1
     }
 
-    const USER = {
+    const USER: User = {
       correo: this.userForm.get('correo')?.value,
       contrasena: '12345',
       nombre: this.userForm.get('nombre')?.value,

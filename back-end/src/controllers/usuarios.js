@@ -50,7 +50,7 @@ export const crearUsuario = async (req, res) => {
     console.log(e)
     return res.status(500).json({
       message: "Something goes wrong",
-      error: e
+      error: e.message
     });
   }
 }

@@ -1,1 +1,6 @@
-<p>mapa-estrategico works!</p>
+<div class="flex flex-col py-6 px-12 gap-2">
+  <span class="font-bold text-3xl font-sans">{{title}}</span>
+  <div *ngIf="thereIsNoMap" class="py-5">
+    <p>{{lbMapa}}</p>
+  </div>
+</div>

@@ -16,6 +16,7 @@ datasource db {
 //Tablas BD
 model EJEESTRATEGICO {
   eje_id      Int @id @default(autoincrement())
+  numero_eje  Int @unique
   nombre_eje  String
   objetivos    OBJETIVOESTRATEGICO[]
 }

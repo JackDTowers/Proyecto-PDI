@@ -40,3 +40,30 @@ export const getEje = async (req,res) => {
     })
   }
 }
+
+export const crearEje = async (req,res) => {
+  try {
+    const { numero_eje, nombre_eje } = await req.body;
+
+    // Validación de los datos
+    if (!numero_eje || !nombre_eje) {
+      throw new Error('Todos los campos son requeridos');
+    }
+
+    await prisma.eJEESTRATEGICO.create({
+      data: {
+        numero_eje: numero_eje,
+        nombre_eje: nombre_eje.toUpperCase()
+      }
+    });
+
+    return res.status(200).json({
+      message: "Eje creado!"
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message:"Something goes wrong",
+      error: error.message
+    })
+  }
+}
