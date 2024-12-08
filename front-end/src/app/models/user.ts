@@ -1,8 +1,8 @@
 export interface User {
   id_cuenta?: number;
-  correo: String;
-  contrasena?: String;
-  nombre: String;
-  cargo: String;
+  correo: string;
+  contrasena?: string;
+  nombre: string;
+  cargo: string;
   isAdmin: number;
 }

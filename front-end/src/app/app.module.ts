@@ -22,6 +22,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar'
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 //Import components
 import { AppRoutingModule } from './app-routing.module';
@@ -69,6 +70,7 @@ import { ContainerpdiDirective } from './directives/containerpdi.directive';
     MatDatepickerModule,
     MatNativeDateModule,
     ToastrModule.forRoot(),
+    MatAutocompleteModule
   ],
   providers: [],
   bootstrap: [AppComponent]

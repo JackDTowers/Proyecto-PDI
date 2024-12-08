@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ViewChild, ViewContainerRef } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, ViewChild, ViewContainerRef } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PdiService } from 'src/app/services/pdi.service';
@@ -10,6 +10,8 @@ import { User } from 'src/app/models/user';
 import { PlanDeAccion } from 'src/app/models/plan';
 import { IndicadorPlan } from 'src/app/models/indicadorplan';
 import { Actividad } from 'src/app/models/actividad';
+import { Observable, of } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
 
 @Component({
   selector: 'app-crear-plan',
@@ -24,6 +26,8 @@ export class CrearPlanComponent{
   objetivos : Objetivo[] = []
   matcher = new MyErrorStateMatcher();
   @ViewChild('actContainer', {read: ViewContainerRef, static: true}) actContainerr!: ViewContainerRef;
+  @ViewChild('input') input!: ElementRef<HTMLInputElement>;
+  filteredUsers: Observable<User[]> = of([])
 
   get indicadores() {
     return this.planForm.controls["indicadores"] as FormArray<FormGroup>;
@@ -60,6 +64,7 @@ export class CrearPlanComponent{
     this.id = this.aRouter.snapshot.paramMap.get('id')
     this.pdiService.getUsuarios().subscribe((users) => {
       this.usuarios = users;
+      this.filteredUsers = of(this.usuarios); //Asignamos observable a la lista para filtrar en autocompletado
     })
     this.pdiService.getObjetivos().subscribe((objetivos) => {
       this.objetivos = objetivos;
@@ -68,7 +73,7 @@ export class CrearPlanComponent{
 
   ngOnInit(): void{
     this.esEditar();
-    // Sincronizar selects
+    // Sincronizar selects objetivo
     this.planForm.get('codigo_obj')?.valueChanges.subscribe(codigo => {
       this.actualizarNombrePorCodigo(codigo);
     });
@@ -76,13 +81,98 @@ export class CrearPlanComponent{
     this.planForm.get('objetivo')?.valueChanges.subscribe(nombre => {
       this.actualizarCodigoPorNombre(nombre);
     });
+    // Validar cuando cambia el valor en el input
+    this.planForm.get('responsable_plan')?.valueChanges.subscribe(value => {
+      this.validateUser(value);
+    });
+  }
+  
+  esEditar(){
+    if (this.id != null){
+      this.titulo = "Edición Plan de Acción"
+    }
+  }
+
+  // Actualizar el select de nombre según el código seleccionado
+  actualizarNombrePorCodigo(codigo: string) {
+    const objetivo = this.objetivos.find(o => o.cod_obj === codigo);
+    if (objetivo) {
+      this.planForm.get('objetivo')?.setValue(objetivo.nombre_obj, { emitEvent: false });
+    }
+  }
+
+  // Actualizar el select de código según el nombre seleccionado
+  actualizarCodigoPorNombre(nombre: string) {
+    const objetivo = this.objetivos.find(o => o.nombre_obj === nombre);
+    if (objetivo) {
+      this.planForm.get('codigo_obj')?.setValue(objetivo.cod_obj, { emitEvent: false });
+    }
+  }
+
+  // Función para validar si el valor ingresado está en la lista de usuarios
+  validateUser(value: string): void {
+    const user = this.usuarios.find(u => u.nombre.toLowerCase() === value.toLowerCase());
+    if (user) {
+      // Si es un usuario válido, removemos el error
+      this.planForm.get('responsable_plan')?.setErrors(null);
+    } else {
+      // Si no es un usuario válido, mostramos un error
+      this.planForm.get('responsable_plan')?.setErrors({ invalidUser: true });
+    }
+  }
+
+  //Para filtro de autocomplete
+  displayFn(user: User): string {
+    return user && user.nombre ? user.nombre : '';
+  }
+
+  //Para filtro de autocomplete
+  filter(): void {
+    const filterValue = this.input.nativeElement.value.toLowerCase();
+    if (!filterValue) {
+      this.filteredUsers = of([]);  // Si se borra todo, no hay opciones
+    } else {
+      this.filteredUsers = of(this.usuarios.filter(u =>
+        u.nombre.toLowerCase().includes(filterValue)
+      ));  // Convertimos el array filtrado a un observable
+    }
+  }
+    
+  agregarIndicador(){
+    const indicadorForm = this.formBuilder.group({
+      dindicador_plan: ['', Validators.required],
+      dformula: ['', Validators.required],
+      dmeta: ['', Validators.required],
+      dini_ind: ['', Validators.required],
+      dfin_ind: ['', Validators.required],
+    })
+    this.indicadores.push(indicadorForm);
+  }
+
+  agregarActividad(){
+    const actividadForm = this.formBuilder.group({
+      dactividad: ['', Validators.required],
+      dresponsable: ['', Validators.required],
+      dplazo: ['', Validators.required],
+      dini_act: ['', Validators.required],
+      dfin_act: ['', Validators.required],
+    })
+    this.actividades.push(actividadForm);
+  }
+
+  eliminarIndicador(indicadorIndex: number) {
+    this.indicadores.removeAt(indicadorIndex);
+  }
+
+  eliminarActividad(actividadIndex: number) {
+    this.actividades.removeAt(actividadIndex);
   }
 
   ingresar(){
     let indicadoresextra: IndicadorPlan[] = [];
     let actividadesextra: Actividad[] = [];
-    const responsable = this.usuarios.find(u => u.nombre === this.planForm.get('responsable_plan')?.value);
-    const user_id = responsable?.id_cuenta
+    const responsable : User = this.planForm.get('responsable_plan')?.value;
+    const user_id = responsable.id_cuenta
     const objetivo = this.objetivos.find(o => o.cod_obj === this.planForm.get('codigo_obj')?.value);
     const obj_id = objetivo?.obj_id
     //Recuperación de valores de indicador y actividad obligatorios del planForm
@@ -134,63 +224,9 @@ export class CrearPlanComponent{
       indicadores: indicadores,
       actividades: actividades
     }
-    //console.log(this.planForm)
-    //console.log(PLAN)
     this.pdiService.crearPlan(PLAN).subscribe((resultados) => {
       console.log(resultados)
     })
-  }
-
-  esEditar(){
-    if (this.id != null){
-      this.titulo = "Edición Plan de Acción"
-    }
-  }
-
-  agregarIndicador(){
-    const indicadorForm = this.formBuilder.group({
-      dindicador_plan: ['', Validators.required],
-      dformula: ['', Validators.required],
-      dmeta: ['', Validators.required],
-      dini_ind: ['', Validators.required],
-      dfin_ind: ['', Validators.required],
-    })
-    this.indicadores.push(indicadorForm);
-  }
-
-  agregarActividad(){
-    const actividadForm = this.formBuilder.group({
-      dactividad: ['', Validators.required],
-      dresponsable: ['', Validators.required],
-      dplazo: ['', Validators.required],
-      dini_act: ['', Validators.required],
-      dfin_act: ['', Validators.required],
-    })
-    this.actividades.push(actividadForm);
-  }
-
-  eliminarIndicador(indicadorIndex: number) {
-    this.indicadores.removeAt(indicadorIndex);
-  }
-
-  eliminarActividad(actividadIndex: number) {
-    this.actividades.removeAt(actividadIndex);
-  }
-
-  // Actualizar el select de nombre según el código seleccionado
-  actualizarNombrePorCodigo(codigo: string) {
-    const objetivo = this.objetivos.find(o => o.cod_obj === codigo);
-    if (objetivo) {
-      this.planForm.get('objetivo')?.setValue(objetivo.nombre_obj, { emitEvent: false });
-    }
-  }
-
-  // Actualizar el select de código según el nombre seleccionado
-  actualizarCodigoPorNombre(nombre: string) {
-    const objetivo = this.objetivos.find(o => o.nombre_obj === nombre);
-    if (objetivo) {
-      this.planForm.get('codigo_obj')?.setValue(objetivo.cod_obj, { emitEvent: false });
-    }
   }
 
   cargarComponente() {

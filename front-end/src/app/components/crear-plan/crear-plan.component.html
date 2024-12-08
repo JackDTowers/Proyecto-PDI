@@ -17,9 +17,19 @@
       <p class="font-semibold font-sans">RESPONSABLE DEL PLAN DE ACCIÓN</p>
       <mat-form-field appearance="outline" class="w-6/12" hideRequiredMarker="true" color="primary">
         <mat-label>Ingrese responsable</mat-label>
-        <input type="text" matInput formControlName="responsable_plan" [errorStateMatcher]="matcher">
+        <input #input type="text" matInput formControlName="responsable_plan" [errorStateMatcher]="matcher" [matAutocomplete]="auto"
+        (input)="filter()"
+        (focus)="filter()">
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+          <mat-option *ngFor="let user of filteredUsers | async" [value]="user">
+            {{user.nombre}}
+          </mat-option>
+        </mat-autocomplete>
         <mat-error *ngIf="planForm.controls['responsable_plan'].hasError('required')">
           El nombre del responsable es <strong>requerido</strong>
+        </mat-error>
+        <mat-error *ngIf="planForm.get('responsable_plan')?.hasError('invalidUser')">
+          El valor ingresado no es un usuario válido.
         </mat-error>
       </mat-form-field>
     </div>
