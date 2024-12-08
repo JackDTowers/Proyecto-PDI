@@ -79,10 +79,13 @@ export class CrearPlanComponent{
   }
 
   ingresar(){
+    let indicadoresextra: IndicadorPlan[] = [];
+    let actividadesextra: Actividad[] = [];
     const responsable = this.usuarios.find(u => u.nombre === this.planForm.get('responsable_plan')?.value);
     const user_id = responsable?.id_cuenta
     const objetivo = this.objetivos.find(o => o.cod_obj === this.planForm.get('codigo_obj')?.value);
     const obj_id = objetivo?.obj_id
+    //Recuperación de valores de indicador y actividad obligatorios del planForm
     const indicador: IndicadorPlan = {
       nombre_indicador: this.planForm.get('indicador_plan')?.value,
       formula: this.planForm.get('formula')?.value,
@@ -97,11 +100,33 @@ export class CrearPlanComponent{
       fecha_inicio: this.planForm.get('ini_act')?.value,
       fecha_fin: this.planForm.get('fin_act')?.value,
     }
-    const indicadoresextra: IndicadorPlan[] = this.planForm.get('indicadores')?.value
-    const activividadesextra: Actividad[] = this.planForm.get('actividades')?.value
+    //Recuperación de los valores de los formArray indicadores y actividades
+    const indicadoresform: any[] = this.planForm.get('indicadores')?.value
+    const actividadesform: any[] = this.planForm.get('actividades')?.value
+    //Llenado de lista indicadoresextra con formato de objeto indicador
+    indicadoresform.map((indicador) => {
+      indicadoresextra.push({
+        nombre_indicador: indicador.dindicador_plan,
+        formula: indicador.dformula,
+        meta_plazo: indicador.dmeta,
+        fecha_inicio: indicador.dini_ind,
+        fecha_fin: indicador.dfin_ind
+      })
+    })
+    //Llenado de lista actividadesextra con formato de objeto actividad
+    actividadesform.map((actividad) => {
+      actividadesextra.push({
+        nombre_actividad: actividad.dactividad,
+        responsable: actividad.dresponsable,
+        plazo: actividad.dplazo,
+        fecha_inicio: actividad.dini_act,
+        fecha_fin: actividad.dfin_act
+      })
+    })
+    //Creación de listas de indicadores y actividades
     const indicadores: IndicadorPlan[] = [...[indicador], ...indicadoresextra]
-    const actividades: Actividad[] = [...[actividad], ...activividadesextra]
-
+    const actividades: Actividad[] = [...[actividad], ...actividadesextra]
+    //Objeto plan de acción con los datos necesarios para post (creacion)
     const PLAN: PlanDeAccion = {
       nombre_plan: this.planForm.get('nombre')?.value,
       user_id: user_id,
