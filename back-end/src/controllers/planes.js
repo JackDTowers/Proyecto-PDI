@@ -48,20 +48,24 @@ export const getPlan = async (req,res) => {
 //Crear Plan de Acción
 export const crearPlan = async (req,res) => {
   try {
-    // const { obj_id, cod_obj, nombre_plan, user_id } = await req.body;
+    const { nombre_plan, user_id, obj_id, indicadores, actividades } = await req.body;
 
-    // // Validación de los datos
-    // if (!eje_id || !cod_obj || !nombre_obj) {
-    //   throw new Error('Todos los campos son requeridos');
-    // }
+    // Validación de los datos
+    if (!nombre_plan || !obj_id || !indicadores || !actividades) {
+      throw new Error('Todos los campos son requeridos');
+    }
 
     // await prisma.oBJETIVOESTRATEGICO.create({
     //   data: {
-    //     eje_id: eje_id,
-    //     cod_obj: cod_obj.toUpperCase(),
-    //     nombre_obj: nombre_obj,
+    //     nombre_plan: nombre_plan,
+    //     //user_id: user_id,
+    //     // ...user_id && {
+    //     //   user_id: user_id
+    //     // },
+    //     obj_id: obj_id,
     //   }
     // });
+    console.log(req.body)
 
     return res.status(200).json({
       message: "Plan de Acción creado!"

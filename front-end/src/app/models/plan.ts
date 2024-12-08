@@ -3,8 +3,8 @@ import { IndicadorPlan } from "./indicadorplan";
 
 export interface PlanDeAccion {
   nombre_plan: string;
-  responsable_plan: string;
-  codigo_obj: string;
+  user_id?: number;
+  obj_id: number;
   indicadores: IndicadorPlan[];
   actividades: Actividad[];
 }

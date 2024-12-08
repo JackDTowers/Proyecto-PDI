@@ -28,6 +28,6 @@ router.get('/mapa-estrategico', getMapaEstrategico)
 //Rutas Plan de Accion
 router.get('/planes', getPlanes)
 router.get('/planes/:id', getPlan)
-router.post('planes', crearPlan)
+router.post('/planes', crearPlan)
 
 export default router

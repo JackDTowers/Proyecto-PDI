@@ -2,7 +2,7 @@
  quitarlo -->
 <div class="flex flex-col items-center py-3">
   <span class="font-semibold text-2xl font-sans">{{titulo}}</span>
-  <div class="mt-5 w-10/12" [formGroup]="planForm" (ngSubmit)="ingresar()">
+  <form class="mt-5 w-10/12" [formGroup]="planForm" (ngSubmit)="ingresar()">
     <div class="form-group w-full">
       <p class="font-semibold font-sans">NOMBRE DEL PLAN DE ACCIÓN</p>
       <mat-form-field appearance="outline" class="w-full" hideRequiredMarker="true" color="primary">
@@ -31,9 +31,9 @@
           <div>
             <mat-form-field appearance="outline" class="w-full" hideRequiredMarker="true" color="primary">
               <mat-label>Cod</mat-label>
-              <mat-select formControlName="objetivo" required>
+              <mat-select formControlName="codigo_obj" required>
                 <mat-option>--</mat-option>
-                <mat-option *ngFor="let objetivo of objetivos" [value]="objetivo.obj_id">
+                <mat-option *ngFor="let objetivo of objetivos" [value]="objetivo.cod_obj">
                   {{objetivo.cod_obj}}
                 </mat-option>
               </mat-select>
@@ -47,7 +47,7 @@
               <mat-label>Objetivo</mat-label>
               <mat-select formControlName="objetivo" required>
                 <mat-option>--</mat-option>
-                <mat-option *ngFor="let objetivo of objetivos" [value]="objetivo.obj_id">
+                <mat-option *ngFor="let objetivo of objetivos" [value]="objetivo.nombre_obj">
                   {{objetivo.nombre_obj}}
                 </mat-option>
               </mat-select>
@@ -179,7 +179,7 @@
         </div>
       </ng-container>
     </ng-container>
-    <button mat-flat-button color="primary" (click)="agregarIndicador()" class="mb-8">AGREGAR INDICADOR</button>
+    <button mat-flat-button color="primary" (click)="agregarIndicador()" class="mb-8" type="button">AGREGAR INDICADOR</button>
     <p class="font-semibold font-sans">PRINCIPALES ACTIVIDADES</p>
     <div class="flex flex-row gap-5">
       <div class="w-4/12">
@@ -300,11 +300,11 @@
         </div>
       </ng-container>
     </ng-container>
-    <button mat-flat-button color="primary" (click)="agregarActividad()" class="mb-8">AGREGAR ACTIVIDAD</button>
+    <button mat-flat-button color="primary" (click)="agregarActividad()" class="mb-8" type="button">AGREGAR ACTIVIDAD</button>
     <ng-template #actContainer></ng-template>
-  </div>
-  <div class="flex gap-3">
-    <button mat-flat-button color="primary" class="mb-3">GUARDAR PLAN DE ACCIÓN</button>
-    <button mat-flat-button color="warn"  class="mb-3">CANCELAR</button>
-  </div>
+    <div class="flex justify-center gap-3">
+      <button mat-flat-button color="primary" class="mb-3" type="submit" [disabled]="!planForm.valid">GUARDAR PLAN DE ACCIÓN</button>
+      <button mat-flat-button color="warn"  class="mb-3" type="button">CANCELAR</button>
+    </div>
+  </form>
 </div>
