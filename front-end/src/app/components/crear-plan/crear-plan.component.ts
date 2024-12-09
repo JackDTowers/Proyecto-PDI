@@ -10,7 +10,9 @@ import { User } from 'src/app/models/user';
 import { PlanDeAccion } from 'src/app/models/plan';
 import { IndicadorPlan } from 'src/app/models/indicadorplan';
 import { Actividad } from 'src/app/models/actividad';
-import { Observable, of } from 'rxjs';
+import { Observable, of, EMPTY } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-crear-plan',
@@ -41,6 +43,7 @@ export class CrearPlanComponent{
     private aRouter: ActivatedRoute,
     private router: Router,
     private pdiService: PdiService,
+    private toastr: ToastrService,
   ) {
     this.planForm = this.formBuilder.group({
       nombre: ['', Validators.required],
@@ -231,10 +234,19 @@ export class CrearPlanComponent{
       indicadores: indicadores,
       actividades: actividades
     }
-    this.pdiService.crearPlan(PLAN).subscribe((resultados) => {
-      console.log(resultados)
-      //podría hacer que navegue a otro lado y toast
-    })
+    this.pdiService.crearPlan(PLAN).pipe(
+      catchError((error) => {
+        //Manejar errores
+        //console.error('Error al crear el plan de acción:', error);
+        this.toastr.error('Ha ocurrido un error', 'Plan de Acción no creado');
+        this.router.navigate(['/mapa-estrategico']);
+        return EMPTY; // Retornamos un observable vacío para manejar el error y continuar el flujo
+      })
+    ).subscribe((resultados) => {
+      //console.log(resultados);
+      this.toastr.success('Datos ingresados correctamente', 'Plan de Acción Creado!');
+      this.router.navigate(['/mapa-estrategico']);
+    });
   }
 
   cargarComponente() {
