@@ -45,7 +45,7 @@ model PLANDEACCION {
   user_id         Int
   nombre_plan     String
   fecha_creacion  DateTime
-  observaciones   String
+  observaciones   String?
   indica_plan     INDICADORPLAN[]
   plan_impa_ind   PLANIMPACTAINDICADOR[]
   actividades     ACTIVIDAD[]

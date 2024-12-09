@@ -51,21 +51,39 @@ export const crearPlan = async (req,res) => {
     const { nombre_plan, user_id, obj_id, indicadores, actividades } = await req.body;
 
     // Validación de los datos
-    if (!nombre_plan || !obj_id || !indicadores || !actividades) {
+    if (!nombre_plan || !user_id || !obj_id || !indicadores || !actividades) {
       throw new Error('Todos los campos son requeridos');
     }
 
-    // await prisma.oBJETIVOESTRATEGICO.create({
-    //   data: {
-    //     nombre_plan: nombre_plan,
-    //     //user_id: user_id,
-    //     // ...user_id && {
-    //     //   user_id: user_id
-    //     // },
-    //     obj_id: obj_id,
-    //   }
-    // });
-    console.log(req.body)
+    await prisma.pLANDEACCION.create({
+      data: {
+        nombre_plan: nombre_plan,
+        user_id: user_id,
+        // ...user_id && {
+        //   user_id: user_id
+        // },
+        obj_id: obj_id,
+        indica_plan: {
+          create: indicadores.map((indicador) => ({
+            desc_indicaplan: indicador.nombre_indicador,
+            form_calculo: indicador.formula,
+            meta_plazo: indicador.meta_plazo,
+            fecha_inicio: indicador.fecha_inicio,
+            fecha_fin: indicador.fecha_fin,
+          })),
+        },
+        actividades: {
+          create: actividades.map((actividad) => ({
+            desc_act: actividad.nombre_actividad,
+            responsable: actividad.responsable,
+            plazo: actividad.plazo,
+            fecha_inicio: actividad.fecha_inicio,
+            fecha_fin: actividad.fecha_fin,
+          })),
+        },
+        fecha_creacion: new Date()
+      }
+    });
 
     return res.status(200).json({
       message: "Plan de Acción creado!"

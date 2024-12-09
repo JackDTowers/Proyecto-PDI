@@ -11,7 +11,6 @@ import { PlanDeAccion } from 'src/app/models/plan';
 import { IndicadorPlan } from 'src/app/models/indicadorplan';
 import { Actividad } from 'src/app/models/actividad';
 import { Observable, of } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
 
 @Component({
   selector: 'app-crear-plan',
@@ -110,13 +109,21 @@ export class CrearPlanComponent{
   }
 
   // Función para validar si el valor ingresado está en la lista de usuarios
-  validateUser(value: string): void {
-    const user = this.usuarios.find(u => u.nombre.toLowerCase() === value.toLowerCase());
-    if (user) {
-      // Si es un usuario válido, removemos el error
-      this.planForm.get('responsable_plan')?.setErrors(null);
+  validateUser(value: string | User): void {
+    // Verificar si el valor es una cadena o un objeto User
+    const userName = typeof value === 'string' ? value : value?.nombre;
+    // Si userName es válido, realizamos la búsqueda
+    if (userName) {
+      const user = this.usuarios.find(u => u.nombre.toLowerCase() === userName.toLowerCase());
+      if (user) {
+        // Si es un usuario válido, removemos el error
+        this.planForm.get('responsable_plan')?.setErrors(null);
+      } else {
+        // Si no es un usuario válido, mostramos un error
+        this.planForm.get('responsable_plan')?.setErrors({ invalidUser: true });
+      }
     } else {
-      // Si no es un usuario válido, mostramos un error
+      // Si no se puede extraer el nombre del usuario, mostramos un error
       this.planForm.get('responsable_plan')?.setErrors({ invalidUser: true });
     }
   }
@@ -226,6 +233,7 @@ export class CrearPlanComponent{
     }
     this.pdiService.crearPlan(PLAN).subscribe((resultados) => {
       console.log(resultados)
+      //podría hacer que navegue a otro lado y toast
     })
   }
 
