@@ -14,7 +14,7 @@ export const getUsers = async (req,res) => {
       }
     })
 
-    res.json(users)
+    return res.json(users)
   } catch (error) {
     return res.status(500).json({
       message:"Something goes wrong"

@@ -5,7 +5,7 @@ export const getEjes = async (req,res) => {
   try {
     const ejes = await prisma.eJEESTRATEGICO.findMany()
 
-    res.json(ejes)
+    return res.json(ejes)
   } catch (error) {
     return res.status(500).json({
       message:"Something goes wrong"
@@ -19,20 +19,28 @@ export const getEje = async (req,res) => {
     const id = req.params.id
 
     if (!id) {
-      res.sendStatus(418)
+      return res.sendStatus(418)
+    }
+
+    // Convertir el ID a un número y validar
+    const parsedId = parseInt(id);
+    if (isNaN(parsedId) || parsedId <= 0) {
+      return res.status(400).json({
+        message: "ID inválido"
+      })
     }
 
     const eje = await prisma.eJEESTRATEGICO.findUnique({
-      where: { eje_id: parseInt(id) }
+      where: { eje_id: parsedId }
     })
 
     if (!eje) {
-      res.status(418).json({
+      return res.status(418).json({
         mesagge: "El eje no existe"
       })
     }
     else{
-      res.json(eje)
+      return res.json(eje)
     }
   } catch (error) {
     return res.status(500).json({

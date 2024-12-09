@@ -5,7 +5,7 @@ export const getObjetivos = async (req,res) => {
   try {
     const objetivos = await prisma.oBJETIVOESTRATEGICO.findMany()
 
-    res.json(objetivos)
+    return res.json(objetivos)
   } catch (error) {
     return res.status(500).json({
       message:"Something goes wrong"
@@ -19,11 +19,19 @@ export const getObjetivo = async (req,res) => {
     const id = req.params.id
 
     if (!id) {
-      res.sendStatus(418)
+      return res.sendStatus(418)
+    }
+
+    // Convertir el ID a un número y validar
+    const parsedId = parseInt(id);
+    if (isNaN(parsedId) || parsedId <= 0) {
+      return res.status(400).json({
+        message: "ID inválido"
+      })
     }
 
     const objetivo = await prisma.oBJETIVOESTRATEGICO.findUnique({
-      where: { obj_id: parseInt(id) },
+      where: { obj_id: parsedId },
       include: { 
         planes: true,
         indica_objetivo: true
@@ -31,12 +39,12 @@ export const getObjetivo = async (req,res) => {
     })
 
     if (!objetivo) {
-      res.status(418).json({
+      return res.status(418).json({
         mesagge: "El objetivo no existe"
       })
     }
     else{
-      res.json(objetivo)
+      return res.json(objetivo)
     }
   } catch (error) {
     return res.status(500).json({

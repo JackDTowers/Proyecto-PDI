@@ -9,7 +9,7 @@ export const getMapaEstrategico = async (req,res) => {
       }
     })
 
-    res.json(ejes)
+    return res.json(ejes)
   } catch (error) {
     return res.status(500).json({
       message:"Something goes wrong"

@@ -4,7 +4,7 @@ import { getEjes, getEje, crearEje } from '../controllers/ejes.js';
 import { getObjetivos, getObjetivo, crearObjetivo } from '../controllers/objetivos.js';
 import { crearUsuario, getUsers } from '../controllers/usuarios.js';
 import { getMapaEstrategico } from '../controllers/mapaestrategico.js';
-import { crearPlan, getPlan, getPlanes } from '../controllers/planes.js';
+import { crearPlan, eliminarPlan, getPlan, getPlanes } from '../controllers/planes.js';
 
 const router = Router();
 
@@ -29,5 +29,6 @@ router.get('/mapa-estrategico', getMapaEstrategico)
 router.get('/planes', getPlanes)
 router.get('/planes/:id', getPlan)
 router.post('/planes', crearPlan)
+router.delete('/planes/:id', eliminarPlan)
 
 export default router
