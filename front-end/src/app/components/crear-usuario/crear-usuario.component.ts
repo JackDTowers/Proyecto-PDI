@@ -39,7 +39,7 @@ export class CrearUsuarioComponent {
       correo: ['', [Validators.required, Validators.email]],
       //contrasena: ['', Validators.required],
       cargo: ['', Validators.required],
-      admin: ['', Validators.required],
+      admin: [0],
     })
     this.id = this.aRouter.snapshot.paramMap.get('id')
   }
@@ -65,18 +65,16 @@ export class CrearUsuarioComponent {
       isAdmin: is_admin
     };
 
-    console.log(USER)
-
     this.httpClient.post('http://localhost:4000/api/usuarios', USER).subscribe(
       (response) => {
         // Manejar la respuesta del middleware, por ejemplo, mostrar una confirmación al usuario.
-        console.log('Usuario creado con éxito:', response);
+        //console.log('Usuario creado con éxito:', response);
         this.toastr.success('Datos ingresados correctamente', 'Usuario Registrado!');
         this.router.navigate(['/mapa-estrategico']);
       },
       (error) => {
         // Manejar errores, como mostrar un mensaje de error al usuario.
-        console.error('Error al crear el usuario:', error);
+        //console.error('Error al crear el usuario:', error);
         this.toastr.error('Ha ocurrido un error', 'Usuario No Registrado');
         this.router.navigate(['/mapa-estrategico']);
       }

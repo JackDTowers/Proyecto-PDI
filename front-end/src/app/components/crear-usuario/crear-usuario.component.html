@@ -51,14 +51,9 @@
                   </div>
               </div>
           </div>
-          <div class="mb-3 row">
-              <div class="col-4">
-                <button class="text-white bg-gray-600 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-lg px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700" routerLink="/mapa-estrategico">Volver</button>
-              </div>
-              <div class="col-4"></div>
-              <div class="col-4 ">
-                  <button class="text-white bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-lg px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" type="submit" [disabled]="!userForm.valid">Ingresar</button>
-              </div>
+          <div class="mt-10 flex justify-center gap-4">
+            <button mat-flat-button color="primary" class="mb-3" type="submit" [disabled]="!userForm.valid">Guardar</button>
+            <button mat-flat-button color="warn" class="mb-3" routerLink="/mapa-estrategico">Cancelar</button>
           </div>
       </form>
     </mat-card-content>
