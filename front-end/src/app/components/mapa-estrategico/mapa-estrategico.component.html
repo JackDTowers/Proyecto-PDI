@@ -3,8 +3,17 @@
   <div *ngIf="thereIsNoMap" class="py-5">
     <p>{{lbMapa}}</p>
   </div>
-  <div class="flex mt-10 flex-wrap">
-    <div class="text-xs w-2/12" *ngFor="let eje of mapa">{{eje.numero_eje}}</div>
-    <div class="text-xs w-2/12" *ngFor="let eje of mapa">{{eje.nombre_eje}}</div>
+  <div class="flex mt-10">
+    <div class="text-xs w-2/12" *ngFor="let eje of mapa">
+      <div class="border-black border mx-2 py-2">
+        <p class="text-center">EJE {{eje.numero_eje}}</p>
+        <div class="flex flex-wrap px-8 text-center">{{eje.nombre_eje}}</div>
+      </div>
+      <div *ngFor="let obj of eje.objetivos" class="border-black border mx-2 my-2 py-2 px-2 h-1/4">
+        <div routerLink="/objetivo/{{obj.obj_id}}">
+          {{obj.nombre_obj}}
+        </div>
+      </div>
+    </div>
   </div>
 </div>

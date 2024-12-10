@@ -21,7 +21,6 @@ export class MapaEstrategicoComponent {
       if (this.mapa.length > 0){
         this.thereIsNoMap = false;
       }
-      console.log(this.mapa)
     });
   }
 
