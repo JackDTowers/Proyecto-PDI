@@ -4,10 +4,13 @@ import { MapaEstrategicoComponent } from './components/mapa-estrategico/mapa-est
 import { CrearPlanComponent } from './components/crear-plan/crear-plan.component';
 import { CrearUsuarioComponent } from './components/crear-usuario/crear-usuario.component';
 import { FormIndicadorPlanComponent } from './components/form-indicador-plan/form-indicador-plan.component';
+import { ObjetivoComponent } from './components/objetivo/objetivo.component';
 
 const routes: Routes = [
   { path: 'mapa-estrategico', component: MapaEstrategicoComponent },
+  { path: 'objetivo/:id', component: ObjetivoComponent },
   { path: 'crear-plan', component: CrearPlanComponent },
+  { path: 'crear-plan/:id', component: CrearPlanComponent },
   { path: 'editar-plan/:id', component: CrearPlanComponent },
   { path: 'crear-usuario', component: CrearUsuarioComponent },
   { path: 'indicador', component: FormIndicadorPlanComponent },

@@ -3,4 +3,6 @@ export interface Objetivo {
   eje_id: number;
   cod_obj: string;
   nombre_obj: string;
+  planes?: any[];
+  responsable?: any;
 }

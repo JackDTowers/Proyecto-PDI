@@ -33,7 +33,13 @@ export const getObjetivo = async (req,res) => {
     const objetivo = await prisma.oBJETIVOESTRATEGICO.findUnique({
       where: { obj_id: parsedId },
       include: { 
-        planes: true,
+        planes: {
+          include: {
+            responsable: {
+              select: { nombre: true }
+            }
+          }
+        },
         indica_objetivo: true
       }
     })

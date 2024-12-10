@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Eje } from 'src/app/models/eje';
 import { PdiService } from 'src/app/services/pdi.service';
 
 @Component({
@@ -8,18 +9,19 @@ import { PdiService } from 'src/app/services/pdi.service';
 })
 export class MapaEstrategicoComponent {
   title = 'Mapa Estratégico Plan de Desarrollo Institucional'
-  mapa: any[] = []
+  mapa: Eje[] = []
   thereIsNoMap = true;
   lbMapa = 'No existen datos para el mapa estrategico'
 
   constructor(private pdiService: PdiService){}
 
   ngAfterViewInit(): void {
-    this.pdiService.getMapaEstrategico().subscribe((mapa: any[]) => {
+    this.pdiService.getMapaEstrategico().subscribe((mapa: Eje[]) => {
       this.mapa = mapa;
       if (this.mapa.length > 0){
         this.thereIsNoMap = false;
       }
+      console.log(this.mapa)
     });
   }
 

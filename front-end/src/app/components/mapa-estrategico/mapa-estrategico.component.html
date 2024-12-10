@@ -3,4 +3,8 @@
   <div *ngIf="thereIsNoMap" class="py-5">
     <p>{{lbMapa}}</p>
   </div>
+  <div class="flex mt-10 flex-wrap">
+    <div class="text-xs w-2/12" *ngFor="let eje of mapa">{{eje.numero_eje}}</div>
+    <div class="text-xs w-2/12" *ngFor="let eje of mapa">{{eje.nombre_eje}}</div>
+  </div>
 </div>
