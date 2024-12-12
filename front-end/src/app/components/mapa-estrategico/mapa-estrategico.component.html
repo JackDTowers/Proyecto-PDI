@@ -5,15 +5,19 @@
   </div>
   <div class="flex mt-10">
     <div class="text-xs w-2/12" *ngFor="let eje of mapa">
-      <div class="border-black border mx-2 py-2">
+      <div class="flex flex-col justify-center border rounded mx-2 py-2 mb-4 bg-black/40 text-white h-1/4">
         <p class="text-center">EJE {{eje.numero_eje}}</p>
         <div class="flex flex-wrap px-8 text-center">{{eje.nombre_eje}}</div>
       </div>
-      <div *ngFor="let obj of eje.objetivos" class="border-black border mx-2 my-2 py-2 px-2 h-1/4">
-        <div routerLink="/objetivo/{{obj.obj_id}}">
+      <a *ngFor="let obj of eje.objetivos" class="border rounded mx-2 my-2 py-2 px-2 h-1/4 text-[10px] flex 
+      items-center bg-black/10" routerLink="/objetivo/{{obj.obj_id}} ">
+        <div class="w-2/12 mr-2 bg-[#4B77D1] text-center text-white">
+          {{obj.cod_obj}}
+        </div>
+        <div class="w-10/12 font-normal tracking-normal leading-none">
           {{obj.nombre_obj}}
         </div>
-      </div>
+      </a>
     </div>
   </div>
 </div>
