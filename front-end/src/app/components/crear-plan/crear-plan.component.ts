@@ -179,10 +179,11 @@ export class CrearPlanComponent{
   }
 
   ingresar(){
+    this.planForm.disable();//Desactiva formulario para desactivar botón.
+    this.planForm.updateValueAndValidity();
     let indicadoresextra: IndicadorPlan[] = [];
     let actividadesextra: Actividad[] = [];
     const responsable : User = this.planForm.get('responsable_plan')?.value;
-    this.planForm.patchValue({responsable_plan: ''}); //Cambia un valor del form para que quede inválido y desactivar botón.
     const user_id = responsable.id_cuenta
     const objetivo = this.objetivos.find(o => o.cod_obj === this.planForm.get('codigo_obj')?.value);
     const obj_id = objetivo?.obj_id

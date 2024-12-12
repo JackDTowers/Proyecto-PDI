@@ -55,7 +55,7 @@ model PLANDEACCION {
 
 model USUARIO {
   id_cuenta   Int @id @default(autoincrement())
-  correo      String
+  correo      String @unique
   contrasena  String
   nombre      String
   cargo       String

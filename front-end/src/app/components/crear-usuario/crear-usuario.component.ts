@@ -51,6 +51,9 @@ export class CrearUsuarioComponent {
   ingresar(){
     //Faltan aún más validaciones a este nivel y a nivel back
 
+    this.userForm.disable() //Para que no pueda volver apretar el botón
+    this.userForm.updateValueAndValidity();
+
     const admin = this.userForm.get('admin')?.value
     var is_admin = 0
     if (admin){
