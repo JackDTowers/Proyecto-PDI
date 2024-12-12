@@ -43,7 +43,7 @@ model PLANDEACCION {
   plan_id         Int @id @default(autoincrement())
   obj_id          Int
   user_id         Int
-  nombre_plan     String
+  nombre_plan     String @unique
   fecha_creacion  DateTime
   observaciones   String?
   indica_plan     INDICADORPLAN[]
