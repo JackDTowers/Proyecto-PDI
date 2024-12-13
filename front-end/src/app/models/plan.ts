@@ -1,5 +1,7 @@
 import { Actividad } from "./actividad";
 import { IndicadorPlan } from "./indicadorplan";
+import { Objetivo } from "./objetivo";
+import { User } from "./user";
 
 export interface PlanDeAccion {
   nombre_plan: string;
@@ -9,4 +11,6 @@ export interface PlanDeAccion {
   actividades: Actividad[];
   fecha_creacion?: Date;
   observaciones?: string;
+  responsable?: User;
+  objetivo?: Objetivo;
 }

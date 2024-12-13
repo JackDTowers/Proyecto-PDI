@@ -36,6 +36,13 @@ export const getPlan = async (req,res) => {
       include: { 
         indica_plan: true,
         actividades: true,
+        responsable: {
+          select: {
+            nombre: true,
+            cargo: true
+          }
+        },
+        objetivo: true
       }
     })
 

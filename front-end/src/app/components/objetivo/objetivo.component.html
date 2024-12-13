@@ -1,6 +1,12 @@
-<div class="flex flex-col py-10 px-16 gap-2">
-  <span class="font-bold text-3xl font-sans text-green-600">{{titulo}}</span>
-  <div class="my-5">{{objetivo?.nombre_obj}}</div>
+<div class="flex flex-col py-10 gap-2">
+  <div>
+    <button mat-icon-button class="mx-2" routerLink="/mapa-estrategico">
+      <mat-icon>chevron_left</mat-icon>
+    </button>
+    <span class="font-bold text-3xl font-sans text-green-600">{{titulo}}</span>
+  </div>
+
+  <div class="my-5 mx-16">{{objetivo?.nombre_obj}}</div>
   <!-- <div class="flex mt-8">
     <div class="w-7/12">
       <p class="font-semibold text-xl">Planes de Acción Estratégicos</p>
@@ -16,11 +22,11 @@
     </div>
   </div> -->
   <!-- Prueba -->
-  <div class="flex mt-8">
+  <div class="flex mt-8 mx-16">
     <p class="font-semibold text-xl w-7/12">Planes de Acción Estratégicos</p>
     <p class="font-semibold text-xl w-3/12 text-center">Responsable</p>
   </div>
-  <div *ngFor="let plan of objetivo?.planes; let j = index" class="flex">
+  <div *ngFor="let plan of objetivo?.planes; let j = index" class="flex mx-16" routerLink="/plan/{{plan.plan_id}}">
     <div class="w-7/12 my-0 py-8 px-4 border-solid border border-black">
       {{j+1}}. {{plan.nombre_plan}}
     </div>
@@ -28,7 +34,7 @@
       {{plan.responsable.nombre}}
     </div>
   </div>
-  <div class="w-10/12 text-center">
+  <div class="w-10/12 text-center mx-16">
     <button mat-mini-fab color="primary" aria-label="Crear Plan" routerLink="/crear-plan">
       <mat-icon>add</mat-icon>
     </button>

@@ -35,6 +35,7 @@ import { CrearUsuarioComponent } from './components/crear-usuario/crear-usuario.
 import { FormIndicadorPlanComponent } from './components/form-indicador-plan/form-indicador-plan.component';
 import { ContainerpdiDirective } from './directives/containerpdi.directive';
 import { ObjetivoComponent } from './components/objetivo/objetivo.component';
+import { PlanAccionComponent } from './components/plan-accion/plan-accion.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { ObjetivoComponent } from './components/objetivo/objetivo.component';
     CrearUsuarioComponent,
     FormIndicadorPlanComponent,
     ContainerpdiDirective,
-    ObjetivoComponent
+    ObjetivoComponent,
+    PlanAccionComponent
   ],
   imports: [
     BrowserModule,

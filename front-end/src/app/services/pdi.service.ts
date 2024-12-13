@@ -29,6 +29,10 @@ export class PdiService {
     return this.http.get<Objetivo>(this.url + '/objetivos/' + id)
   }
 
+  getPlan(id: number): Observable<PlanDeAccion>{
+    return this.http.get<PlanDeAccion>(this.url + '/planes/' + id)
+  }
+
   crearPlan(planDeAccion: PlanDeAccion): Observable<any>{
     return this.http.post(this.url + '/planes', planDeAccion)
   }
