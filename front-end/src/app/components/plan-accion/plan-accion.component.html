@@ -14,7 +14,7 @@
     RESPONSABLE DEL PLAN DE ACCIÓN
   </div>
   <div class="flex border-b border-black">
-    <div class="border-r border-black py-2 px-4 w-1/12">
+    <div class="border-r border-black py-2 px-4 w-1/12 font-medium">
       Nombre
     </div>
     <div class="py-2 px-4">
@@ -22,7 +22,7 @@
     </div>
   </div>
   <div class="flex">
-    <div class="border-r border-black py-2 px-4 w-1/12">
+    <div class="border-r border-black py-2 px-4 w-1/12 font-medium">
       Cargo
     </div>
     <div class="py-2 px-4">
@@ -57,9 +57,9 @@
       <div class="py-2 px-4 w-4/12">Estado</div>
     </div>
   </div>
-  <div *ngFor="let indicador of plan?.indicadores" class="flex">
-    <div class="border-r border-black py-2 px-4 w-4/12">{{indicador.nombre_indicador}}</div>
-    <div class="border-r border-black py-2 px-4 w-2/12">{{indicador.formula}}</div>
+  <div *ngFor="let indicador of plan?.indica_plan" class="flex">
+    <div class="border-r border-black py-2 px-4 w-4/12">{{indicador.desc_indicaplan}}</div>
+    <div class="border-r border-black py-2 px-4 w-2/12">{{indicador.form_calculo}}</div>
     <div class="border-r border-black py-2 px-4 w-2/12">{{indicador.meta_plazo}}</div>
     <div class="flex w-4/12">
       <div class="border-r border-black py-2 px-4 w-4/12">{{indicador.fecha_inicio | date}}</div>
@@ -83,7 +83,7 @@
     </div>
   </div>
   <div *ngFor="let actividad of plan?.actividades" class="flex">
-    <div class="border-r border-black py-2 px-4 w-4/12">{{actividad.nombre_actividad}}</div>
+    <div class="border-r border-black py-2 px-4 w-4/12">{{actividad.desc_act}}</div>
     <div class="border-r border-black py-2 px-4 w-2/12">{{actividad.responsable}}</div>
     <div class="border-r border-black py-2 px-4 w-2/12">{{actividad.plazo}}</div>
     <div class="flex w-4/12">

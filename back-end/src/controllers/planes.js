@@ -65,10 +65,10 @@ export const getPlan = async (req,res) => {
 //Crear Plan de Acción
 export const crearPlan = async (req,res) => {
   try {
-    const { nombre_plan, user_id, obj_id, indicadores, actividades } = await req.body;
+    const { nombre_plan, user_id, obj_id, indica_plan, actividades } = await req.body;
 
     // Validación de los datos
-    if (!nombre_plan || !user_id || !obj_id || !indicadores || !actividades) {
+    if (!nombre_plan || !user_id || !obj_id || !indica_plan || !actividades) {
       throw new Error('Todos los campos son requeridos');
     }
 
@@ -81,9 +81,9 @@ export const crearPlan = async (req,res) => {
         // },
         obj_id: obj_id,
         indica_plan: {
-          create: indicadores.map((indicador) => ({
-            desc_indicaplan: indicador.nombre_indicador,
-            form_calculo: indicador.formula,
+          create: indica_plan.map((indicador) => ({
+            desc_indicaplan: indicador.desc_indicaplan,
+            form_calculo: indicador.form_calculo,
             meta_plazo: indicador.meta_plazo,
             fecha_inicio: indicador.fecha_inicio,
             fecha_fin: indicador.fecha_fin,
@@ -91,7 +91,7 @@ export const crearPlan = async (req,res) => {
         },
         actividades: {
           create: actividades.map((actividad) => ({
-            desc_act: actividad.nombre_actividad,
+            desc_act: actividad.desc_act,
             responsable: actividad.responsable,
             plazo: actividad.plazo,
             fecha_inicio: actividad.fecha_inicio,

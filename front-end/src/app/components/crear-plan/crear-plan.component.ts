@@ -189,14 +189,14 @@ export class CrearPlanComponent{
     const obj_id = objetivo?.obj_id
     //Recuperación de valores de indicador y actividad obligatorios del planForm
     const indicador: IndicadorPlan = {
-      nombre_indicador: this.planForm.get('indicador_plan')?.value,
-      formula: this.planForm.get('formula')?.value,
+      desc_indicaplan: this.planForm.get('indicador_plan')?.value,
+      form_calculo: this.planForm.get('formula')?.value,
       meta_plazo: this.planForm.get('meta')?.value,
       fecha_inicio: this.planForm.get('ini_ind')?.value,
       fecha_fin: this.planForm.get('fin_ind')?.value,
     }
     const actividad: Actividad = {
-      nombre_actividad: this.planForm.get('actividad')?.value,
+      desc_act: this.planForm.get('actividad')?.value,
       responsable: this.planForm.get('responsable')?.value,
       plazo: this.planForm.get('plazo')?.value,
       fecha_inicio: this.planForm.get('ini_act')?.value,
@@ -208,8 +208,8 @@ export class CrearPlanComponent{
     //Llenado de lista indicadoresextra con formato de objeto indicador
     indicadoresform.map((indicador) => {
       indicadoresextra.push({
-        nombre_indicador: indicador.dindicador_plan,
-        formula: indicador.dformula,
+        desc_indicaplan: indicador.dindicador_plan,
+        form_calculo: indicador.dformula,
         meta_plazo: indicador.dmeta,
         fecha_inicio: indicador.dini_ind,
         fecha_fin: indicador.dfin_ind
@@ -218,7 +218,7 @@ export class CrearPlanComponent{
     //Llenado de lista actividadesextra con formato de objeto actividad
     actividadesform.map((actividad) => {
       actividadesextra.push({
-        nombre_actividad: actividad.dactividad,
+        desc_act: actividad.dactividad,
         responsable: actividad.dresponsable,
         plazo: actividad.dplazo,
         fecha_inicio: actividad.dini_act,
@@ -233,7 +233,7 @@ export class CrearPlanComponent{
       nombre_plan: this.planForm.get('nombre')?.value,
       user_id: user_id,
       obj_id: obj_id!,
-      indicadores: indicadores,
+      indica_plan: indicadores,
       actividades: actividades
     }
     this.pdiService.crearPlan(PLAN).pipe(

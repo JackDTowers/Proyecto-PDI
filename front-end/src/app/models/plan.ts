@@ -7,7 +7,7 @@ export interface PlanDeAccion {
   nombre_plan: string;
   user_id?: number;
   obj_id: number;
-  indicadores: IndicadorPlan[];
+  indica_plan: IndicadorPlan[];
   actividades: Actividad[];
   fecha_creacion?: Date;
   observaciones?: string;
