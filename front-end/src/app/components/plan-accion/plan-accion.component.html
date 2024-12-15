@@ -1,4 +1,4 @@
-<button mat-icon-button class="mx-5 my-2" routerLink="/objetivo/{{id}}">
+<button mat-icon-button class="mx-5 my-2" routerLink="/objetivo/{{plan?.obj_id}}">
   <mat-icon>chevron_left</mat-icon>
 </button>
 <div class="border border-black ml-16 mr-24 mt-10 font-sans">
@@ -43,7 +43,7 @@
     <div class="py-2 px-4">{{plan?.objetivo?.nombre_obj}}</div>
   </div>
 </div>
-<div class="border border-black ml-16 mr-24 mt-5 font-sans">
+<div class="border-l border-r border-t border-black ml-16 mr-24 mt-5 font-sans">
   <div class="border-b border-black bg-[#717171]/30 py-2 px-4 font-medium">
     INDICADORES DE CUMPLIMIENTO
   </div>
@@ -57,7 +57,7 @@
       <div class="py-2 px-4 w-4/12">Estado</div>
     </div>
   </div>
-  <div *ngFor="let indicador of plan?.indica_plan" class="flex">
+  <div *ngFor="let indicador of plan?.indica_plan" class="flex border-b border-black">
     <div class="border-r border-black py-2 px-4 w-4/12">{{indicador.desc_indicaplan}}</div>
     <div class="border-r border-black py-2 px-4 w-2/12">{{indicador.form_calculo}}</div>
     <div class="border-r border-black py-2 px-4 w-2/12">{{indicador.meta_plazo}}</div>
@@ -68,7 +68,7 @@
     </div>
   </div>
 </div>
-<div class="border border-black ml-16 mr-24 mt-5 font-sans">
+<div class="border-l border-t border-r border-black ml-16 mr-24 mt-5 font-sans">
   <div class="border-b border-black bg-[#717171]/30 py-2 px-4 font-medium">
     ACTIVIDADES
   </div>
@@ -82,7 +82,7 @@
       <div class="py-2 px-4 w-4/12">Estado</div>
     </div>
   </div>
-  <div *ngFor="let actividad of plan?.actividades" class="flex">
+  <div *ngFor="let actividad of plan?.actividades" class="flex border-b border-black">
     <div class="border-r border-black py-2 px-4 w-4/12">{{actividad.desc_act}}</div>
     <div class="border-r border-black py-2 px-4 w-2/12">{{actividad.responsable}}</div>
     <div class="border-r border-black py-2 px-4 w-2/12">{{actividad.plazo}}</div>
@@ -91,5 +91,13 @@
       <div class="border-r border-black py-2 px-4 w-4/12">{{actividad.fecha_fin | date}}</div>
       <div class="py-2 px-4 w-4/12"></div>
     </div>
+  </div>
+</div>
+<div class="border border-black ml-16 mr-24 mt-5 mb-5 font-sans">
+  <div class="border-b border-black bg-[#717171]/30 py-2 px-4 font-medium">
+    OBSERVACIONES
+  </div>
+  <div class="py-2 px-4 min-h-20">
+    {{plan?.observaciones}}
   </div>
 </div>

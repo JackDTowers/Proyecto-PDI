@@ -20,7 +20,6 @@ export class PlanAccionComponent {
     const parsedId = parseInt(this.id!);
     this.pdiService.getPlan(parsedId).subscribe((plan) => {
       this.plan = plan
-      console.log(this.plan)
     })
   }
 }
