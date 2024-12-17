@@ -1,0 +1,31 @@
+<div class="flex">
+  <div class="flex flex-col items-center justify-center bg-gradient-to-t from-blue-950 to-blue-600 h-screen w-[58%]">
+    <div class="text-white text-4xl font-bold text-center mt-10">Plan de Desarrollo Institucional</div>
+    <div class="text-white text-center text-base mt-2 w-7/12">Sistema de Plan de Desarrollo Institucional para la Facultad de Odontología de la 
+      Universidad de Chile</div>
+    <img [src]="logo" alt="logo" class="w-80 mt-16"/>
+  </div>
+  <div class="flex flex-col items-center justify-center w-[42%]">
+    <p class="text-xl font-semibold">Bienvenidos</p>
+    <form class="mt-5 w-8/12" [formGroup]="loginForm" (ngSubmit)="ingresar()">
+      <mat-form-field appearance="outline" class="w-full" hideRequiredMarker="true" color="primary">
+        <mat-label>Correo Institucional</mat-label>
+        <input type="email" matInput formControlName="correo" [errorStateMatcher]="matcher">
+        <mat-error *ngIf="loginForm.controls['correo'].hasError('email') && !loginForm.controls['correo'].hasError('required')">
+          Por favor ingrese un email valido
+        </mat-error>
+        <mat-error *ngIf="loginForm.controls['correo'].hasError('required')">
+          El correo institucional es <strong>requerido</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="w-full mt-2" hideRequiredMarker="true" color="primary">
+        <mat-label>Contraseña</mat-label>
+        <input type="password" matInput formControlName="contraseña" [errorStateMatcher]="matcher">
+        <mat-error *ngIf="loginForm.controls['contraseña'].hasError('required')">
+          La contraseña es <strong>requerida</strong>
+        </mat-error>
+      </mat-form-field>
+      <button mat-flat-button color="primary" class="mt-2 w-full" type="submit">Ingresar</button>
+    </form>
+  </div>
+</div>
