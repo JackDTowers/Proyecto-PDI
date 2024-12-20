@@ -7,18 +7,19 @@ import { FormIndicadorPlanComponent } from './components/form-indicador-plan/for
 import { ObjetivoComponent } from './components/objetivo/objetivo.component';
 import { PlanAccionComponent } from './components/plan-accion/plan-accion.component';
 import { IniciarSesionComponent } from './components/iniciar-sesion/iniciar-sesion.component';
+import { loginGuard } from './guards/login.guard';
 
 const routes: Routes = [
   { path: 'login', component: IniciarSesionComponent },
-  { path: 'mapa-estrategico', component: MapaEstrategicoComponent },
-  { path: 'objetivo/:id', component: ObjetivoComponent },
-  { path: 'plan/:id', component: PlanAccionComponent },
-  { path: 'crear-plan', component: CrearPlanComponent },
-  { path: 'crear-plan/:id', component: CrearPlanComponent },
-  { path: 'editar-plan/:id', component: CrearPlanComponent },
-  { path: 'crear-usuario', component: CrearUsuarioComponent },
-  { path: 'indicador', component: FormIndicadorPlanComponent },
-  { path: '', component: MapaEstrategicoComponent, pathMatch: 'full' },
+  { path: 'mapa-estrategico', component: MapaEstrategicoComponent, canActivate: [loginGuard] },
+  { path: 'objetivo/:id', component: ObjetivoComponent, canActivate: [loginGuard] },
+  { path: 'plan/:id', component: PlanAccionComponent, canActivate: [loginGuard] },
+  { path: 'crear-plan', component: CrearPlanComponent, canActivate: [loginGuard] },
+  { path: 'crear-plan/:id', component: CrearPlanComponent, canActivate: [loginGuard] },
+  { path: 'editar-plan/:id', component: CrearPlanComponent, canActivate: [loginGuard] },
+  { path: 'crear-usuario', component: CrearUsuarioComponent, canActivate: [loginGuard] },
+  { path: 'indicador', component: FormIndicadorPlanComponent }, //Este no se usa
+  { path: '', component: IniciarSesionComponent, pathMatch: 'full' },
   { path: '**', redirectTo: '/', pathMatch: 'full' },
 ];
 

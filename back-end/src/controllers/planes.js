@@ -71,7 +71,6 @@ export const crearPlan = async (req,res) => {
     if (!nombre_plan || !user_id || !obj_id || !indica_plan || !actividades) {
       throw new Error('Todos los campos son requeridos');
     }
-
     await prisma.pLANDEACCION.create({
       data: {
         nombre_plan: nombre_plan,
@@ -101,7 +100,6 @@ export const crearPlan = async (req,res) => {
         fecha_creacion: new Date()
       }
     });
-
     return res.status(200).json({
       message: "Plan de Acción creado!"
     });

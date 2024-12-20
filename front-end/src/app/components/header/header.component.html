@@ -9,12 +9,12 @@
         <a *ngIf="isLoggedAdmin" class="no-underline visited:text-white" [routerLink]="['/crear-usuario']">Gestión de Usuarios</a>
       </li>
       <li class="text-white">
-        <a class="no-underline visited:text-white" [routerLink]="['/']">Planes Asignados</a>
+        <a class="no-underline visited:text-white" [routerLink]="['/mapa-estrategico']">Planes Asignados</a>
       </li>
     </ul>
     </div>
-    <div class="mx-10 text-white">
-      <a class="no-underline visited:text-white" [routerLink]="['/']">Cerrar Sesión</a>
+    <div class="mx-10 text-white cursor-pointer" (click)="cerrarSesion()">
+      Cerrar Sesión
     </div>
 </nav>
 

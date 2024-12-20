@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { PdiService } from 'src/app/services/pdi.service';
 
 @Component({
   selector: 'app-header',
@@ -8,17 +10,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit{
   logo = '../../../assets/img/logo.png';
-  isLogged = true;
   isLoggedAdmin = true;
   id = ''
-  constructor() { }
+  constructor( private router: Router, private toastService: ToastrService ) { }
   ngOnInit(): void {
 
   }
   cerrarSesion(): void {
     // Elimina la cookie llamada 'token'
+    localStorage.removeItem('token');
     this.id = "";
-    this.isLogged = false;
-    this.isLoggedAdmin = false;
+    //this.isLoggedAdmin = false;
+    this.toastService.info('Se ha cerrado sesión')
+    this.router.navigate(['/login'])
   }
 }

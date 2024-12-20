@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User } from '../models/user';
 import { Objetivo } from '../models/objetivo';
@@ -13,8 +13,30 @@ export class PdiService {
 
   constructor(private http: HttpClient) { }
 
+  login(loginData: any): Observable<any>{
+    return this.http.post(this.url + '/login', loginData)
+  }
+
+  isLogged(): boolean {
+    return localStorage.getItem('token') ? true : false;
+  }
+
+  //Pendiente
+  isAdmin(): boolean {
+    return true
+  }
+
+  //Crea encabezado de petición, para autorización de usar API
+  createHeaders() {
+    return {
+      headers: new HttpHeaders({
+        'Authorization': localStorage.getItem('token')!
+      })
+    }
+  }
+
   getMapaEstrategico(): Observable<any[]>{
-    return this.http.get<any[]>(this.url + '/mapa-estrategico');
+    return this.http.get<any[]>(this.url + '/mapa-estrategico', this.createHeaders());
   }
 
   getUsuarios(): Observable<User[]>{
@@ -34,6 +56,6 @@ export class PdiService {
   }
 
   crearPlan(planDeAccion: PlanDeAccion): Observable<any>{
-    return this.http.post(this.url + '/planes', planDeAccion)
+    return this.http.post(this.url + '/planes', planDeAccion, this.createHeaders())
   }
 }

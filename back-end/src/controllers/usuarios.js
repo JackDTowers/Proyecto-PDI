@@ -41,9 +41,6 @@ export const crearUsuario = async (req, res) => {
         nombre: nombre,
         cargo: cargo,
         is_admin: isAdmin,
-        // profiles: {
-        //   connect: [{ id: 2 }], // Conectar el perfil de cliente
-        // },
       },
     });
     return res.status(200).json({
@@ -58,11 +55,6 @@ export const crearUsuario = async (req, res) => {
           if (conflictingField === 'correo') {
             let errorMessage = `El Correo Electrónico ya esta en uso`;
             return res.status(400).json({
-              message: errorMessage
-            });
-          } else {
-            let errorMessage = `El Nombre de Usuario ya esta en uso`;
-            return res.status(200).json({
               message: errorMessage
             });
           }

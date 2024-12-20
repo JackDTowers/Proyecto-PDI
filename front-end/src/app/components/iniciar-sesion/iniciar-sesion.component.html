@@ -20,8 +20,8 @@
       </mat-form-field>
       <mat-form-field appearance="outline" class="w-full mt-2" hideRequiredMarker="true" color="primary">
         <mat-label>Contraseña</mat-label>
-        <input type="password" matInput formControlName="contraseña" [errorStateMatcher]="matcher">
-        <mat-error *ngIf="loginForm.controls['contraseña'].hasError('required')">
+        <input type="password" matInput formControlName="contrasena" [errorStateMatcher]="matcher">
+        <mat-error *ngIf="loginForm.controls['contrasena'].hasError('required')">
           La contraseña es <strong>requerida</strong>
         </mat-error>
       </mat-form-field>
