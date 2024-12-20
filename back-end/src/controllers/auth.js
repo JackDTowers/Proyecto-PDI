@@ -28,7 +28,6 @@ function createToken(user, secret){
 //Middleware comprueba si hay token de usuario logeado para hacer uso de la API
 export const checkToken = async (req, res, next) => {
   if (!req.headers['authorization']){
-    console.log("entreaki")
     return res.status(403).json({ error: 'Token no proporcionado' });
   }
 
@@ -58,11 +57,9 @@ export const checkToken = async (req, res, next) => {
 
 // Middleware para verificar si el usuario es administrador
 export function isAdmin(req, res, next) {
-  console.log(req.payloadDecoded)
   if (req.payloadDecoded.is_admin === 1) {
     next();  // El usuario es admin, permite la operación
   } else {
-    console.log("entre")
     res.status(403).send('Acceso denegado');
   }
 }
