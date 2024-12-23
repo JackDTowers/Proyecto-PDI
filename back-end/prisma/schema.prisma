@@ -90,5 +90,15 @@ model ACTIVIDAD {
   plazo         String
   fecha_inicio  DateTime
   fecha_fin     DateTime
+  avances       REPORTEAVANCE[]
   plan          PLANDEACCION @relation(fields: [plan_id], references: [plan_id], onDelete: Cascade)
+}
+
+model REPORTEAVANCE {
+  avance_id   Int @id  @default(autoincrement())
+  act_id      Int
+  asunto      String
+  descripcion String
+  archivo     String
+  actividad   ACTIVIDAD @relation(fields: [act_id], references: [act_id], onDelete: Cascade)
 }

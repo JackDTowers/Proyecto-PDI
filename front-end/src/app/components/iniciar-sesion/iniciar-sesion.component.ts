@@ -14,6 +14,7 @@ import { catchError } from 'rxjs/operators';
 })
 export class IniciarSesionComponent {
   logo = '../../../assets/img/iconogrande.png';
+  portada = '../../../assets/img/portada.png';
   loginForm : FormGroup;
   matcher = new MyErrorStateMatcher();
 
