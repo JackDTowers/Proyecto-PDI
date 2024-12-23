@@ -44,7 +44,8 @@ model PLANDEACCION {
   obj_id          Int
   user_id         Int
   nombre_plan     String @unique
-  fecha_creacion  DateTime
+  fecha_creacion  DateTime @default(now())
+  //updatedAt       DateTime @updatedAt //Agregar con tabla vacía
   observaciones   String?
   indica_plan     INDICADORPLAN[]
   plan_impa_ind   PLANIMPACTAINDICADOR[]
@@ -95,10 +96,11 @@ model ACTIVIDAD {
 }
 
 model REPORTEAVANCE {
-  avance_id   Int @id  @default(autoincrement())
+  avance_id   Int @id @default(autoincrement())
   act_id      Int
   asunto      String
   descripcion String
-  archivo     String
+  archivo     Bytes @db.Blob
+  createdAt   DateTime @default(now())
   actividad   ACTIVIDAD @relation(fields: [act_id], references: [act_id], onDelete: Cascade)
 }

@@ -8,6 +8,9 @@ import { ObjetivoComponent } from './components/objetivo/objetivo.component';
 import { PlanAccionComponent } from './components/plan-accion/plan-accion.component';
 import { IniciarSesionComponent } from './components/iniciar-sesion/iniciar-sesion.component';
 import { loginGuard } from './guards/login.guard';
+import { CrearAvanceComponent } from './components/crear-avance/crear-avance.component';
+import { VerAvanceComponent } from './components/ver-avance/ver-avance.component';
+import { AvancesActividadComponent } from './components/avances-actividad/avances-actividad.component';
 
 const routes: Routes = [
   { path: 'login', component: IniciarSesionComponent },
@@ -18,6 +21,9 @@ const routes: Routes = [
   { path: 'crear-plan/:id', component: CrearPlanComponent, canActivate: [loginGuard] },
   { path: 'editar-plan/:id', component: CrearPlanComponent, canActivate: [loginGuard] },
   { path: 'crear-usuario', component: CrearUsuarioComponent, canActivate: [loginGuard] },
+  { path: 'actividad/:id', component: AvancesActividadComponent, canActivate: [loginGuard] },
+  { path: 'crear-avance/:id', component: CrearAvanceComponent, canActivate: [loginGuard] },
+  { path: 'ver-avance/:id', component: VerAvanceComponent, canActivate: [loginGuard] },
   { path: 'indicador', component: FormIndicadorPlanComponent }, //Este no se usa
   { path: '', component: IniciarSesionComponent, pathMatch: 'full' },
   { path: '**', redirectTo: '/', pathMatch: 'full' },

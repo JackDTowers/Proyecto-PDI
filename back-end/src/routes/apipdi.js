@@ -6,6 +6,7 @@ import { crearUsuario, getUsers } from '../controllers/usuarios.js';
 import { getMapaEstrategico } from '../controllers/mapaestrategico.js';
 import { crearPlan, eliminarPlan, getPlan, getPlanes } from '../controllers/planes.js';
 import { checkToken, isAdmin, login } from '../controllers/auth.js';
+import { crearAvance, getAvance, getAvances } from '../controllers/avances.js';
 
 const router = Router();
 
@@ -24,7 +25,7 @@ router.post('/objetivos', crearObjetivo)
 
 //Rutas Usuario
 router.get('/usuarios', getUsers)
-router.post('/usuarios', crearUsuario)
+router.post('/usuarios', checkToken, isAdmin, crearUsuario)
 
 //Ruta Mapa Estrategico
 router.get('/mapa-estrategico', checkToken, getMapaEstrategico)
@@ -34,5 +35,10 @@ router.get('/planes', getPlanes)
 router.get('/planes/:id', getPlan)
 router.post('/planes', checkToken, isAdmin, crearPlan)
 router.delete('/planes/:id', eliminarPlan)
+
+//Rutas Avance
+router.get('/actividades/:id', getAvances)
+router.get('/avances/:id', getAvance)
+router.post('/actividades/:id', crearAvance)
 
 export default router

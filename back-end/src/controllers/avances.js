@@ -19,8 +19,12 @@ export const getAvances = async (req,res) => {
         message: "ID inválido"
       })
     }
-    const avances = await prisma.rEPORTEAVANCE.findMany({
-      where: { act_id: parsedId }
+    const avances = await prisma.aCTIVIDAD.findMany({
+      where: { act_id: parsedId },
+      include: { 
+        plan: true,
+        avances: true 
+      }
     })
     return res.json(avances)
   } catch (error) {
@@ -62,19 +66,32 @@ export const getAvance = async (req,res) => {
 //Obtener un avance
 export const crearAvance = async (req,res) => {
   try {
-    const avance = await prisma.rEPORTEAVANCE.findUnique({
-      where: { act_id: parsedId }
-    })
-    const { act_id, asunto, descripcion, archivo } = await req.body;
+    const id = req.params.id
+
+    if (!id) {
+      return res.status(418).json({
+        message: "ID no proporcionado"
+      })
+    }
+
+    // Convertir el ID a un número y validar
+    const parsedId = parseInt(id);
+    if (isNaN(parsedId) || parsedId <= 0) {
+      return res.status(400).json({
+        message: "ID inválido"
+      })
+    }
+
+    const { asunto, descripcion, archivo } = await req.body;
 
     // Validación de los datos
-    if (!act_id || !asunto || !descripcion) {
-      throw new Error('Todos los campos son requeridos (act_id, asunto, descripcion)');
+    if (!asunto || !descripcion) {
+      throw new Error('Todos los campos son requeridos (asunto, descripcion)');
     }
 
     await prisma.rEPORTEAVANCE.create({
       data: {
-        act_id: act_id,
+        act_id: parsedId,
         asunto: asunto,
         descripcion: descripcion,
         ...archivo && {

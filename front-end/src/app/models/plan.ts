@@ -10,6 +10,7 @@ export interface PlanDeAccion {
   indica_plan: IndicadorPlan[];
   actividades: Actividad[];
   fecha_creacion?: Date;
+  updatedAt?: Date;
   observaciones?: string;
   responsable?: User;
   objetivo?: Objetivo;

@@ -1,0 +1,6 @@
+-- AlterTable
+ALTER TABLE `plandeaccion` MODIFY `fecha_creacion` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3);
+
+-- AlterTable
+ALTER TABLE `reporteavance` ADD COLUMN `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    MODIFY `archivo` BLOB NOT NULL;

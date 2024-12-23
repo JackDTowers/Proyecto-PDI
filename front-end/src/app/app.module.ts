@@ -37,6 +37,9 @@ import { ContainerpdiDirective } from './directives/containerpdi.directive';
 import { ObjetivoComponent } from './components/objetivo/objetivo.component';
 import { PlanAccionComponent } from './components/plan-accion/plan-accion.component';
 import { IniciarSesionComponent } from './components/iniciar-sesion/iniciar-sesion.component';
+import { AvancesActividadComponent } from './components/avances-actividad/avances-actividad.component';
+import { VerAvanceComponent } from './components/ver-avance/ver-avance.component';
+import { CrearAvanceComponent } from './components/crear-avance/crear-avance.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +52,10 @@ import { IniciarSesionComponent } from './components/iniciar-sesion/iniciar-sesi
     ContainerpdiDirective,
     ObjetivoComponent,
     PlanAccionComponent,
-    IniciarSesionComponent
+    IniciarSesionComponent,
+    AvancesActividadComponent,
+    VerAvanceComponent,
+    CrearAvanceComponent
   ],
   imports: [
     BrowserModule,

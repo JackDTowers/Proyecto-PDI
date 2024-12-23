@@ -4,4 +4,5 @@ export interface Avance {
   asunto: string;
   descripcion: string;
   archivo?: string;
+  createdAt?: string;
 }

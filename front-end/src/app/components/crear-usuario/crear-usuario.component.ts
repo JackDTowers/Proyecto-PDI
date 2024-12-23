@@ -3,7 +3,6 @@ import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Valida
 import { ErrorStateMatcher } from '@angular/material/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PdiService } from 'src/app/services/pdi.service';
-import { HttpClient } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import { User } from 'src/app/models/user';
 
@@ -31,7 +30,6 @@ export class CrearUsuarioComponent {
     private aRouter: ActivatedRoute,
     private router: Router,
     private pdiService: PdiService,
-    private httpClient: HttpClient,
     private toastr: ToastrService,
   ) {
     this.userForm = this.formBuilder.group({
@@ -68,7 +66,7 @@ export class CrearUsuarioComponent {
       isAdmin: is_admin
     };
 
-    this.httpClient.post('http://localhost:4000/api/usuarios', USER).subscribe(
+    this.pdiService.crearUsuario(USER).subscribe(
       (response) => {
         // Manejar la respuesta del middleware, por ejemplo, mostrar una confirmación al usuario.
         //console.log('Usuario creado con éxito:', response);
