@@ -9,7 +9,8 @@ import { PdiService } from 'src/app/services/pdi.service';
   styleUrls: ['./objetivo.component.css']
 })
 export class ObjetivoComponent {
-  titulo = "Objetivo Estratégico "
+  titulo = "Objetivo Estratégico ";
+  isLoggedAdmin = false;
   id: string | null;
   objetivo: Objetivo | null = null;
 
@@ -24,5 +25,6 @@ export class ObjetivoComponent {
       const numero_obj = parseInt(objetivo.cod_obj.slice(2,4))
       this.titulo += numero_obj;
     })
+    this.isLoggedAdmin = this.pdiService.isAdmin();
   }
 }

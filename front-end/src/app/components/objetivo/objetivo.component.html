@@ -34,7 +34,7 @@
       {{plan.responsable.nombre}}
     </div>
   </div>
-  <div class="w-10/12 text-center mx-16">
+  <div *ngIf="isLoggedAdmin" class="w-10/12 text-center mx-16">
     <button mat-mini-fab color="primary" aria-label="Crear Plan" routerLink="/crear-plan">
       <mat-icon>add</mat-icon>
     </button>

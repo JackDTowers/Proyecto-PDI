@@ -21,9 +21,18 @@ export class PdiService {
     return localStorage.getItem('token') ? true : false;
   }
 
-  //Pendiente
+  //Decodificar jsonwebtoken (no verifica firma, pero las rutas de igual manera están protegidas en API)
+  private decodeJWT(token: any) {
+    const payload = token.split('.')[1]; // Obtener la segunda parte (payload)
+    return JSON.parse(atob(payload.replace(/-/g, '+').replace(/_/g, '/'))); // Decodificar base64url y convertir a JSON
+  }
+
   isAdmin(): boolean {
-    return true
+    const decodedToken = this.decodeJWT(localStorage.getItem('token'));
+    if (decodedToken.is_admin == 1){
+      return true;
+    }
+    return false;
   }
 
   //Crea encabezado de petición, para autorización de usar API
