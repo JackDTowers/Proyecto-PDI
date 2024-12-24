@@ -100,7 +100,7 @@ model REPORTEAVANCE {
   act_id      Int
   asunto      String
   descripcion String
-  archivo     Bytes @db.Blob
+  archivo     Bytes? @db.Blob
   createdAt   DateTime @default(now())
   actividad   ACTIVIDAD @relation(fields: [act_id], references: [act_id], onDelete: Cascade)
 }

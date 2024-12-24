@@ -68,3 +68,36 @@ export const crearUsuario = async (req, res) => {
     });
   }
 }
+
+//Eliminar Usuario
+export const eliminarUsuario = async (req,res) => {
+  try {
+    const id = req.params.id
+    if (!id) {
+      return res.status(418).json({
+        message: "ID no proporcionado"
+      })
+    }
+    // Convertir el ID a un número y validar
+    const parsedId = parseInt(id);
+    if (isNaN(parsedId) || parsedId <= 0) {
+      return res.status(400).json({
+        message: "ID inválido"
+      })
+    }
+
+    await prisma.uSUARIO.delete({
+      where: { id_cuenta: parsedId }
+    });
+
+    return res.status(200).json({
+      message: "Usuario eliminado"
+    });
+  }
+  catch (error){
+    return res.status(500).json({
+      message:"No se pudo eliminar el usuario",
+      error: error.message
+    })
+  }
+}
