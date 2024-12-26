@@ -4,6 +4,9 @@ import { Observable } from 'rxjs';
 import { User } from '../models/user';
 import { Objetivo } from '../models/objetivo';
 import { PlanDeAccion } from '../models/plan';
+import { Avance } from '../models/avance';
+import { Action } from 'rxjs/internal/scheduler/Action';
+import { Actividad } from '../models/actividad';
 
 @Injectable({
   providedIn: 'root'
@@ -30,6 +33,15 @@ export class PdiService {
   isAdmin(): boolean {
     const decodedToken = this.decodeJWT(localStorage.getItem('token'));
     if (decodedToken.is_admin == 1){
+      return true;
+    }
+    return false;
+  }
+
+  //Para ver si es responsable del plan
+  isOwner(id: number): boolean{
+    const decodedToken = this.decodeJWT(localStorage.getItem('token'));
+    if (decodedToken.id_cuenta == id){
       return true;
     }
     return false;
@@ -70,5 +82,13 @@ export class PdiService {
 
   crearPlan(planDeAccion: PlanDeAccion): Observable<any>{
     return this.http.post(this.url + '/planes', planDeAccion, this.createHeaders())
+  }
+
+  crearAvance(actividadId: string, reporteAvance: Avance): Observable<any>{
+    return this.http.post(this.url + '/avances/' + actividadId, reporteAvance)
+  }
+
+  getAvances(id: string): Observable<Actividad>{
+    return this.http.get<Actividad>(this.url + '/actividades/' + id);
   }
 }

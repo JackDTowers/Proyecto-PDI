@@ -19,7 +19,7 @@ export const getAvances = async (req,res) => {
         message: "ID inválido"
       })
     }
-    const avances = await prisma.aCTIVIDAD.findMany({
+    const avances = await prisma.aCTIVIDAD.findUnique({
       where: { act_id: parsedId },
       include: { 
         plan: true,
