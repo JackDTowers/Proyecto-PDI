@@ -91,4 +91,8 @@ export class PdiService {
   getAvances(id: string): Observable<Actividad>{
     return this.http.get<Actividad>(this.url + '/actividades/' + id);
   }
+
+  getAvance(id: string): Observable<Avance>{
+    return this.http.get<Avance>(this.url + '/avances/' + id);
+  }
 }

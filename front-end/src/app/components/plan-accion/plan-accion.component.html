@@ -1,107 +1,112 @@
 <button mat-icon-button class="mx-5 my-2" routerLink="/objetivo/{{plan?.obj_id}}">
   <mat-icon>chevron_left</mat-icon>
 </button>
-<div class="border border-black ml-16 mr-24 mt-10 font-sans">
-  <div class="border-b border-black bg-[#717171]/30 py-2 px-4 font-medium">
-    NOMBRE DEL PLAN DE ACCIÓN
-  </div>
-  <div class="py-2 px-4">
-    {{plan?.nombre_plan}}
-  </div>
+<div *ngIf="!plan" class="flex flex-col mt-20 items-center">
+  <p>No se encontró información de plan solicitado</p>
 </div>
-<div class="border border-black ml-16 mr-24 mt-5 font-sans">
-  <div class="border-b border-black bg-[#717171]/30 py-2 px-4 font-medium">
-    RESPONSABLE DEL PLAN DE ACCIÓN
-  </div>
-  <div class="flex border-b border-black">
-    <div class="border-r border-black py-2 px-4 w-1/12 font-medium">
-      Nombre
+<div *ngIf="plan">
+  <div class="border border-black ml-16 mr-24 mt-10 font-sans">
+    <div class="border-b border-black bg-[#717171]/30 py-2 px-4 font-medium">
+      NOMBRE DEL PLAN DE ACCIÓN
     </div>
     <div class="py-2 px-4">
-      {{plan?.responsable?.nombre}}
+      {{plan.nombre_plan}}
     </div>
   </div>
-  <div class="flex">
-    <div class="border-r border-black py-2 px-4 w-1/12 font-medium">
-      Cargo
+  <div class="border border-black ml-16 mr-24 mt-5 font-sans">
+    <div class="border-b border-black bg-[#717171]/30 py-2 px-4 font-medium">
+      RESPONSABLE DEL PLAN DE ACCIÓN
     </div>
-    <div class="py-2 px-4">
-      {{plan?.responsable?.cargo}}
+    <div class="flex border-b border-black">
+      <div class="border-r border-black py-2 px-4 w-1/12 font-medium">
+        Nombre
+      </div>
+      <div class="py-2 px-4">
+        {{plan.responsable?.nombre}}
+      </div>
     </div>
-  </div>
-</div>
-<div class="border border-black ml-16 mr-24 mt-5 font-sans">
-  <div class="border-b border-black bg-[#717171]/30 py-2 px-4 font-medium">
-    OBJETIVO ESTRATÉGICO
-  </div>
-  <div class="flex border-b border-black font-medium">
-    <div class="border-r border-black py-2 px-4 w-1/12">CÓDIGO</div>
-    <div class="py-2 px-4">OBJETIVO</div>
-  </div>
-  <div class="flex">
-    <div class="border-r border-black py-2 px-4 w-1/12">{{plan?.objetivo?.cod_obj}}</div>
-    <div class="py-2 px-4">{{plan?.objetivo?.nombre_obj}}</div>
-  </div>
-</div>
-<div class="border-l border-r border-t border-black ml-16 mr-24 mt-5 font-sans">
-  <div class="border-b border-black bg-[#717171]/30 py-2 px-4 font-medium">
-    INDICADORES DE CUMPLIMIENTO
-  </div>
-  <div class="flex border-b border-black font-medium">
-    <div class="border-r border-black py-2 px-4 w-4/12">Indicador de cumplimento</div>
-    <div class="border-r border-black py-2 px-4 w-2/12">Fórmula de Cálculo</div>
-    <div class="border-r border-black py-2 px-4 w-2/12">Meta/Plazo</div>
-    <div class="flex w-4/12">
-      <div class="border-r border-black py-2 px-4 w-4/12">Fecha de Inicio</div>
-      <div class="border-r border-black py-2 px-4 w-4/12">Fecha de Fin</div>
-      <div class="py-2 px-4 w-4/12">Estado</div>
-    </div>
-  </div>
-  <div *ngFor="let indicador of plan?.indica_plan" class="flex border-b border-black">
-    <div class="border-r border-black py-2 px-4 w-4/12">{{indicador.desc_indicaplan}}</div>
-    <div class="border-r border-black py-2 px-4 w-2/12">{{indicador.form_calculo}}</div>
-    <div class="border-r border-black py-2 px-4 w-2/12">{{indicador.meta_plazo}}</div>
-    <div class="flex w-4/12">
-      <div class="border-r border-black py-2 px-4 w-4/12">{{indicador.fecha_inicio | date}}</div>
-      <div class="border-r border-black py-2 px-4 w-4/12">{{indicador.fecha_fin | date}}</div>
-      <div class="py-2 px-4 w-4/12"></div>
-    </div>
-  </div>
-</div>
-<div class="border-l border-t border-r border-black ml-16 mr-24 mt-5 font-sans">
-  <div class="border-b border-black bg-[#717171]/30 py-2 px-4 font-medium">
-    ACTIVIDADES
-  </div>
-  <div class="flex border-b border-black font-medium">
-    <div class="border-r border-black py-2 px-4 w-4/12">Actividad</div>
-    <div class="border-r border-black py-2 px-4 w-2/12">Responsable</div>
-    <div class="border-r border-black py-2 px-4 w-2/12">Plazo</div>
-    <div class="flex w-4/12">
-      <div class="border-r border-black py-2 px-4 w-4/12">Fecha de Inicio</div>
-      <div class="border-r border-black py-2 px-4 w-4/12">Fecha de Fin</div>
-      <div class="py-2 px-4 w-4/12">Estado</div>
-    </div>
-  </div>
-  <div *ngFor="let actividad of plan?.actividades" class="flex border-b border-black">
-    <div class="border-r border-black py-2 px-4 w-4/12">{{actividad.desc_act}}</div>
-    <div class="border-r border-black py-2 px-4 w-2/12">{{actividad.responsable}}</div>
-    <div class="border-r border-black py-2 px-4 w-2/12">{{actividad.plazo}}</div>
-    <div class="flex w-4/12">
-      <div class="border-r border-black py-2 px-4 w-4/12">{{actividad.fecha_inicio | date}}</div>
-      <div class="border-r border-black py-2 px-4 w-4/12">{{actividad.fecha_fin | date}}</div>
-      <div class="py-2 px-4 w-4/12">
-        <a [routerLink]="['/actividad/' + actividad.act_id]">
-          <i class="fa-solid fa-eye"></i>
-        </a>
+    <div class="flex">
+      <div class="border-r border-black py-2 px-4 w-1/12 font-medium">
+        Cargo
+      </div>
+      <div class="py-2 px-4">
+        {{plan.responsable?.cargo}}
       </div>
     </div>
   </div>
-</div>
-<div class="border border-black ml-16 mr-24 mt-5 mb-5 font-sans">
-  <div class="border-b border-black bg-[#717171]/30 py-2 px-4 font-medium">
-    OBSERVACIONES
+  <div class="border border-black ml-16 mr-24 mt-5 font-sans">
+    <div class="border-b border-black bg-[#717171]/30 py-2 px-4 font-medium">
+      OBJETIVO ESTRATÉGICO
+    </div>
+    <div class="flex border-b border-black font-medium">
+      <div class="border-r border-black py-2 px-4 w-1/12">CÓDIGO</div>
+      <div class="py-2 px-4">OBJETIVO</div>
+    </div>
+    <div class="flex">
+      <div class="border-r border-black py-2 px-4 w-1/12">{{plan.objetivo?.cod_obj}}</div>
+      <div class="py-2 px-4">{{plan.objetivo?.nombre_obj}}</div>
+    </div>
   </div>
-  <div class="py-2 px-4 min-h-20">
-    {{plan?.observaciones}}
+  <div class="border-l border-r border-t border-black ml-16 mr-24 mt-5 font-sans">
+    <div class="border-b border-black bg-[#717171]/30 py-2 px-4 font-medium">
+      INDICADORES DE CUMPLIMIENTO
+    </div>
+    <div class="flex border-b border-black font-medium">
+      <div class="border-r border-black py-2 px-4 w-4/12">Indicador de cumplimento</div>
+      <div class="border-r border-black py-2 px-4 w-2/12">Fórmula de Cálculo</div>
+      <div class="border-r border-black py-2 px-4 w-2/12">Meta/Plazo</div>
+      <div class="flex w-4/12">
+        <div class="border-r border-black py-2 px-4 w-4/12">Fecha de Inicio</div>
+        <div class="border-r border-black py-2 px-4 w-4/12">Fecha de Fin</div>
+        <div class="py-2 px-4 w-4/12">Estado</div>
+      </div>
+    </div>
+    <div *ngFor="let indicador of plan?.indica_plan" class="flex border-b border-black">
+      <div class="border-r border-black py-2 px-4 w-4/12">{{indicador.desc_indicaplan}}</div>
+      <div class="border-r border-black py-2 px-4 w-2/12">{{indicador.form_calculo}}</div>
+      <div class="border-r border-black py-2 px-4 w-2/12">{{indicador.meta_plazo}}</div>
+      <div class="flex w-4/12">
+        <div class="border-r border-black py-2 px-4 w-4/12">{{indicador.fecha_inicio | date}}</div>
+        <div class="border-r border-black py-2 px-4 w-4/12">{{indicador.fecha_fin | date}}</div>
+        <div class="py-2 px-4 w-4/12"></div>
+      </div>
+    </div>
+  </div>
+  <div class="border-l border-t border-r border-black ml-16 mr-24 mt-5 font-sans">
+    <div class="border-b border-black bg-[#717171]/30 py-2 px-4 font-medium">
+      ACTIVIDADES
+    </div>
+    <div class="flex border-b border-black font-medium">
+      <div class="border-r border-black py-2 px-4 w-4/12">Actividad</div>
+      <div class="border-r border-black py-2 px-4 w-2/12">Responsable</div>
+      <div class="border-r border-black py-2 px-4 w-2/12">Plazo</div>
+      <div class="flex w-4/12">
+        <div class="border-r border-black py-2 px-4 w-4/12">Fecha de Inicio</div>
+        <div class="border-r border-black py-2 px-4 w-4/12">Fecha de Fin</div>
+        <div class="py-2 px-4 w-4/12">Estado</div>
+      </div>
+    </div>
+    <div *ngFor="let actividad of plan?.actividades" class="flex border-b border-black">
+      <div class="border-r border-black py-2 px-4 w-4/12">{{actividad.desc_act}}</div>
+      <div class="border-r border-black py-2 px-4 w-2/12">{{actividad.responsable}}</div>
+      <div class="border-r border-black py-2 px-4 w-2/12">{{actividad.plazo}}</div>
+      <div class="flex w-4/12">
+        <div class="border-r border-black py-2 px-4 w-4/12">{{actividad.fecha_inicio | date}}</div>
+        <div class="border-r border-black py-2 px-4 w-4/12">{{actividad.fecha_fin | date}}</div>
+        <div class="py-2 px-4 w-4/12">
+          <a [routerLink]="['/actividad/' + actividad.act_id]">
+            <i class="fa-solid fa-eye"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="border border-black ml-16 mr-24 mt-5 mb-5 font-sans">
+    <div class="border-b border-black bg-[#717171]/30 py-2 px-4 font-medium">
+      OBSERVACIONES
+    </div>
+    <div class="py-2 px-4 min-h-20">
+      {{plan.observaciones}}
+    </div>
   </div>
 </div>

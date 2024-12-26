@@ -1,26 +1,56 @@
-<p>{{actividad?.desc_act}}</p>
-<button *ngIf="isOwner" mat-mini-fab color="primary" aria-label="Crear Avance" routerLink="/crear-avance/{{id}}">
-  <mat-icon>add</mat-icon>
-</button>
-<div class="w-[80%]">
-  <table mat-table [dataSource]="avances!" class="mat-elevation-z8">
-    <ng-container matColumnDef="Asunto">
-      <th mat-header-cell *matHeaderCellDef> Asunto </th>
-      <td mat-cell *matCellDef="let avance"> {{avance.asunto}} </td>
-    </ng-container>
-    <ng-container matColumnDef="Fecha de Creación">
-      <th mat-header-cell *matHeaderCellDef> Fecha </th>
-      <td mat-cell *matCellDef="let avance"> {{avance.createdAt | date}} </td>
-    </ng-container>
-    <ng-container matColumnDef="Acciones">
-      <th mat-header-cell *matHeaderCellDef> Acciones </th>
-      <td mat-cell *matCellDef="let avance">
-        <a [routerLink]="['/ver-avance/' + avance.avance_id]">
-          <i class="fa-solid fa-eye"></i>
-        </a>
-      </td>
-    </ng-container>
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>  
+<div *ngIf="!actividad" class="flex flex-col mt-20 items-center">
+  <p>No se encontró información</p>
+</div>
+<div *ngIf="actividad" class="flex flex-col mt-10">
+  <div class="flex">
+    <button mat-icon-button class="mx-2" routerLink="/plan/{{actividad.plan?.plan_id}}">
+      <mat-icon>chevron_left</mat-icon>
+    </button>
+    <div class="flex flex-col">
+      <span class="font-semibold">Descripción de Actividad</span>
+      <p>{{actividad.desc_act}}</p>
+    </div>
+  </div>
+  <div class="flex flex-col mx-16">
+    <p class="font-semibold">Responsable</p>
+  <p>{{actividad.responsable}}</p>
+  <div class="flex gap-10">
+    <div>
+      <p class="font-semibold">Plazo</p>
+      <p>{{actividad.plazo}}</p>
+    </div>
+    <div>
+      <p class="font-semibold">Fecha Límite</p>
+      <p>{{actividad.fecha_fin | date}}</p>
+    </div>
+  </div>
+  <p class="font-semibold">Avances</p>
+  <div class="flex flex-col items-center">
+    <div class="w-[100%]">
+      <table mat-table [dataSource]="avances!" class="mat-elevation-z8">
+        <ng-container matColumnDef="Asunto">
+          <th mat-header-cell *matHeaderCellDef> Asunto </th>
+          <td mat-cell *matCellDef="let avance"> {{avance.asunto}} </td>
+        </ng-container>
+        <ng-container matColumnDef="Fecha de Creación">
+          <th mat-header-cell *matHeaderCellDef> Fecha </th>
+          <td mat-cell *matCellDef="let avance"> {{avance.createdAt | date}} </td>
+        </ng-container>
+        <ng-container matColumnDef="Acciones">
+          <th mat-header-cell *matHeaderCellDef> Acciones </th>
+          <td mat-cell *matCellDef="let avance">
+            <a [routerLink]="['/ver-avance/' + avance.avance_id]">
+              <i class="fa-solid fa-eye"></i>
+            </a>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>  
+    </div>
+    <button *ngIf="isOwner" mat-mini-fab color="primary" class="my-10" aria-label="Crear Avance" routerLink="/crear-avance/{{id}}">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+  </div>
 </div>

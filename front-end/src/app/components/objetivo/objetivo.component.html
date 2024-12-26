@@ -1,4 +1,7 @@
-<div class="flex flex-col py-10 gap-2">
+<div *ngIf="!objetivo" class="flex flex-col mt-20 items-center">
+  <p>No se encontró información</p>
+</div>
+<div *ngIf="objetivo" class="flex flex-col py-10 gap-2">
   <div>
     <button mat-icon-button class="mx-2" routerLink="/mapa-estrategico">
       <mat-icon>chevron_left</mat-icon>
@@ -6,7 +9,7 @@
     <span class="font-bold text-3xl font-sans text-green-600">{{titulo}}</span>
   </div>
 
-  <div class="my-5 mx-16">{{objetivo?.nombre_obj}}</div>
+  <div class="my-5 mx-16">{{objetivo.nombre_obj}}</div>
   <!-- <div class="flex mt-8">
     <div class="w-7/12">
       <p class="font-semibold text-xl">Planes de Acción Estratégicos</p>

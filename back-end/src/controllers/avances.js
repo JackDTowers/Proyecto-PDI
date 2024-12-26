@@ -53,12 +53,13 @@ export const getAvance = async (req,res) => {
       })
     }
     const avance = await prisma.rEPORTEAVANCE.findUnique({
-      where: { act_id: parsedId }
+      where: { avance_id: parsedId }
     })
     return res.json(avance)
   } catch (error) {
     return res.status(500).json({
-      message:"Something goes wrong"
+      message:"Something goes wrong",
+      error: error.message
     })
   }
 }

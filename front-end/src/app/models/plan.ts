@@ -4,6 +4,7 @@ import { Objetivo } from "./objetivo";
 import { User } from "./user";
 
 export interface PlanDeAccion {
+  plan_id?: number;
   nombre_plan: string;
   user_id?: number;
   obj_id: number;
