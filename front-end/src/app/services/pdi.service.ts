@@ -61,7 +61,7 @@ export class PdiService {
   }
 
   getUsuarios(): Observable<User[]>{
-    return this.http.get<User[]>(this.url + '/usuarios')
+    return this.http.get<User[]>(this.url + '/usuarios', this.createHeaders())
   }
 
   crearUsuario(user: User): Observable<any>{
@@ -82,6 +82,10 @@ export class PdiService {
 
   crearPlan(planDeAccion: PlanDeAccion): Observable<any>{
     return this.http.post(this.url + '/planes', planDeAccion, this.createHeaders())
+  }
+
+  eliminarPlan(id: number): Observable<any>{
+    return this.http.delete(this.url + '/planes' + id)
   }
 
   crearAvance(actividadId: string, reporteAvance: Avance): Observable<any>{

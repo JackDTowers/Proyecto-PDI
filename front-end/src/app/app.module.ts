@@ -40,6 +40,7 @@ import { IniciarSesionComponent } from './components/iniciar-sesion/iniciar-sesi
 import { AvancesActividadComponent } from './components/avances-actividad/avances-actividad.component';
 import { VerAvanceComponent } from './components/ver-avance/ver-avance.component';
 import { CrearAvanceComponent } from './components/crear-avance/crear-avance.component';
+import { ListaUsuariosComponent } from './components/lista-usuarios/lista-usuarios.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { CrearAvanceComponent } from './components/crear-avance/crear-avance.com
     IniciarSesionComponent,
     AvancesActividadComponent,
     VerAvanceComponent,
-    CrearAvanceComponent
+    CrearAvanceComponent,
+    ListaUsuariosComponent
   ],
   imports: [
     BrowserModule,

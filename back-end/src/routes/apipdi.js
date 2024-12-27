@@ -24,7 +24,7 @@ router.get('/objetivos/:id', getObjetivo)
 router.post('/objetivos', crearObjetivo)
 
 //Rutas Usuario
-router.get('/usuarios', getUsers)
+router.get('/usuarios', checkToken, isAdmin, getUsers)
 router.post('/usuarios', checkToken, isAdmin, crearUsuario)
 router.delete('/usuarios/:id', checkToken, isAdmin, eliminarUsuario)
 

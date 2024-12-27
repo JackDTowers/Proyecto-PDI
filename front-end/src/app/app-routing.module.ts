@@ -12,6 +12,7 @@ import { CrearAvanceComponent } from './components/crear-avance/crear-avance.com
 import { VerAvanceComponent } from './components/ver-avance/ver-avance.component';
 import { AvancesActividadComponent } from './components/avances-actividad/avances-actividad.component';
 import { adminGuard } from './guards/admin.guard';
+import { ListaUsuariosComponent } from './components/lista-usuarios/lista-usuarios.component';
 
 const routes: Routes = [
   { path: 'login', component: IniciarSesionComponent },
@@ -21,6 +22,7 @@ const routes: Routes = [
   { path: 'crear-plan', component: CrearPlanComponent, canActivate: [loginGuard, adminGuard] },
   { path: 'crear-plan/:id', component: CrearPlanComponent, canActivate: [loginGuard, adminGuard] },
   { path: 'editar-plan/:id', component: CrearPlanComponent, canActivate: [loginGuard] },
+  { path: 'gestion-usuarios', component: ListaUsuariosComponent, canActivate: [loginGuard, adminGuard] },
   { path: 'crear-usuario', component: CrearUsuarioComponent, canActivate: [loginGuard, adminGuard] },
   { path: 'actividad/:id', component: AvancesActividadComponent, canActivate: [loginGuard] },
   { path: 'crear-avance/:id', component: CrearAvanceComponent, canActivate: [loginGuard] },

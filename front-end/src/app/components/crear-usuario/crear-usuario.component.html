@@ -37,7 +37,7 @@
                     <mat-label>Cargo</mat-label>
                     <input type="text" matInput placeholder="" formControlName="cargo" [errorStateMatcher]="matcher">
                     <mat-error *ngIf="userForm.controls['cargo'].hasError('required')">
-                        El cergo es <strong>requerido</strong>
+                        El cargo es <strong>requerido</strong>
                     </mat-error>
                 </mat-form-field>
             </div>
@@ -52,7 +52,7 @@
           </div>
           <div class="mt-10 flex justify-center gap-4">
             <button mat-flat-button color="primary" class="mb-3" type="submit" [disabled]="!userForm.valid">Guardar</button>
-            <button mat-flat-button color="warn" class="mb-3" routerLink="/mapa-estrategico">Cancelar</button>
+            <button mat-flat-button color="warn" class="mb-3" routerLink="/gestion-usuarios">Cancelar</button>
           </div>
       </form>
     </mat-card-content>
