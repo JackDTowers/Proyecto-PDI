@@ -7,10 +7,10 @@
               <div class="form-group sm:justify-center">
                   <!-- <span><i class="fa-solid fa-user text-4xl px-5"></i></span> -->
                   <mat-form-field appearance="outline" class="w-9/12" hideRequiredMarker="true" color="primary">
-                      <mat-label>Asunto</mat-label>
-                      <input type="text" matInput formControlName="asunto" [errorStateMatcher]="matcher">
-                      <mat-error *ngIf="avanceForm.controls['asunto'].hasError('required')">
-                          El asunto es <strong>requerido</strong>
+                      <mat-label>Nombre de Avance</mat-label>
+                      <input type="text" matInput formControlName="nombre" [errorStateMatcher]="matcher">
+                      <mat-error *ngIf="avanceForm.controls['nombre'].hasError('required')">
+                          El nombre es <strong>requerido</strong>
                       </mat-error>
                   </mat-form-field>
               </div>
@@ -26,6 +26,12 @@
                       </mat-error>
                   </mat-form-field>
               </div>
+          </div>
+          <div class="mb-3">
+            <div class="form-group sm:justify-center">
+                <input type="file" (change)="getFile($event)">
+                <a src="../../../assets/img/Informe de Avance 3-1.pdf"></a>
+            </div>
           </div>
           <div class="mt-10 flex justify-center gap-4">
             <button mat-flat-button color="primary" class="mb-3" type="submit" [disabled]="!avanceForm.valid">Guardar</button>

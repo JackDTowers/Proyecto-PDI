@@ -65,7 +65,7 @@ export const getPlan = async (req,res) => {
 //Crear Plan de Acción
 export const crearPlan = async (req,res) => {
   try {
-    const { nombre_plan, user_id, obj_id, indica_plan, actividades } = await req.body;
+    const { nombre_plan, user_id, obj_id, indica_plan, actividades, observaciones } = await req.body;
 
     // Validación de los datos
     if (!nombre_plan || !user_id || !obj_id || !indica_plan || !actividades) {
@@ -97,7 +97,8 @@ export const crearPlan = async (req,res) => {
             fecha_fin: actividad.fecha_fin,
           })),
         },
-        fecha_creacion: new Date()
+        fecha_creacion: new Date(),
+        observaciones: observaciones,
       }
     });
     return res.status(200).json({

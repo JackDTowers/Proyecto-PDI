@@ -75,7 +75,7 @@
         <p class="font-semibold font-sans text-xs">Indicador de cumplimiento</p>
         <mat-form-field appearance="outline" class="w-full" hideRequiredMarker="true" color="primary">
           <mat-label>Ingrese indicador de cumplimiento</mat-label>
-          <input type="text" matInput formControlName="indicador_plan" [errorStateMatcher]="matcher">
+          <textarea cdkTextareaAutosize type="text" matInput formControlName="indicador_plan" [errorStateMatcher]="matcher"></textarea>
           <mat-error *ngIf="planForm.controls['indicador_plan'].hasError('required')">
             El indicador de cumplimiento es <strong>requerido</strong>
           </mat-error>
@@ -85,7 +85,7 @@
         <p class="font-semibold font-sans text-xs">Fórmula de cálculo</p>
         <mat-form-field appearance="outline" class="w-full" hideRequiredMarker="true" color="primary">
           <mat-label>Ingrese fórmula</mat-label>
-          <input type="text" matInput formControlName="formula" [errorStateMatcher]="matcher">
+          <textarea cdkTextareaAutosize type="text" matInput formControlName="formula" [errorStateMatcher]="matcher"></textarea>
           <mat-error *ngIf="planForm.controls['formula'].hasError('required')">
             La fórmula es <strong>requerida</strong>
           </mat-error>
@@ -95,7 +95,7 @@
         <p class="font-semibold font-sans text-xs">Meta/Plazo</p>
         <mat-form-field appearance="outline" class="w-full" hideRequiredMarker="true" color="primary">
           <mat-label>Ingrese meta/plazo</mat-label>
-          <input type="text" matInput formControlName="meta" [errorStateMatcher]="matcher">
+          <textarea cdkTextareaAutosize type="text" matInput formControlName="meta" [errorStateMatcher]="matcher"></textarea>
           <mat-error *ngIf="planForm.controls['meta'].hasError('required')">
             La meta o plazo es <strong>requerido</strong>
           </mat-error>
@@ -135,7 +135,7 @@
             <div class="w-4/12">
               <mat-form-field appearance="outline" class="w-full" hideRequiredMarker="true" color="primary">
                 <mat-label>Ingrese indicador de cumplimiento</mat-label>
-                <input type="text" matInput formControlName="dindicador_plan" [errorStateMatcher]="matcher">
+                <textarea cdkTextareaAutosize type="text" matInput formControlName="dindicador_plan" [errorStateMatcher]="matcher"></textarea>
                 <mat-error *ngIf="indicadorForm.controls['dindicador_plan'].hasError('required')">
                   El indicador de cumplimiento es <strong>requerido</strong>
                 </mat-error>
@@ -144,7 +144,7 @@
             <div class="w-2/12">
               <mat-form-field appearance="outline" class="w-full" hideRequiredMarker="true" color="primary">
                 <mat-label>Ingrese fórmula</mat-label>
-                <input type="text" matInput formControlName="dformula" [errorStateMatcher]="matcher">
+                <textarea cdkTextareaAutosize type="text" matInput formControlName="dformula" [errorStateMatcher]="matcher"></textarea>
                 <mat-error *ngIf="indicadorForm.controls['dformula'].hasError('required')">
                   La fórmula es <strong>requerida</strong>
                 </mat-error>
@@ -153,7 +153,7 @@
             <div class="w-2/12">
               <mat-form-field appearance="outline" class="w-full" hideRequiredMarker="true" color="primary">
                 <mat-label>Ingrese meta/plazo</mat-label>
-                <input type="text" matInput formControlName="dmeta" [errorStateMatcher]="matcher">
+                <textarea cdkTextareaAutosize type="text" matInput formControlName="dmeta" [errorStateMatcher]="matcher"></textarea>
                 <mat-error *ngIf="indicadorForm.controls['dmeta'].hasError('required')">
                   La meta/plazo es <strong>requerido</strong>
                 </mat-error>
@@ -196,7 +196,7 @@
         <p class="font-semibold font-sans text-xs">Actividad</p>
         <mat-form-field appearance="outline" class="w-full" hideRequiredMarker="true" color="primary">
           <mat-label>Ingrese nombre de actividad</mat-label>
-          <input type="text" matInput formControlName="actividad" [errorStateMatcher]="matcher">
+          <textarea cdkTextareaAutosize type="text" matInput formControlName="actividad" [errorStateMatcher]="matcher"></textarea>
           <mat-error *ngIf="planForm.controls['actividad'].hasError('required')">
             El nombre de actividad es <strong>requerido</strong>
           </mat-error>
@@ -206,7 +206,7 @@
         <p class="font-semibold font-sans text-xs">Responsable</p>
         <mat-form-field appearance="outline" class="w-full" hideRequiredMarker="true" color="primary">
           <mat-label>Ingrese responsable</mat-label>
-          <input type="text" matInput formControlName="responsable" [errorStateMatcher]="matcher">
+          <textarea cdkTextareaAutosize type="text" matInput formControlName="responsable" [errorStateMatcher]="matcher"></textarea>
           <mat-error *ngIf="planForm.controls['responsable'].hasError('required')">
             El responsable es <strong>requerido</strong>
           </mat-error>
@@ -216,7 +216,7 @@
         <p class="font-semibold font-sans text-xs">Plazo</p>
         <mat-form-field appearance="outline" class="w-full" hideRequiredMarker="true" color="primary">
           <mat-label>Ingrese plazo</mat-label>
-          <input type="text" matInput formControlName="plazo" [errorStateMatcher]="matcher">
+          <textarea cdkTextareaAutosize type="text" matInput formControlName="plazo" [errorStateMatcher]="matcher"></textarea>
           <mat-error *ngIf="planForm.controls['plazo'].hasError('required')">
             El plazo es <strong>requerido</strong>
           </mat-error>
@@ -249,14 +249,14 @@
         </mat-form-field>
       </div>
     </div>
-    <ng-container formArrayName="indicadores">
+    <ng-container formArrayName="actividades">
       <ng-container *ngFor="let actividadForm of actividades.controls; let j = index">
         <div class="lesson-form-row" [formGroup]="actividadForm">
           <div class="flex flex-row gap-5">
             <div class="w-4/12">
               <mat-form-field appearance="outline" class="w-full" hideRequiredMarker="true" color="primary">
                 <mat-label>Ingrese nombre de actividad</mat-label>
-                <input type="text" matInput formControlName="dactividad" [errorStateMatcher]="matcher">
+                <textarea cdkTextareaAutosize type="text" matInput formControlName="dactividad" [errorStateMatcher]="matcher"></textarea>
                 <mat-error *ngIf="actividadForm.controls['dactividad'].hasError('required')">
                   El nombre de actividad es <strong>requerido</strong>
                 </mat-error>
@@ -265,7 +265,7 @@
             <div class="w-2/12">
               <mat-form-field appearance="outline" class="w-full" hideRequiredMarker="true" color="primary">
                 <mat-label>Ingrese responsable</mat-label>
-                <input type="text" matInput formControlName="dresponsable" [errorStateMatcher]="matcher">
+                <textarea cdkTextareaAutosize type="text" matInput formControlName="dresponsable" [errorStateMatcher]="matcher"></textarea>
                 <mat-error *ngIf="actividadForm.controls['dresponsable'].hasError('required')">
                   El responsable es <strong>requerido</strong>
                 </mat-error>
@@ -274,7 +274,7 @@
             <div class="w-2/12">
               <mat-form-field appearance="outline" class="w-full" hideRequiredMarker="true" color="primary">
                 <mat-label>Ingrese plazo</mat-label>
-                <input type="text" matInput formControlName="dplazo" [errorStateMatcher]="matcher">
+                <textarea cdkTextareaAutosize type="text" matInput formControlName="dplazo" [errorStateMatcher]="matcher"></textarea>
                 <mat-error *ngIf="actividadForm.controls['dplazo'].hasError('required')">
                   El plazo es <strong>requerido</strong>
                 </mat-error>
@@ -311,7 +311,14 @@
       </ng-container>
     </ng-container>
     <button mat-flat-button color="primary" (click)="agregarActividad()" class="mb-8" type="button">AGREGAR ACTIVIDAD</button>
-    <ng-template #actContainer></ng-template>
+    <div class="form-group">
+      <p class="font-semibold font-sans">OBSERVACIONES</p>
+      <mat-form-field appearance="outline" class="w-full" hideRequiredMarker="true" color="primary">
+        <mat-label>Ingrese Observaciones</mat-label>
+        <textarea cdkTextareaAutosize type="text" matInput formControlName="observaciones" [errorStateMatcher]="matcher"></textarea>
+      </mat-form-field>
+    </div>
+    <!-- <ng-template #actContainer></ng-template> -->
     <div class="flex justify-center gap-3">
       <button mat-flat-button color="primary" class="mb-3" type="submit" [disabled]="!planForm.valid">GUARDAR PLAN DE ACCIÓN</button>
       <button mat-flat-button color="warn"  class="mb-3" type="button" routerLink="/mapa-estrategico">CANCELAR</button>

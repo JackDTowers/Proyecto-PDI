@@ -14,7 +14,7 @@ export class AvancesActividadComponent {
   isOwner = false;
   id: string | null;
   actividad: Actividad | null = null;
-  displayedColumns : string[] = ['Asunto', 'Fecha de Creación', 'Acciones'];
+  displayedColumns : string[] = ['Nombre', 'Fecha de Creación', 'Acciones'];
   avances : Avance[] | undefined;
 
   constructor(

@@ -25,11 +25,17 @@ export class CrearAvanceComponent {
     private toastr: ToastrService,
   ) {
     this.avanceForm = this.formBuilder.group({
-      asunto: ['', Validators.required],
+      nombre: ['', Validators.required],
       descripcion: ['', [Validators.required]],
       archivo: [''],
     })
     this.idActividad = this.aRouter.snapshot.paramMap.get('id');
+  }
+
+  //Para la subida de archivos
+  getFile($event: any){
+    //De momento solo un archivo aunque el evento tiene una lista de archivos por lo que se puede más de 1
+    const [ file ] = $event.target.files;
   }
 
   ingresar(){
@@ -37,7 +43,7 @@ export class CrearAvanceComponent {
     this.avanceForm.updateValueAndValidity();
 
     const REPORTEAVANCE: Avance = {
-      asunto: this.avanceForm.get('asunto')?.value,
+      nombre: this.avanceForm.get('nombre')?.value,
       descripcion: this.avanceForm.get('descripcion')?.value,
       archivo: this.avanceForm.get('archivo')?.value,
     };

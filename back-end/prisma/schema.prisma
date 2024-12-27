@@ -98,9 +98,9 @@ model ACTIVIDAD {
 model REPORTEAVANCE {
   avance_id   Int @id @default(autoincrement())
   act_id      Int
-  asunto      String
+  nombre      String 
   descripcion String
-  archivo     Bytes? @db.Blob
+  archivo     String //De momento solo almacena la ruta del archivo
   createdAt   DateTime @default(now())
   actividad   ACTIVIDAD @relation(fields: [act_id], references: [act_id], onDelete: Cascade)
 }

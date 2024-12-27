@@ -62,6 +62,7 @@ export class CrearPlanComponent{
       fin_act: ['', Validators.required],
       indicadores: this.formBuilder.array([]),
       actividades: this.formBuilder.array([]),
+      observaciones: [''],
     })
     this.id = this.aRouter.snapshot.paramMap.get('id')
     this.pdiService.getUsuarios().subscribe((users) => {
@@ -234,7 +235,8 @@ export class CrearPlanComponent{
       user_id: user_id,
       obj_id: obj_id!,
       indica_plan: indicadores,
-      actividades: actividades
+      actividades: actividades,
+      observaciones: this.planForm.get('observaciones')?.value,
     }
     this.pdiService.crearPlan(PLAN).pipe(
       catchError((error) => {

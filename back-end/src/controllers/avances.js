@@ -83,19 +83,19 @@ export const crearAvance = async (req,res) => {
       })
     }
 
-    const { asunto, descripcion, archivo } = await req.body;
+    const { nombre, descripcion, archivo } = await req.body;
 
     // Validación de los datos
-    if (!asunto || !descripcion) {
-      throw new Error('Todos los campos son requeridos (asunto, descripcion)');
+    if (!nombre || !descripcion) {
+      throw new Error('Todos los campos son requeridos (nombre, descripcion)');
     }
 
     await prisma.rEPORTEAVANCE.create({
       data: {
         act_id: parsedId,
-        asunto: asunto,
+        nombre: nombre,
         descripcion: descripcion,
-        ...archivo && {
+        ...(archivo != undefined) && {
           archivo: archivo
         }
       }
