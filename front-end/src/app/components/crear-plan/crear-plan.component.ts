@@ -72,12 +72,14 @@ export class CrearPlanComponent{
     this.pdiService.getObjetivos().subscribe((objetivos) => {
       this.objetivos = objetivos;
       if(this.id != null){
-        const objetivo = this.objetivos.find(o => o.cod_obj == this.id);
-        if (!objetivo){
-          this.router.navigate(['/mapa-estrategico']);
+        if(this.aRouter.snapshot.routeConfig?.path?.split('/')[0] == 'crear-plan'){
+          const objetivo = this.objetivos.find(o => o.cod_obj == this.id);
+          if (!objetivo){
+            this.router.navigate(['/mapa-estrategico']);
+          }
+          this.planForm.get('codigo_obj')?.setValue(objetivo?.cod_obj, { emitEvent: false });
+          this.planForm.get('objetivo')?.setValue(objetivo?.nombre_obj, { emitEvent: false });
         }
-        this.planForm.get('codigo_obj')?.setValue(objetivo?.cod_obj, { emitEvent: false });
-        this.planForm.get('objetivo')?.setValue(objetivo?.nombre_obj, { emitEvent: false });
       }
     })
   }
@@ -99,8 +101,34 @@ export class CrearPlanComponent{
   }
   
   esEditar(){
+    //Avance de momento no se muestra en vista el responsable y tampoco si hay mas indicadores o actividades
     if (this.id != null){
-      this.titulo = "Edición Plan de Acción"
+      if (this.aRouter.snapshot.routeConfig?.path?.split('/')[0] == 'editar-plan'){
+        this.titulo = "Edición Plan de Acción";
+        this.pdiService.getPlan(parseInt(this.id)).subscribe(plan => {
+          const indicadores = plan.indica_plan;
+          const actividades = plan.actividades;
+          this.planForm.setValue({
+            nombre: plan.nombre_plan,
+            responsable_plan: plan.responsable?.nombre,
+            codigo_obj: plan.objetivo?.cod_obj,
+            objetivo: plan.objetivo?.nombre_obj,
+            observaciones: plan.observaciones,
+            indicador_plan: indicadores[0].desc_indicaplan,
+            formula: indicadores[0].form_calculo,
+            meta: indicadores[0].meta_plazo,
+            responsable: actividades[0].responsable,
+            plazo: actividades[0].plazo,
+            actividad: actividades[0].desc_act,
+            ini_ind: indicadores[0].fecha_inicio,
+            fin_ind: indicadores[0].fecha_fin,
+            ini_act: actividades[0].fecha_inicio,
+            fin_act: actividades[0].fecha_fin,
+            indicadores: [],
+            actividades: [],
+          })
+        })
+      }
     }
   }
 
@@ -246,19 +274,21 @@ export class CrearPlanComponent{
       actividades: actividades,
       observaciones: this.planForm.get('observaciones')?.value,
     }
-    this.pdiService.crearPlan(PLAN).pipe(
-      catchError((error) => {
-        //Manejar errores
-        //console.error('Error al crear el plan de acción:', error);
-        this.toastr.error('Ha ocurrido un error', 'Plan de Acción no creado');
+    if(this.aRouter.snapshot.routeConfig?.path?.split('/')[0] == 'crear-plan'){
+      this.pdiService.crearPlan(PLAN).pipe(
+        catchError((error) => {
+          //Manejar errores
+          //console.error('Error al crear el plan de acción:', error);
+          this.toastr.error('Ha ocurrido un error', 'Plan de Acción no creado');
+          this.router.navigate(['/mapa-estrategico']);
+          return EMPTY; // Retornamos un observable vacío para manejar el error y continuar el flujo
+        })
+      ).subscribe((resultados) => {
+        //console.log(resultados);
+        this.toastr.success('Datos ingresados correctamente', 'Plan de Acción Creado!');
         this.router.navigate(['/mapa-estrategico']);
-        return EMPTY; // Retornamos un observable vacío para manejar el error y continuar el flujo
-      })
-    ).subscribe((resultados) => {
-      //console.log(resultados);
-      this.toastr.success('Datos ingresados correctamente', 'Plan de Acción Creado!');
-      this.router.navigate(['/mapa-estrategico']);
-    });
+      });
+    }
   }
 
   cargarComponente() {
@@ -266,7 +296,6 @@ export class CrearPlanComponent{
       const viewContainerRef = this.actContainerr;
       //viewContainerRef.clear();  // Limpia cualquier componente previo
       viewContainerRef.createComponent(FormIndicadorPlanComponent);  // Carga el componente
-      
     }
   }
 

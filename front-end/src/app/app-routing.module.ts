@@ -19,7 +19,7 @@ const routes: Routes = [
   { path: 'objetivo/:id', component: ObjetivoComponent, canActivate: [loginGuard] },
   { path: 'plan/:id', component: PlanAccionComponent, canActivate: [loginGuard] },
   { path: 'crear-plan', component: CrearPlanComponent, canActivate: [loginGuard, adminGuard] },
-  { path: 'crear-plan/:id', component: CrearPlanComponent, canActivate: [loginGuard] },
+  { path: 'crear-plan/:id', component: CrearPlanComponent, canActivate: [loginGuard, adminGuard] },
   { path: 'editar-plan/:id', component: CrearPlanComponent, canActivate: [loginGuard] },
   { path: 'crear-usuario', component: CrearUsuarioComponent, canActivate: [loginGuard, adminGuard] },
   { path: 'actividad/:id', component: AvancesActividadComponent, canActivate: [loginGuard] },
