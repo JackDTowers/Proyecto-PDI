@@ -159,33 +159,36 @@
                 </mat-error>
               </mat-form-field>
             </div>
-            <div class="w-2/12">
-              <mat-form-field appearance="outline" class="w-full" hideRequiredMarker="true" color="primary">
-                <mat-label>Fecha Inicio</mat-label>
-                <input matInput [matDatepicker]="pickerinind" formControlName="dini_ind" [errorStateMatcher]="matcher">
-                <mat-hint>MM/DD/YYYY</mat-hint>
-                <mat-datepicker-toggle matIconSuffix [for]="pickerinind"></mat-datepicker-toggle>
-                <mat-datepicker #pickerinind></mat-datepicker>
-                <mat-error *ngIf="indicadorForm.controls['dini_ind'].hasError('required')">
-                  La fecha de inicio es <strong>requerida</strong>
-                </mat-error>
-              </mat-form-field>
-            </div>
-            <div class="w-2/12">
-              <mat-form-field appearance="outline" class="w-full" hideRequiredMarker="true" color="primary">
-                <mat-label>Fecha Fin</mat-label>
-                <input matInput [matDatepicker]="pickerfinind" formControlName="dfin_ind" [errorStateMatcher]="matcher">
-                <mat-hint>MM/DD/YYYY</mat-hint>
-                <mat-datepicker-toggle matIconSuffix [for]="pickerfinind"></mat-datepicker-toggle>
-                <mat-datepicker #pickerfinind></mat-datepicker>
-                <mat-error *ngIf="indicadorForm.controls['dfin_ind'].hasError('required')">
-                  La fecha de fin es <strong>requerida</strong>
-                </mat-error>
-              </mat-form-field>
+            <div class="w-4/12 mr-5 flex flex-row gap-5">
+              <div class="w-5/12">
+                <mat-form-field appearance="outline" class="w-full" hideRequiredMarker="true" color="primary">
+                  <mat-label>Fecha Inicio</mat-label>
+                  <input matInput [matDatepicker]="pickerinind" formControlName="dini_ind" [errorStateMatcher]="matcher">
+                  <mat-hint>MM/DD/YYYY</mat-hint>
+                  <mat-datepicker-toggle matIconSuffix [for]="pickerinind"></mat-datepicker-toggle>
+                  <mat-datepicker #pickerinind></mat-datepicker>
+                  <mat-error *ngIf="indicadorForm.controls['dini_ind'].hasError('required')">
+                    La fecha de inicio es <strong>requerida</strong>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="w-5/12">
+                <mat-form-field appearance="outline" class="w-full" hideRequiredMarker="true" color="primary">
+                  <mat-label>Fecha Fin</mat-label>
+                  <input matInput [matDatepicker]="pickerfinind" formControlName="dfin_ind" [errorStateMatcher]="matcher">
+                  <mat-hint>MM/DD/YYYY</mat-hint>
+                  <mat-datepicker-toggle matIconSuffix [for]="pickerfinind"></mat-datepicker-toggle>
+                  <mat-datepicker #pickerfinind></mat-datepicker>
+                  <mat-error *ngIf="indicadorForm.controls['dfin_ind'].hasError('required')">
+                    La fecha de fin es <strong>requerida</strong>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="w-2/12">
+                <mat-icon class="delete-btn" color="warn" (click)="eliminarIndicador(i)">delete_forever</mat-icon>
+              </div>
             </div>
           </div>
-          <mat-icon class="delete-btn" color="warn" (click)="eliminarIndicador(i)">
-              delete_forever</mat-icon>
         </div>
       </ng-container>
     </ng-container>
@@ -280,33 +283,36 @@
                 </mat-error>
               </mat-form-field>
             </div>
-            <div class="w-2/12">
-              <mat-form-field appearance="outline" class="w-full" hideRequiredMarker="true" color="primary">
-                <mat-label>Fecha Inicio</mat-label>
-                <input matInput [matDatepicker]="pickerinind" formControlName="dini_act" [errorStateMatcher]="matcher">
-                <mat-hint>MM/DD/YYYY</mat-hint>
-                <mat-datepicker-toggle matIconSuffix [for]="pickerinind"></mat-datepicker-toggle>
-                <mat-datepicker #pickerinind></mat-datepicker>
-                <mat-error *ngIf="actividadForm.controls['dini_act'].hasError('required')">
-                  La fecha de inicio es <strong>requerida</strong>
-                </mat-error>
-              </mat-form-field>
-            </div>
-            <div class="w-2/12">
-              <mat-form-field appearance="outline" class="w-full" hideRequiredMarker="true" color="primary">
-                <mat-label>Fecha Fin</mat-label>
-                <input matInput [matDatepicker]="pickerfinind" formControlName="dfin_act" [errorStateMatcher]="matcher">
-                <mat-hint>MM/DD/YYYY</mat-hint>
-                <mat-datepicker-toggle matIconSuffix [for]="pickerfinind"></mat-datepicker-toggle>
-                <mat-datepicker #pickerfinind></mat-datepicker>
-                <mat-error *ngIf="actividadForm.controls['dfin_act'].hasError('required')">
-                  La fecha de fin es <strong>requerida</strong>
-                </mat-error>
-              </mat-form-field>
+            <div class="w-4/12 mr-5 flex flex-row gap-5">
+              <div class="w-5/12">
+                <mat-form-field appearance="outline" class="w-full" hideRequiredMarker="true" color="primary">
+                  <mat-label>Fecha Inicio</mat-label>
+                  <input matInput [matDatepicker]="pickerinind" formControlName="dini_act" [errorStateMatcher]="matcher">
+                  <mat-hint>MM/DD/YYYY</mat-hint>
+                  <mat-datepicker-toggle matIconSuffix [for]="pickerinind"></mat-datepicker-toggle>
+                  <mat-datepicker #pickerinind></mat-datepicker>
+                  <mat-error *ngIf="actividadForm.controls['dini_act'].hasError('required')">
+                    La fecha de inicio es <strong>requerida</strong>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="w-5/12">
+                <mat-form-field appearance="outline" class="w-full" hideRequiredMarker="true" color="primary">
+                  <mat-label>Fecha Fin</mat-label>
+                  <input matInput [matDatepicker]="pickerfinind" formControlName="dfin_act" [errorStateMatcher]="matcher">
+                  <mat-hint>MM/DD/YYYY</mat-hint>
+                  <mat-datepicker-toggle matIconSuffix [for]="pickerfinind"></mat-datepicker-toggle>
+                  <mat-datepicker #pickerfinind></mat-datepicker>
+                  <mat-error *ngIf="actividadForm.controls['dfin_act'].hasError('required')">
+                    La fecha de fin es <strong>requerida</strong>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="w-2/12">
+                <mat-icon class="delete-btn" color="warn" (click)="eliminarActividad(j)">delete_forever</mat-icon>
+              </div>
             </div>
           </div>
-          <mat-icon class="delete-btn" color="warn" (click)="eliminarActividad(j)">
-              delete_forever</mat-icon>
         </div>
       </ng-container>
     </ng-container>

@@ -1,5 +1,5 @@
-import { AfterViewInit, Component, ElementRef, ViewChild, ViewContainerRef } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { Component, ElementRef, ViewChild, ViewContainerRef } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PdiService } from 'src/app/services/pdi.service';
 import { MyErrorStateMatcher } from '../crear-usuario/crear-usuario.component';
@@ -71,6 +71,14 @@ export class CrearPlanComponent{
     })
     this.pdiService.getObjetivos().subscribe((objetivos) => {
       this.objetivos = objetivos;
+      if(this.id != null){
+        const objetivo = this.objetivos.find(o => o.cod_obj == this.id);
+        if (!objetivo){
+          this.router.navigate(['/mapa-estrategico']);
+        }
+        this.planForm.get('codigo_obj')?.setValue(objetivo?.cod_obj, { emitEvent: false });
+        this.planForm.get('objetivo')?.setValue(objetivo?.nombre_obj, { emitEvent: false });
+      }
     })
   }
 
