@@ -88,8 +88,8 @@ export class PdiService {
     return this.http.delete(this.url + '/planes' + id)
   }
 
-  crearAvance(actividadId: string, reporteAvance: Avance): Observable<any>{
-    return this.http.post(this.url + '/avances/' + actividadId, reporteAvance)
+  crearAvance(actividadId: string, reporteAvance: FormData): Observable<any>{
+    return this.http.post(this.url + '/avances/' + actividadId, reporteAvance, this.createHeaders())
   }
 
   getAvances(id: string): Observable<Actividad>{

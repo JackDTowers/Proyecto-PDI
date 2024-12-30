@@ -16,6 +16,7 @@ export class CrearAvanceComponent {
   idActividad: string | null;
   avanceForm : FormGroup;
   matcher = new MyErrorStateMatcher();
+  file : Blob | undefined;
 
   constructor( 
     private formBuilder: FormBuilder,
@@ -27,7 +28,6 @@ export class CrearAvanceComponent {
     this.avanceForm = this.formBuilder.group({
       nombre: ['', Validators.required],
       descripcion: ['', [Validators.required]],
-      archivo: [''],
     })
     this.idActividad = this.aRouter.snapshot.paramMap.get('id');
   }
@@ -36,17 +36,24 @@ export class CrearAvanceComponent {
   getFile($event: any){
     //De momento solo un archivo aunque el evento tiene una lista de archivos por lo que se puede más de 1
     const [ file ] = $event.target.files;
+    this.file = file;
   }
 
   ingresar(){
     this.avanceForm.disable() //Para que no pueda volver apretar el botón
     this.avanceForm.updateValueAndValidity();
 
-    const REPORTEAVANCE: Avance = {
-      nombre: this.avanceForm.get('nombre')?.value,
-      descripcion: this.avanceForm.get('descripcion')?.value,
-      archivo: this.avanceForm.get('archivo')?.value,
-    };
+    // const REPORTEAVANCE: Avance = {
+    //   nombre: this.avanceForm.get('nombre')?.value,
+    //   descripcion: this.avanceForm.get('descripcion')?.value,
+    // };
+    const REPORTEAVANCE = new FormData();
+
+    REPORTEAVANCE.append('nombre', this.avanceForm.get('nombre')?.value);
+    REPORTEAVANCE.append('descripcion', this.avanceForm.get('descripcion')?.value);
+    if (this.file) {
+      REPORTEAVANCE.append('archivo', this.file); // Agregar el archivo
+    }
 
     this.pdiService.crearAvance(this.idActividad!, REPORTEAVANCE).subscribe(
       (response) => {

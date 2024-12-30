@@ -20,4 +20,8 @@ export class ListaUsuariosComponent {
       this.usuarios = usuarios;
     })
   }
+
+  eliminarUsuario(id: number){
+    console.log(id)
+  }
 }

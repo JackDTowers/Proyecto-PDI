@@ -6,7 +6,7 @@ import { crearUsuario, eliminarUsuario, getUsers } from '../controllers/usuarios
 import { getMapaEstrategico } from '../controllers/mapaestrategico.js';
 import { crearPlan, eliminarPlan, getPlan, getPlanes } from '../controllers/planes.js';
 import { checkToken, isAdmin, login } from '../controllers/auth.js';
-import { crearAvance, getAvance, getAvances } from '../controllers/avances.js';
+import { crearAvance, eliminarAvance, getAvance, getAvances, upload } from '../controllers/avances.js';
 
 const router = Router();
 
@@ -40,6 +40,7 @@ router.delete('/planes/:id', eliminarPlan)
 //Rutas Avance
 router.get('/actividades/:id', getAvances)
 router.get('/avances/:id', getAvance)
-router.post('/avances/:id', crearAvance)
+router.post('/avances/:id', checkToken, upload.single('archivo'), crearAvance)
+router.delete('/avances/:id', checkToken, eliminarAvance)
 
 export default router

@@ -29,6 +29,7 @@
             <!-- <a [routerLink]="['/ver-usuario/' + usuario.id_cuenta]">
               <i class="fa-solid fa-eye"></i>
             </a> -->
+            <mat-icon class="delete-btn cursor-pointer" color="warn" (click)="eliminarUsuario(usuario.id_cuenta)">person_remove</mat-icon>
           </td>
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
