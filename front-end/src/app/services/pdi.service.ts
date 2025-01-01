@@ -99,4 +99,8 @@ export class PdiService {
   getAvance(id: string): Observable<Avance>{
     return this.http.get<Avance>(this.url + '/avances/' + id);
   }
+
+  getFIle(id: string): Observable<any>{
+    return this.http.get(this.url + '/avances/file/' + id, {responseType: 'blob'});
+  }
 }

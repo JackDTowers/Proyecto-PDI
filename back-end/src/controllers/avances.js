@@ -4,6 +4,8 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import fs from 'fs';
 
+//De momento se trabajan con rutas absolutas, hasta eso se almacena en bd, podría ser relativa o solo nombre de archivo,
+//también de momento se almacenan todos los archivos en una sola carpeta.
 // Obtener el directorio actual
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -90,7 +92,50 @@ export const getAvance = async (req,res) => {
   }
 }
 
-//Obtener un avance
+//Obtener un archivo
+export const getArchivo = async (req,res) => {
+  try {
+    const id = req.params.id
+
+    if (!id) {
+      return res.status(418).json({
+        message: "ID no proporcionado"
+      })
+    }
+
+    // Convertir el ID a un número y validar
+    const parsedId = parseInt(id);
+    if (isNaN(parsedId) || parsedId <= 0) {
+      return res.status(400).json({
+        message: "ID inválido"
+      })
+    }
+    const avance = await prisma.rEPORTEAVANCE.findUnique({
+      where: { avance_id: parsedId }
+    })
+    if (!avance){
+      return res.status(400).json({
+        message: "ID inválido, no existe avance"
+      })
+    }
+    if (!avance.archivo || avance.archivo == ''){
+      return res.status(400).json({
+        message: "No existe archivo para el avance proporcionado."
+      })
+    }
+    const nombreArchivo = avance.archivo.split('\\').pop()
+    console.log(nombreArchivo)
+    res.setHeader('Content-Disposition', `attachment; filename="${nombreArchivo}"`);
+    return res.download(avance.archivo);
+  } catch (error) {
+    return res.status(500).json({
+      message:"Error al efectuar la descarga del archivo",
+      error: error.message
+    })
+  }
+}
+
+//Crear un avance
 export const crearAvance = async (req,res) => {
   try {
     const id = req.params.id
