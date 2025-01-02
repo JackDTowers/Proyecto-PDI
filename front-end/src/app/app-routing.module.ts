@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes, ExtraOptions } from '@angular/router';
 import { MapaEstrategicoComponent } from './components/mapa-estrategico/mapa-estrategico.component';
 import { CrearPlanComponent } from './components/crear-plan/crear-plan.component';
 import { CrearUsuarioComponent } from './components/crear-usuario/crear-usuario.component';
@@ -13,6 +13,7 @@ import { VerAvanceComponent } from './components/ver-avance/ver-avance.component
 import { AvancesActividadComponent } from './components/avances-actividad/avances-actividad.component';
 import { adminGuard } from './guards/admin.guard';
 import { ListaUsuariosComponent } from './components/lista-usuarios/lista-usuarios.component';
+import { PlanesAsignadosComponent } from './components/planes-asignados/planes-asignados.component';
 
 const routes: Routes = [
   { path: 'login', component: IniciarSesionComponent },
@@ -27,13 +28,20 @@ const routes: Routes = [
   { path: 'actividad/:id', component: AvancesActividadComponent, canActivate: [loginGuard] },
   { path: 'crear-avance/:id', component: CrearAvanceComponent, canActivate: [loginGuard] },
   { path: 'ver-avance/:id', component: VerAvanceComponent, canActivate: [loginGuard] },
+  { path: 'planes-asignados', component: PlanesAsignadosComponent, canActivate: [loginGuard], 
+    children: [ {path : 'objetivo/:id', component: ObjetivoComponent, canActivate: [loginGuard] } ]
+  },
   { path: 'indicador', component: FormIndicadorPlanComponent }, //Este no se usa
   { path: '', component: IniciarSesionComponent, pathMatch: 'full' },
   { path: '**', redirectTo: '/mapa-estrategico', pathMatch: 'full' },
 ];
 
+const routerOptions: ExtraOptions = {
+  onSameUrlNavigation: 'reload', // Permitir recargar componentes en la misma URL
+};
+
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, routerOptions)],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

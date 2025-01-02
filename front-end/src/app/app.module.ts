@@ -23,6 +23,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatTabsModule } from '@angular/material/tabs';
 
 //Import components
 import { AppRoutingModule } from './app-routing.module';
@@ -41,6 +42,7 @@ import { AvancesActividadComponent } from './components/avances-actividad/avance
 import { VerAvanceComponent } from './components/ver-avance/ver-avance.component';
 import { CrearAvanceComponent } from './components/crear-avance/crear-avance.component';
 import { ListaUsuariosComponent } from './components/lista-usuarios/lista-usuarios.component';
+import { PlanesAsignadosComponent } from './components/planes-asignados/planes-asignados.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +59,8 @@ import { ListaUsuariosComponent } from './components/lista-usuarios/lista-usuari
     AvancesActividadComponent,
     VerAvanceComponent,
     CrearAvanceComponent,
-    ListaUsuariosComponent
+    ListaUsuariosComponent,
+    PlanesAsignadosComponent
   ],
   imports: [
     BrowserModule,
@@ -84,7 +87,8 @@ import { ListaUsuariosComponent } from './components/lista-usuarios/lista-usuari
     MatDatepickerModule,
     MatNativeDateModule,
     ToastrModule.forRoot(),
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatTabsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

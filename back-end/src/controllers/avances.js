@@ -124,7 +124,6 @@ export const getArchivo = async (req,res) => {
       })
     }
     const nombreArchivo = avance.archivo.split('\\').pop()
-    console.log(nombreArchivo)
     res.setHeader('Content-Disposition', `attachment; filename="${nombreArchivo}"`);
     return res.download(avance.archivo);
   } catch (error) {

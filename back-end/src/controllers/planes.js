@@ -12,6 +12,49 @@ export const getPlanes = async (req,res) => {
   }
 }
 
+export const getPlanesxUsuario = async (req,res) => {
+  try {
+    const id = req.params.id
+
+    if (!id) {
+      return res.status(418).json({
+        message: "ID no proporcionado"
+      })
+    }
+
+    // Convertir el ID a un número y validar
+    const parsedId = parseInt(id);
+    if (isNaN(parsedId) || parsedId <= 0) {
+      return res.status(400).json({
+        message: "ID inválido"
+      })
+    }
+
+    const planes = await prisma.oBJETIVOESTRATEGICO.findMany({
+      include: {
+        planes: {
+          where: {
+            user_id: parsedId,
+          },
+        },
+      },
+      where: {
+        planes: {
+          some: {
+            user_id: parsedId,
+          },
+        },
+      },
+    });
+    return res.json(planes)
+  } catch (error) {
+    return res.status(500).json({
+      message:"Ocurrió un error al obtener los planes por usuario.",
+      error: error.message
+    })
+  }
+}
+
 //Obtener un plan de accion
 export const getPlan = async (req,res) => {
   try {

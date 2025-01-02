@@ -76,6 +76,10 @@ export class PdiService {
     return this.http.get<Objetivo>(this.url + '/objetivos/' + id)
   }
 
+  getPlanesxUsuario(userId: number): Observable<Objetivo[]>{
+    return this.http.get<Objetivo[]>(this.url + '/planes/usuario' + userId, this.createHeaders())
+  }
+
   getPlan(id: number): Observable<PlanDeAccion>{
     return this.http.get<PlanDeAccion>(this.url + '/planes/' + id)
   }

@@ -33,7 +33,6 @@ export class VerAvanceComponent {
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      console.log(blob)
       if(this.nombreArchivo){
         a.download = this.nombreArchivo; // Nombre sugerido para el archivo
       }
