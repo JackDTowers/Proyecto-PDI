@@ -30,6 +30,13 @@ export const getPlanesxUsuario = async (req,res) => {
       })
     }
 
+    //Validación de lo que le manda middle whosUser en APIPDI y de lo que se manda de front, debe coincidir.
+    if (parsedId != req.userId){
+      return res.status(401).json({
+        message: "ID inválido"
+      })
+    }
+
     const planes = await prisma.oBJETIVOESTRATEGICO.findMany({
       include: {
         planes: {

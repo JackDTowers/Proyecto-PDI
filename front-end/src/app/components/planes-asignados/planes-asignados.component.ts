@@ -1,6 +1,12 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { Objetivo } from 'src/app/models/objetivo';
 import { PdiService } from 'src/app/services/pdi.service';
+
+interface ObjLink {
+  id: string,
+  label: string
+}
 
 @Component({
   selector: 'app-planes-asignados',
@@ -8,13 +14,22 @@ import { PdiService } from 'src/app/services/pdi.service';
   styleUrls: ['./planes-asignados.component.css']
 })
 export class PlanesAsignadosComponent {
-  links = [
-    { id: '1', label: 'Objetivo 1' },
-    { id: '2', label: 'Objetivo 2' },
-  ];
+  planesAsignados : Objetivo[] = [];
+  links: ObjLink[] = [];
   activeLink = this.links[0];
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, pdiService: PdiService) {
+    const userId = pdiService.getUserIdLogged();
+    pdiService.getPlanesxUsuario(userId).subscribe((planes: Objetivo[]) => {
+      this.planesAsignados = planes;
+      this.planesAsignados.map(objetivo => {
+        this.links.push({
+          id: objetivo.obj_id!.toString(),
+          label: 'Objetivo ' + parseInt(objetivo.cod_obj.slice(2,4))
+        })
+      })
+    });
+  }
 
   ngOnInit(): void {
     // Navega al primer link si no hay una ruta activa

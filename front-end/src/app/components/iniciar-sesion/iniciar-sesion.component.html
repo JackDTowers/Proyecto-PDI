@@ -1,14 +1,15 @@
 <div class="flex">
-  <div class="flex flex-col items-center justify-center bg-gradient-to-t from-blue-950 to-blue-600 h-screen w-[58%]">
+  <!-- Login antiguo -->
+  <!-- <div class="flex flex-col items-center justify-center bg-gradient-to-t from-blue-950 to-blue-600 h-screen w-[58%]">
     <div class="text-white text-4xl font-bold text-center mt-10">Plan de Desarrollo Institucional</div>
     <div class="text-white text-center text-base mt-2 w-7/12">Sistema de Plan de Desarrollo Institucional para la Facultad de Odontología de la 
       Universidad de Chile</div>
     <img [src]="logo" alt="logo" class="w-80 mt-16"/>
-  </div>
-  <!-- Imagen portada de informe PDI -->
-  <!-- <div class="h-screen w-[58%]">
-    <img [src]="portada" alt="logo" class="h-screen"/>
   </div> -->
+  <!-- Imagen portada de informe PDI -->
+  <div class="h-screen w-[58%]">
+    <img [src]="portada" alt="logo" class="h-screen"/>
+  </div>
   <div class="flex flex-col items-center justify-center w-[42%]">
     <p class="text-xl font-semibold">Bienvenidos</p>
     <form class="mt-5 w-8/12" [formGroup]="loginForm" (ngSubmit)="ingresar()">

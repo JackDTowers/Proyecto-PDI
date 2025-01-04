@@ -64,6 +64,12 @@ export function isAdmin(req, res, next) {
   }
 }
 
+// Middle verifica quién es el usuario. (usado para planes por usuario)
+export function whosUser(req, res, next){
+  req.userId = req.payloadDecoded.id_cuenta;
+  next();
+}
+
 //Función login, autentica, crea y almacena token
 export const login = async (req, res) => {
   try {

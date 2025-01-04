@@ -38,6 +38,12 @@ export class PdiService {
     return false;
   }
 
+  getUserIdLogged(): number {
+    const decodedToken = this.decodeJWT(localStorage.getItem('token'));
+    const userId = decodedToken.id_cuenta;
+    return parseInt(userId);
+  }
+
   //Para ver si es responsable del plan
   isOwner(id: number): boolean{
     const decodedToken = this.decodeJWT(localStorage.getItem('token'));
@@ -77,7 +83,7 @@ export class PdiService {
   }
 
   getPlanesxUsuario(userId: number): Observable<Objetivo[]>{
-    return this.http.get<Objetivo[]>(this.url + '/planes/usuario' + userId, this.createHeaders())
+    return this.http.get<Objetivo[]>(this.url + '/planes/usuario/' + userId, this.createHeaders())
   }
 
   getPlan(id: number): Observable<PlanDeAccion>{
