@@ -100,7 +100,16 @@ model REPORTEAVANCE {
   act_id      Int
   nombre      String 
   descripcion String
-  archivo     String? //De momento solo almacena la ruta del archivo
+  archivos    ARCHIVO[] //De momento solo almacena la ruta del archivo
   createdAt   DateTime @default(now())
   actividad   ACTIVIDAD @relation(fields: [act_id], references: [act_id], onDelete: Cascade)
+}
+
+model ARCHIVO {
+  archivo_id  Int @id @default(autoincrement())
+  avance_id   Int
+  nombre      String
+  ruta        String //De momento se almacena la ruta absoluta del archivo
+  createdAt   DateTime @default(now())
+  avance      REPORTEAVANCE @relation(fields: [avance_id], references: [avance_id], onDelete: Cascade)
 }

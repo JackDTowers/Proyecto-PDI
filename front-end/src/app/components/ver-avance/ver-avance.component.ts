@@ -12,7 +12,7 @@ import { ToastrService } from 'ngx-toastr';
 export class VerAvanceComponent {
   id: string | null;
   avance : Avance | undefined;
-  nombreArchivo: string | undefined;
+  nombresArchivo: string[] | undefined;
 
   constructor(
     private aRouter: ActivatedRoute,
@@ -22,24 +22,21 @@ export class VerAvanceComponent {
     this.id = this.aRouter.snapshot.paramMap.get('id');
     this.pdiService.getAvance(this.id!).subscribe((avance) => {
       this.avance = avance;
-      if (this.avance.archivo){
-        this.nombreArchivo = this.avance.archivo.split('\\').pop();
+      if (this.avance.archivos && this.avance.archivos.length > 0) {
+        this.nombresArchivo = this.avance.archivos.map(archivo => archivo.nombre);
       }
     })
   }
 
-  descargar() {
-    this.pdiService.getFIle(this.id!).subscribe(blob => {
+  descargarArchivo(nombreArchivo: string, archivoId: number) {
+    this.pdiService.getFIle(archivoId).subscribe(blob => {
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      if(this.nombreArchivo){
-        a.download = this.nombreArchivo; // Nombre sugerido para el archivo
-      }
+      a.download = nombreArchivo; // Nombre sugerido para el archivo
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
-      //setTimeout(() => window.URL.revokeObjectURL(url), 100);
       window.URL.revokeObjectURL(url);
     }, error => {
       console.log(error)

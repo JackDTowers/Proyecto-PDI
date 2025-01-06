@@ -81,7 +81,8 @@ export const getAvance = async (req,res) => {
       })
     }
     const avance = await prisma.rEPORTEAVANCE.findUnique({
-      where: { avance_id: parsedId }
+      where: { avance_id: parsedId },
+      include: { archivos: true }
     })
     return res.json(avance)
   } catch (error) {
@@ -110,22 +111,16 @@ export const getArchivo = async (req,res) => {
         message: "ID inválido"
       })
     }
-    const avance = await prisma.rEPORTEAVANCE.findUnique({
-      where: { avance_id: parsedId }
+    const archivo = await prisma.aRCHIVO.findUnique({
+      where: { archivo_id: parsedId }
     })
-    if (!avance){
+    if (!archivo){
       return res.status(400).json({
-        message: "ID inválido, no existe avance"
+        message: "ID inválido, no existe archivo"
       })
     }
-    if (!avance.archivo || avance.archivo == ''){
-      return res.status(400).json({
-        message: "No existe archivo para el avance proporcionado."
-      })
-    }
-    const nombreArchivo = avance.archivo.split('\\').pop()
-    res.setHeader('Content-Disposition', `attachment; filename="${nombreArchivo}"`);
-    return res.download(avance.archivo);
+    res.setHeader('Content-Disposition', `attachment; filename="${archivo.nombre}"`);
+    return res.download(archivo.ruta);
   } catch (error) {
     return res.status(500).json({
       message:"Error al efectuar la descarga del archivo",
@@ -154,15 +149,7 @@ export const crearAvance = async (req,res) => {
     }
 
     const { nombre, descripcion } = await req.body;
-    const archivo = req.file;
-    let archivoAbsoluto
-
-    if (archivo){
-      // Ruta relativa del archivo
-      const archivoRelativo = archivo.path;  // Esta es la ruta relativa desde el directorio donde se almacenan los archivos
-      // Usamos path.resolve() para convertir la ruta relativa en absoluta
-      archivoAbsoluto = path.resolve(archivoRelativo);
-    }
+    const archivos = req.files;
 
     // Validación de los datos
     if (!nombre || !descripcion) {
@@ -174,8 +161,16 @@ export const crearAvance = async (req,res) => {
         act_id: parsedId,
         nombre: nombre,
         descripcion: descripcion,
-        ...(archivo != undefined) && {
-          archivo: archivoAbsoluto
+        ...(archivos != undefined && archivos.lenght != 0) && {
+          //Pendiente
+          archivos: {
+            create: archivos.map((archivo) => {
+              return {
+                nombre: archivo.filename,
+                ruta: archivo.path
+              }
+            })
+          }
         }
       }
     })
@@ -184,15 +179,17 @@ export const crearAvance = async (req,res) => {
       message: "Avance creado!"
     });
   } catch (error) {
-    if (req.file){
-      //Eliminar de la ruta absoluta
-      const archivoPathAbs = path.resolve(req.file.path);
-      fs.unlink(archivoPathAbs, (err) => {
-        if (err) {
-          console.error('Error al eliminar el archivo:', err);
-        } else {
-          console.log('Archivo eliminado debido a un error en la base de datos.');
-        }
+    if (req.files){
+      req.files.forEach((file) => {
+        //Eliminar de la ruta absoluta
+        const archivoPathAbs = path.resolve(file.path);
+        fs.unlink(archivoPathAbs, (err) => {
+          if (err) {
+            console.error('Error al eliminar los archivos:', err);
+          } else {
+            console.log('Archivos eliminados debido a un error en la base de datos.');
+          }
+        });
       });
     }
     return res.status(500).json({
@@ -229,13 +226,19 @@ export const eliminarAvance = async (req,res) => {
       })
     }
 
+    const archivos = await prisma.aRCHIVO.findMany({
+      where: { avance_id: parsedId }
+    });
+
     //Eliminar archivo asociado a avance
-    if (avance.archivo){
-      //Eliminar de la ruta absoluta
-      fs.unlink(avance.archivo, (err) => {
-        if (err) {
-          throw new Error('Error al eliminar el archivo', err);
-        }
+    if (archivos.length > 0) {
+      archivos.forEach((archivo) => {
+        //Eliminar de la ruta absoluta
+        fs.unlink(archivo.ruta, (err) => {
+          if (err) {
+            throw new Error('Error al eliminar el archivo', err);
+          }
+        });
       });
     }
 

@@ -16,7 +16,7 @@ export class CrearAvanceComponent {
   idActividad: string | null;
   avanceForm : FormGroup;
   matcher = new MyErrorStateMatcher();
-  file : Blob | undefined;
+  files : File[] = [];
 
   constructor( 
     private formBuilder: FormBuilder,
@@ -34,25 +34,30 @@ export class CrearAvanceComponent {
 
   //Para la subida de archivos
   getFile($event: any){
-    //De momento solo un archivo aunque el evento tiene una lista de archivos por lo que se puede más de 1
-    const [ file ] = $event.target.files;
-    this.file = file;
+    const input = $event.target as HTMLInputElement;
+    if (input.files) {
+      this.files = Array.from(input.files);
+    }
+    console.log(this.files)
   }
 
   ingresar(){
     this.avanceForm.disable() //Para que no pueda volver apretar el botón
     this.avanceForm.updateValueAndValidity();
-
-    // const REPORTEAVANCE: Avance = {
-    //   nombre: this.avanceForm.get('nombre')?.value,
-    //   descripcion: this.avanceForm.get('descripcion')?.value,
-    // };
+    
     const REPORTEAVANCE = new FormData();
+    const MAXFILES = 10;  // Máximo de archivos a subir
 
     REPORTEAVANCE.append('nombre', this.avanceForm.get('nombre')?.value);
     REPORTEAVANCE.append('descripcion', this.avanceForm.get('descripcion')?.value);
-    if (this.file) {
-      REPORTEAVANCE.append('archivo', this.file); // Agregar el archivo
+    if (this.files.length > 0) {
+      if (this.files.length > MAXFILES) {
+        this.toastr.error('Solo se pueden subir hasta ' + MAXFILES + ' archivos', 'Error');
+        return;
+      }
+      this.files.forEach((file) => {
+        REPORTEAVANCE.append('archivos', file); // Agregar el archivo
+      });
     }
 
     this.pdiService.crearAvance(this.idActividad!, REPORTEAVANCE).subscribe(

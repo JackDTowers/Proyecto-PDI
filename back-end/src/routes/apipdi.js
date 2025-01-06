@@ -9,6 +9,7 @@ import { checkToken, isAdmin, login, whosUser } from '../controllers/auth.js';
 import { crearAvance, eliminarAvance, getArchivo, getAvance, getAvances, upload } from '../controllers/avances.js';
 
 const router = Router();
+const MAXFILES = 10;
 
 //Ruta Login
 router.post('/login', login)
@@ -42,7 +43,7 @@ router.delete('/planes/:id', eliminarPlan)
 router.get('/actividades/:id', getAvances)
 router.get('/avances/:id', getAvance)
 router.get('/avances/file/:id', getArchivo)
-router.post('/avances/:id', checkToken, upload.single('archivo'), crearAvance)
+router.post('/avances/:id', checkToken, upload.array('archivos', MAXFILES), crearAvance)
 router.delete('/avances/:id', eliminarAvance)
 
 export default router

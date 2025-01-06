@@ -3,6 +3,14 @@ export interface Avance {
   act_id?: number;
   nombre: string;
   descripcion: string;
-  archivo?: string;
+  archivos?: Archivo[];
   createdAt?: Date;
+}
+
+interface Archivo {
+  archivo_id: number;
+  avance_id: number;
+  nombre: string;
+  archivo: string;
+  createdAt: Date;
 }

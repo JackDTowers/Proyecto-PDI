@@ -14,12 +14,14 @@
   <div class="flex flex-col mx-20">
     <p class="font-semibold">Descripción</p>
     <p>{{avance.descripcion}}</p>
-    <div *ngIf="avance.archivo">
-      <p class="font-semibold">Archivo</p>
-      <p>{{nombreArchivo}}</p>
-      <button mat-flat-button color="primary" class="mb-3" aria-label="Descargar Archivo" (click)="descargar()">
-        Descargar Archivo
-      </button>
+    <div *ngIf="avance.archivos && avance.archivos.length > 0">
+      <p class="font-semibold">Archivos</p>
+      <div *ngFor="let archivo of avance.archivos">
+        <p>{{archivo.nombre}}</p>
+        <button mat-flat-button color="primary" class="mb-3" aria-label="Descargar Archivo" (click)="descargarArchivo(archivo.nombre, archivo.archivo_id)">
+          Descargar Archivo
+        </button>
+      </div>
     </div>
   </div>
 </div>
