@@ -71,13 +71,13 @@ export class CrearUsuarioComponent {
         // Manejar la respuesta del middleware, por ejemplo, mostrar una confirmación al usuario.
         //console.log('Usuario creado con éxito:', response);
         this.toastr.success('Datos ingresados correctamente', 'Usuario Registrado!');
-        this.router.navigate(['/mapa-estrategico']);
+        this.router.navigate(['/gestion-usuarios']);
       },
       (error) => {
         // Manejar errores, como mostrar un mensaje de error al usuario.
         //console.error('Error al crear el usuario:', error);
         this.toastr.error('Ha ocurrido un error', 'Usuario No Registrado');
-        this.router.navigate(['/mapa-estrategico']);
+        this.router.navigate(['/gestion-usuarios']);
       }
     );
   }

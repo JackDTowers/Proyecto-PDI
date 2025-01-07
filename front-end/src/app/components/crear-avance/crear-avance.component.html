@@ -32,6 +32,13 @@
               <input type="file" (change)="getFile($event)" multiple>
             </div>
           </div>
+          <div *ngIf="files.length > 1" class="mb-3">
+            <div class="form-group sm:justify-center">
+              <div *ngFor="let file of files">
+                <span>{{file.name}}</span>
+              </div>
+            </div>
+          </div>
           <div class="mt-10 flex justify-center gap-4">
             <button mat-flat-button color="primary" class="mb-3" type="submit" [disabled]="!avanceForm.valid">Guardar</button>
             <button mat-flat-button color="warn" class="mb-3" routerLink="/actividad/{{idActividad}}">Cancelar</button>

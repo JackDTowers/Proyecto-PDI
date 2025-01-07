@@ -38,7 +38,6 @@ export class CrearAvanceComponent {
     if (input.files) {
       this.files = Array.from(input.files);
     }
-    console.log(this.files)
   }
 
   ingresar(){

@@ -73,6 +73,10 @@ export class PdiService {
   crearUsuario(user: User): Observable<any>{
     return this.http.post(this.url + '/usuarios', user, this.createHeaders())
   }
+
+  eliminarUsuario(id: number): Observable<any>{
+    return this.http.delete(this.url + '/usuarios/' + id, this.createHeaders())
+  }
   
   getObjetivos(): Observable<Objetivo[]>{
     return this.http.get<Objetivo[]>(this.url + '/objetivos')

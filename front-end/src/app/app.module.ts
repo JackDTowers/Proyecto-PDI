@@ -24,6 +24,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatChipsModule } from '@angular/material/chips';
 
 //Import components
 import { AppRoutingModule } from './app-routing.module';
@@ -43,6 +44,8 @@ import { VerAvanceComponent } from './components/ver-avance/ver-avance.component
 import { CrearAvanceComponent } from './components/crear-avance/crear-avance.component';
 import { ListaUsuariosComponent } from './components/lista-usuarios/lista-usuarios.component';
 import { PlanesAsignadosComponent } from './components/planes-asignados/planes-asignados.component';
+import { DialogComponent } from './components/dialog/dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -60,7 +63,8 @@ import { PlanesAsignadosComponent } from './components/planes-asignados/planes-a
     VerAvanceComponent,
     CrearAvanceComponent,
     ListaUsuariosComponent,
-    PlanesAsignadosComponent
+    PlanesAsignadosComponent,
+    DialogComponent
   ],
   imports: [
     BrowserModule,
@@ -89,6 +93,8 @@ import { PlanesAsignadosComponent } from './components/planes-asignados/planes-a
     ToastrModule.forRoot(),
     MatAutocompleteModule,
     MatTabsModule,
+    MatChipsModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]
