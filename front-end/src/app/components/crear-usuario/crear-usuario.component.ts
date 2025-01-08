@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { PdiService } from 'src/app/services/pdi.service';
 import { ToastrService } from 'ngx-toastr';
 import { User } from 'src/app/models/user';
+import Validation from '../../utils/validation';
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -32,13 +33,19 @@ export class CrearUsuarioComponent {
     private pdiService: PdiService,
     private toastr: ToastrService,
   ) {
-    this.userForm = this.formBuilder.group({
-      nombre: ['', Validators.required],
-      correo: ['', [Validators.required, Validators.email]],
-      //contrasena: ['', Validators.required],
-      cargo: ['', Validators.required],
-      admin: [0],
-    })
+    this.userForm = this.formBuilder.group(
+      {
+        nombre: ['', Validators.required],
+        correo: ['', [Validators.required, Validators.email]],
+        verify_correo: ['', [Validators.required, Validators.email]],
+        //contrasena: ['', Validators.required],
+        cargo: ['', Validators.required],
+        admin: [0],
+      },
+      {
+        validators: [Validation.match('correo', 'verify_correo')]
+      }
+    );
     this.id = this.aRouter.snapshot.paramMap.get('id')
   }
 
@@ -75,9 +82,14 @@ export class CrearUsuarioComponent {
       },
       (error) => {
         // Manejar errores, como mostrar un mensaje de error al usuario.
-        //console.error('Error al crear el usuario:', error);
-        this.toastr.error('Ha ocurrido un error', 'Usuario No Registrado');
-        this.router.navigate(['/gestion-usuarios']);
+        if (error.status == 400){
+          this.toastr.error('El correo ya está registrado', 'Usuario No Registrado');
+          this.router.navigate(['/gestion-usuarios']);
+        }
+        else{
+          this.toastr.error('Ha ocurrido un error', 'Usuario No Registrado');
+          this.router.navigate(['/gestion-usuarios']);
+        }
       }
     );
   }

@@ -1,5 +1,6 @@
 import { prisma } from '../config/db.js';
 import { hash } from 'bcrypt';
+import { Prisma } from '@prisma/client';
 
 //Obtener todos los usuarios
 export const getUsers = async (req,res) => {
@@ -48,20 +49,20 @@ export const crearUsuario = async (req, res) => {
     });
   } catch (e) {
     if (e) {
-      if (e.code === 'P2002') {
-        // Verificar si 'meta' y 'meta.target' existen y son del tipo esperado
-        if (e.meta && typeof e.meta === 'object' && Array.isArray(e.meta.target)) {
-          let conflictingField = e.meta.target.join(', ');
-          if (conflictingField === 'correo') {
-            let errorMessage = `El Correo Electrónico ya esta en uso`;
-            return res.status(400).json({
-              message: errorMessage
-            });
+      if (e instanceof Prisma.PrismaClientKnownRequestError) {
+        if (e.code === 'P2002') {
+          // Verificar si 'meta' existe y es del tipo esperado
+          if (e.meta && typeof e.meta === 'object') {
+            if (e.meta.target === 'USUARIO_correo_key') {
+              let errorMessage = `El Correo Electrónico ya esta en uso`;
+              return res.status(400).json({
+                message: errorMessage
+              });
+            }
           }
         }
       }
     }
-    console.log(e)
     return res.status(500).json({
       message: "Something goes wrong",
       error: e.message

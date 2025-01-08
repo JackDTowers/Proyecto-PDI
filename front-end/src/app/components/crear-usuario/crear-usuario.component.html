@@ -32,6 +32,24 @@
           </div>
           <div class="mb-3">
             <div class="form-group sm:justify-center">
+                <span><i class="fa-regular fa-envelope text-4xl px-5"></i></span>
+                <mat-form-field appearance="outline" class="w-9/12" hideRequiredMarker="true" color="primary">
+                    <mat-label>Confirmación Correo</mat-label>
+                    <input type="email" matInput placeholder="Ej. pat@example.com" formControlName="verify_correo" [errorStateMatcher]="matcher">
+                    <mat-error *ngIf="userForm.controls['verify_correo'].hasError('email') && !userForm.controls['verify_correo'].hasError('required')">
+                        Por favor ingrese un email valido
+                    </mat-error>
+                    <mat-error *ngIf="userForm.controls['verify_correo'].hasError('required')">
+                        El email de confirmación es <strong>requerido</strong>
+                    </mat-error>
+                    <mat-error *ngIf="userForm.controls['verify_correo'].hasError('matching')">
+                        Los correos no coinciden
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+          <div class="mb-3">
+            <div class="form-group sm:justify-center">
                 <span><i class="fa-solid fa-user-tie text-4xl px-5"></i></span>
                 <mat-form-field appearance="outline" class="w-9/12" hideRequiredMarker="true" color="primary">
                     <mat-label>Cargo</mat-label>
