@@ -40,7 +40,7 @@
           <th mat-header-cell *matHeaderCellDef> Acciones </th>
           <td mat-cell *matCellDef="let avance">
             <a [routerLink]="['/ver-avance/' + avance.avance_id]">
-              <i class="fa-solid fa-eye"></i>
+              <i class="fa-solid fa-eye text-[#4B77D1]"></i>
             </a>
           </td>
         </ng-container>
@@ -48,7 +48,7 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>  
     </div>
-    <button *ngIf="isOwner" mat-mini-fab color="primary" class="my-10" aria-label="Crear Avance" routerLink="/crear-avance/{{id}}">
+    <button *ngIf="isOwner || isLoggedAdmin" mat-mini-fab color="primary" class="my-10" aria-label="Crear Avance" routerLink="/crear-avance/{{id}}">
       <mat-icon>add</mat-icon>
     </button>
   </div>

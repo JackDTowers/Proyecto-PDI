@@ -162,6 +162,36 @@ export const crearPlan = async (req,res) => {
   }
 }
 
+//Editar las observaciones de un plan de acción
+export const editarObservaciones = async (req,res) => {
+  try {
+    const { plan_id, observaciones } = await req.body;
+
+    // Validación de los datos
+    if (!plan_id || !observaciones) {
+      throw new Error('Todos los campos son requeridos');
+    }
+
+    //Realizar la validación de que plan exista quizá?
+    //Realizar validación de que el usuario sea el dueño del plan o que pueda editar solo admin si es que se requiere
+
+    await prisma.pLANDEACCION.update({
+      where: { plan_id: plan_id },
+      data: {
+        observaciones: observaciones,
+      }
+    });
+    return res.status(200).json({
+      message: "Observaciones actualizadas!"
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message:"Something goes wrong",
+      error: error.message
+    })
+  }
+}
+
 export const eliminarPlan = async (req,res) => {
   try {
     const id = req.params.id

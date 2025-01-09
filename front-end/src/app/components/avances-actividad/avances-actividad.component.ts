@@ -27,5 +27,6 @@ export class AvancesActividadComponent {
       this.avances = actividad.avances;
       this.isOwner = this.pdiService.isOwner(this.actividad?.plan?.user_id!);
     })
+    this.isLoggedAdmin = this.pdiService.isAdmin();
   }
 }

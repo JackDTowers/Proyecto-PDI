@@ -156,6 +156,18 @@ export const crearAvance = async (req,res) => {
       throw new Error('Todos los campos son requeridos (nombre, descripcion)');
     }
 
+    const actividad = await prisma.aCTIVIDAD.findUnique({
+      where: { act_id: parsedId },
+      include: { plan: true }
+    })
+
+    //Validación de permisos para crear reporte de avance
+    if (actividad.plan.user_id != req.payloadDecoded.id_cuenta && req.payloadDecoded.is_admin != 1) {
+      return res.status(403).json({
+        message: "No tienes permisos para crear un avance en esta actividad"
+      })
+    }
+
     await prisma.rEPORTEAVANCE.create({
       data: {
         act_id: parsedId,
