@@ -165,18 +165,38 @@ export const crearPlan = async (req,res) => {
 //Editar las observaciones de un plan de acción
 export const editarObservaciones = async (req,res) => {
   try {
-    const { plan_id, observaciones } = await req.body;
+    const id = req.params.id
 
-    // Validación de los datos
-    if (!plan_id || !observaciones) {
-      throw new Error('Todos los campos son requeridos');
+    if (!id) {
+      return res.status(418).json({
+        message: "ID no proporcionado"
+      })
     }
 
-    //Realizar la validación de que plan exista quizá?
+    // Convertir el ID a un número y validar
+    const parsedId = parseInt(id);
+    if (isNaN(parsedId) || parsedId <= 0) {
+      return res.status(400).json({
+        message: "ID inválido"
+      })
+    }
+
+    const { observaciones } = await req.body;
+
+    const plan = await prisma.pLANDEACCION.findUnique({
+      where: { plan_id: parsedId },
+    });
+
+    if (!plan) {
+      return res.status(418).json({
+        message: "El plan de acción no existe"
+      })
+    }
+
     //Realizar validación de que el usuario sea el dueño del plan o que pueda editar solo admin si es que se requiere
 
     await prisma.pLANDEACCION.update({
-      where: { plan_id: plan_id },
+      where: { plan_id: parsedId },
       data: {
         observaciones: observaciones,
       }

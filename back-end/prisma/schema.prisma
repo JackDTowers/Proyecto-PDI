@@ -46,7 +46,7 @@ model PLANDEACCION {
   nombre_plan     String @unique
   fecha_creacion  DateTime @default(now())
   //updatedAt       DateTime @updatedAt //Agregar con tabla vacía
-  observaciones   String?
+  observaciones   String? @db.VarChar(500)
   indica_plan     INDICADORPLAN[]
   plan_impa_ind   PLANIMPACTAINDICADOR[]
   actividades     ACTIVIDAD[]

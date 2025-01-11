@@ -11,9 +11,9 @@
       <p>{{avance.nombre}}</p>
     </div>
   </div>
-  <div class="flex flex-col mx-20">
+  <div class="flex flex-col mx-20 whitespace-pre-wrap break-words">
     <p class="font-semibold">Descripción</p>
-    <p>{{avance.descripcion}}</p>
+    <p class="">{{avance.descripcion}}</p>
     <div *ngIf="avance.archivos && avance.archivos.length > 0">
       <p class="font-semibold">Archivos</p>
       <div *ngFor="let archivo of avance.archivos">

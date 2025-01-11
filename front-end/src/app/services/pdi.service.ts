@@ -98,6 +98,10 @@ export class PdiService {
     return this.http.post(this.url + '/planes', planDeAccion, this.createHeaders())
   }
 
+  editarObservaciones(id: number, observaciones: string): Observable<any>{
+    return this.http.patch(this.url + '/planes/' + id, {observaciones}, this.createHeaders())
+  }
+
   eliminarPlan(id: number): Observable<any>{
     return this.http.delete(this.url + '/planes' + id)
   }

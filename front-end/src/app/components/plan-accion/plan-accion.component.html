@@ -62,9 +62,9 @@
       </div>
     </div>
     <div *ngFor="let indicador of plan?.indica_plan" class="flex border-b border-black">
-      <div class="border-r border-black py-2 px-4 w-4/12 break-words">{{indicador.desc_indicaplan}}</div>
-      <div class="border-r border-black py-2 px-4 w-2/12 break-words">{{indicador.form_calculo}}</div>
-      <div class="border-r border-black py-2 px-4 w-2/12 breal-words">{{indicador.meta_plazo}}</div>
+      <div class="border-r border-black py-2 px-4 w-4/12 whitespace-pre-wrap break-words">{{indicador.desc_indicaplan}}</div>
+      <div class="border-r border-black py-2 px-4 w-2/12 whitespace-pre-wrap break-words">{{indicador.form_calculo}}</div>
+      <div class="border-r border-black py-2 px-4 w-2/12 whitespace-pre-wrap breal-words">{{indicador.meta_plazo}}</div>
       <div class="flex w-4/12">
         <div class="border-r border-black py-2 px-4 w-4/12">{{indicador.fecha_inicio | date}}</div>
         <div class="border-r border-black py-2 px-4 w-4/12">{{indicador.fecha_fin | date}}</div>
@@ -87,9 +87,9 @@
       </div>
     </div>
     <div *ngFor="let actividad of plan?.actividades" class="flex border-b border-black">
-      <div class="border-r border-black py-2 px-4 w-4/12 break-words">{{actividad.desc_act}}</div>
-      <div class="border-r border-black py-2 px-4 w-2/12 break-words">{{actividad.responsable}}</div>
-      <div class="border-r border-black py-2 px-4 w-2/12 break-words">{{actividad.plazo}}</div>
+      <div class="border-r border-black py-2 px-4 w-4/12 whitespace-pre-wrap break-words">{{actividad.desc_act}}</div>
+      <div class="border-r border-black py-2 px-4 w-2/12 whitespace-pre-wrap break-words">{{actividad.responsable}}</div>
+      <div class="border-r border-black py-2 px-4 w-2/12 whitespace-pre-wrap break-words">{{actividad.plazo}}</div>
       <div class="flex w-4/12">
         <div class="border-r border-black py-2 px-4 w-4/12">{{actividad.fecha_inicio | date}}</div>
         <div class="border-r border-black py-2 px-4 w-4/12">{{actividad.fecha_fin | date}}</div>
@@ -105,29 +105,31 @@
     <div class="border-b border-black bg-[#717171]/30 py-2 px-4 font-medium flex justify-between items-center">
       OBSERVACIONES
       <div *ngIf="isLoggedAdmin || isOwner">
-        <div class="bg-[#FBBC04] flex flex-col items-center justify-center p-1" (click)="addObs()">
-          <mat-icon class="cursor-pointer text-white">edit</mat-icon>
+        <div class="cursor-pointer bg-[#FBBC04] flex flex-col items-center justify-center p-1" (click)="addObs()">
+          <mat-icon class="text-white">edit</mat-icon>
         </div>
       </div>
     </div>
     <div class="py-2 px-4 min-h-20">
-      {{plan.observaciones}}
+      <div *ngIf="plan.observaciones" class="whitespace-pre-wrap break-words">
+        <p>{{plan.observaciones}}</p>
+      </div>
     </div>
   </div>
   <div *ngIf="editingObs" class="border border-black ml-16 mr-24 mt-5 mb-5 font-sans">
     <div class="border-b border-black bg-[#717171]/30 px-4 font-medium flex justify-between items-center">
       OBSERVACIONES
       <div *ngIf="isLoggedAdmin || isOwner" class="flex gap-2">
-        <div class="bg-red-600 flex flex-col items-center justify-center p-1 my-1" (click)="saveObs()">
-          <mat-icon class="cursor-pointer text-white" aria-label="cancelar">close</mat-icon>
+        <div *ngIf="!fetching" class="cursor-pointer bg-red-600 flex flex-col items-center justify-center p-1 my-1" (click)="cancelObs()">
+          <mat-icon class="text-white" aria-label="cancelar">close</mat-icon>
         </div>
-        <div class="bg-[#4B77D1] flex flex-col items-center justify-center p-1 my-1" (click)="saveObs()">
-          <mat-icon class="cursor-pointer text-white" aria-label="guardar">save</mat-icon>
+        <div *ngIf="!fetching" class="cursor-pointer bg-[#4B77D1] flex flex-col items-center justify-center p-1 my-1" (click)="saveObs()">
+          <mat-icon class="text-white" aria-label="guardar">save</mat-icon>
         </div>
       </div>
     </div>
     <form [formGroup]="obsForm">
-      <mat-form-field appearance="outline" class="w-full" hideRequiredMarker="true" color="primary">
+      <mat-form-field appearance="outline" class="w-full" hideRequiredMarker="true" color="primary" subscriptSizing="dynamic">
         <textarea cdkTextareaAutosize type="text" matInput formControlName="observaciones"></textarea>
       </mat-form-field>
     </form>

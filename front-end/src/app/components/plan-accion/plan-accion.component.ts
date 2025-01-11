@@ -16,6 +16,7 @@ export class PlanAccionComponent {
   isLoggedAdmin = false;
   isOwner = false;
   editingObs = false;
+  fetching = false;
 
   constructor(
     private aRouter: ActivatedRoute,
@@ -38,11 +39,24 @@ export class PlanAccionComponent {
 
   addObs(){
     this.editingObs = true;
+    this.obsForm.setValue({observaciones: this.plan?.observaciones});
   }
 
   saveObs(){
-    this.editingObs = false;
+    this.fetching = true;
     this.obsForm.disable();
     this.obsForm.updateValueAndValidity();
+    this.pdiService.editarObservaciones( parseInt(this.id!), this.obsForm.value.observaciones).subscribe(() => {
+      this.pdiService.getPlan(parseInt(this.id!)).subscribe((plan) => {
+        this.plan = plan;
+        this.editingObs = false;
+        this.fetching = false;
+        this.obsForm.enable();
+      })
+    })
+  }
+
+  cancelObs(){
+    this.editingObs = false;
   }
 }

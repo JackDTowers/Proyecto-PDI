@@ -46,6 +46,7 @@ import { ListaUsuariosComponent } from './components/lista-usuarios/lista-usuari
 import { PlanesAsignadosComponent } from './components/planes-asignados/planes-asignados.component';
 import { DialogComponent } from './components/dialog/dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { PipeNewLinePipe } from './pipes/pipe-new-line.pipe';
 
 @NgModule({
   declarations: [
@@ -64,7 +65,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     CrearAvanceComponent,
     ListaUsuariosComponent,
     PlanesAsignadosComponent,
-    DialogComponent
+    DialogComponent,
+    PipeNewLinePipe
   ],
   imports: [
     BrowserModule,

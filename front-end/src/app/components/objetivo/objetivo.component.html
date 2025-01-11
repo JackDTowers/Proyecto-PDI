@@ -30,10 +30,10 @@
     <p class="font-semibold text-xl w-3/12 text-center">Responsable</p>
   </div>
   <div *ngFor="let plan of objetivo?.planes; let j = index" class="flex mx-16" routerLink="/plan/{{plan.plan_id}}">
-    <div class="w-7/12 my-0 py-8 px-4 border-solid border border-black cursor-pointer">
+    <div class="w-7/12 my-0 py-8 px-4 border-solid border border-black cursor-pointer whitespace-pre-wrap break-words">
       {{j+1}}. {{plan.nombre_plan}}
     </div>
-    <div class="flex items-center justify-center w-3/12 my-0 py-8 border-solid border border-black cursor-pointer">
+    <div class="flex items-center justify-center w-3/12 my-0 py-8 border-solid border border-black cursor-pointer  whitespace-pre-wrap break-words">
       {{plan.responsable.nombre}}
     </div>
   </div>
