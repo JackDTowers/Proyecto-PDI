@@ -1,6 +1,6 @@
 <div *ngIf="links.length == 0" class="flex justify-center mt-60">Su usuario no posee planes asignados</div>
 <div *ngIf="links">
-  <nav mat-tab-nav-bar>
+  <nav mat-tab-nav-bar [tabPanel]="tabPanel">
     <a mat-tab-link
        *ngFor="let link of links"
        [routerLink]="['objetivo/', link.id]"
@@ -10,5 +10,5 @@
       {{ link.label }}
     </a>
   </nav>
-  <router-outlet></router-outlet>
+  <mat-tab-nav-panel #tabPanel><router-outlet></router-outlet></mat-tab-nav-panel>
 </div>
