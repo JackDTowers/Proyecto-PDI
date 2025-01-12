@@ -7,6 +7,8 @@ import { PlanDeAccion } from '../models/plan';
 import { Avance } from '../models/avance';
 import { Action } from 'rxjs/internal/scheduler/Action';
 import { Actividad } from '../models/actividad';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root'
@@ -14,10 +16,20 @@ import { Actividad } from '../models/actividad';
 export class PdiService {
   private url = 'http://localhost:4000/api'
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router, private toastService: ToastrService) { }
 
+  //Auth Services
   login(loginData: any): Observable<any>{
     return this.http.post(this.url + '/login', loginData)
+  }
+
+  logout(): void{
+    if (localStorage.getItem('token')) {
+      // Elimina la cookie llamada 'token'
+      localStorage.removeItem('token');
+      this.toastService.info('Se ha cerrado sesión')
+      this.router.navigate(['/login'])
+    }
   }
 
   isLogged(): boolean {
@@ -62,6 +74,7 @@ export class PdiService {
     }
   }
 
+  //PDI Services
   getMapaEstrategico(): Observable<any[]>{
     return this.http.get<any[]>(this.url + '/mapa-estrategico', this.createHeaders());
   }

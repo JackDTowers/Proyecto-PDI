@@ -22,7 +22,7 @@ function createToken(user, secret){
     correo: user.correo,
     is_admin: user.is_admin
   };
-  return pkg.sign(payload, secret, { expiresIn: "1h" });
+  return pkg.sign(payload, secret);
 }
 
 //Middleware comprueba si hay token de usuario logeado para hacer uso de la API

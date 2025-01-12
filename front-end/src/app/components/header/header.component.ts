@@ -18,10 +18,7 @@ export class HeaderComponent implements OnInit{
   }
   cerrarSesion(): void {
     // Elimina la cookie llamada 'token'
-    localStorage.removeItem('token');
+    this.pdiService.logout();
     this.id = "";
-    //this.isLoggedAdmin = false;
-    this.toastService.info('Se ha cerrado sesión')
-    this.router.navigate(['/login'])
   }
 }
