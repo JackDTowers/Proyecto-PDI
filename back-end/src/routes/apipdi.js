@@ -46,6 +46,6 @@ router.get('/actividades/:id', getAvances)
 router.get('/avances/:id', getAvance)
 router.get('/avances/file/:id', getArchivo)
 router.post('/avances/:id', checkToken, upload.array('archivos', MAXFILES), crearAvance)
-router.delete('/avances/:id', eliminarAvance)
+router.delete('/avances/:id', checkToken, eliminarAvance)
 
 export default router

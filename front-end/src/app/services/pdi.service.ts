@@ -140,4 +140,8 @@ export class PdiService {
   getFIle(id: number): Observable<any>{
     return this.http.get(this.url + '/avances/file/' + id, {responseType: 'blob'});
   }
+
+  eliminarAvance(id: number): Observable<any>{
+    return this.http.delete(this.url + '/avances/' + id, this.createHeaders());
+  }
 }

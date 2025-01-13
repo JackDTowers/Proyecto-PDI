@@ -229,12 +229,20 @@ export const eliminarAvance = async (req,res) => {
     }
 
     const avance = await prisma.rEPORTEAVANCE.findUnique({
-      where: { avance_id: parsedId }
-    })
+      where: { avance_id: parsedId },
+      include: { actividad: { include: { plan: true } } }
+    });
 
     if (!avance) {
       return res.status(500).json({
         message:"No se pudo eliminar el reporte de avance porque ya no existe",
+      })
+    }
+
+    //Validación de permisos para eliminar reporte de avance
+    if (avance.actividad.plan.user_id != req.payloadDecoded.id_cuenta && req.payloadDecoded.is_admin != 1) {
+      return res.status(403).json({
+        message: "No tienes permisos para eliminar un avance en esta actividad"
       })
     }
 
