@@ -24,7 +24,13 @@
       <p>{{actividad.fecha_fin | date}}</p>
     </div>
   </div>
-  <p class="font-semibold">Avances</p>
+  <div class="flex justify-between">
+    <p class="font-semibold">Avances</p>
+    <button *ngIf="isOwner || isLoggedAdmin" mat-flat-button color="primary" class="mb-3" aria-label="Crear Avance" 
+    routerLink="/crear-avance/{{id}}">
+      Crear Avance
+    </button>
+  </div>
   <div class="flex flex-col items-center">
     <div class="w-[100%]">
       <table mat-table [dataSource]="avances!" class="mat-elevation-z8">
@@ -48,9 +54,9 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>  
     </div>
-    <button *ngIf="isOwner || isLoggedAdmin" mat-mini-fab color="primary" class="my-10" aria-label="Crear Avance" routerLink="/crear-avance/{{id}}">
+    <!-- <button *ngIf="isOwner || isLoggedAdmin" mat-mini-fab color="primary" class="my-10" aria-label="Crear Avance" routerLink="/crear-avance/{{id}}">
       <mat-icon>add</mat-icon>
-    </button>
+    </button> -->
   </div>
   </div>
 </div>
