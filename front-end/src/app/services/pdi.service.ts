@@ -99,6 +99,12 @@ export class PdiService {
     return this.http.get<Objetivo>(this.url + '/objetivos/' + id)
   }
 
+  //Obtiene el objetivo solo con los planes del usuario logeado
+  getPlanesxObjetivo(id: number): Observable<Objetivo>{
+    return this.http.get<Objetivo>(this.url + '/objetivos/usuario/' + id, this.createHeaders())
+  }
+
+  //Obtiene los objetivos correspondientes al usuario logueado, contiene aquellos objetivos que tienen planes asignados a él
   getPlanesxUsuario(userId: number): Observable<Objetivo[]>{
     return this.http.get<Objetivo[]>(this.url + '/planes/usuario/' + userId, this.createHeaders())
   }

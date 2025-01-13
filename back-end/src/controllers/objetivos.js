@@ -59,6 +59,56 @@ export const getObjetivo = async (req,res) => {
   }
 }
 
+//Obtener un objetivo con los planes del usuario
+export const getObjetivoxUsuario  = async (req,res) => {
+  const userId = req.userId;
+  try {
+    const id = req.params.id
+
+    if (!id) {
+      return res.sendStatus(418)
+    }
+
+    // Convertir el ID a un número y validar
+    const parsedId = parseInt(id);
+    if (isNaN(parsedId) || parsedId <= 0) {
+      return res.status(400).json({
+        message: "ID inválido"
+      })
+    }
+
+    const objetivo = await prisma.oBJETIVOESTRATEGICO.findUnique({
+      where: { obj_id: parsedId },
+      include: {
+        planes: {
+          where: {
+            user_id: userId,
+          },
+          include: { 
+            responsable: {
+              select: { nombre: true }
+            }
+          }
+        },
+        indica_objetivo: true
+      },
+    });
+
+    if (!objetivo) {
+      return res.status(418).json({
+        mesagge: "El objetivo no existe"
+      })
+    }
+    else{
+      return res.json(objetivo)
+    }
+  } catch (error) {
+    return res.status(500).json({
+      message:"Something goes wrong"
+    })
+  }
+}
+
 //Crear Objetivo
 export const crearObjetivo = async (req,res) => {
   try {

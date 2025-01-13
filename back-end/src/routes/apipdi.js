@@ -1,7 +1,7 @@
 //Archivo Rutas Sistema PDI
 import { Router } from 'express'
 import { getEjes, getEje, crearEje } from '../controllers/ejes.js';
-import { getObjetivos, getObjetivo, crearObjetivo } from '../controllers/objetivos.js';
+import { getObjetivos, getObjetivo, crearObjetivo, getObjetivoxUsuario } from '../controllers/objetivos.js';
 import { crearUsuario, eliminarUsuario, getUsers } from '../controllers/usuarios.js';
 import { getMapaEstrategico } from '../controllers/mapaestrategico.js';
 import { crearPlan, editarObservaciones, eliminarPlan, getPlan, getPlanes, getPlanesxUsuario } from '../controllers/planes.js';
@@ -22,6 +22,7 @@ router.post('/ejes', crearEje)
 //Rutas Objetivo
 router.get('/objetivos', getObjetivos)
 router.get('/objetivos/:id', getObjetivo)
+router.get('/objetivos/usuario/:id', checkToken, whosUser, getObjetivoxUsuario)
 router.post('/objetivos', crearObjetivo)
 
 //Rutas Usuario

@@ -30,7 +30,7 @@ export class PlanesAsignadosComponent {
       this.planesAsignados.map(objetivo => {
         this.links.push({
           id: objetivo.obj_id!.toString(),
-          label: 'Objetivo ' + parseInt(objetivo.cod_obj.slice(2,4))
+          label: objetivo.cod_obj //'Objetivo ' + parseInt(objetivo.cod_obj.slice(2,4))
         })
       })
       if (this.links.length > 0) {
