@@ -56,6 +56,12 @@ export class PdiService {
     return parseInt(userId);
   }
 
+  getUserNameLogged(): string {
+    const decodedToken = this.decodeJWT(localStorage.getItem('token'));
+    const userName = decodedToken.nombre;
+    return userName;
+  }
+
   //Para ver si es responsable del plan
   isOwner(id: number): boolean{
     const decodedToken = this.decodeJWT(localStorage.getItem('token'));

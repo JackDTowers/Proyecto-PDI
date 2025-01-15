@@ -11,14 +11,15 @@ import { PdiService } from 'src/app/services/pdi.service';
 export class HeaderComponent implements OnInit{
   logo = '../../../assets/img/logo.png';
   isLoggedAdmin = false;
-  id = ''
+  user = ''
   constructor( private router: Router, private toastService: ToastrService, private pdiService: PdiService ) { }
   ngOnInit(): void {
     this.isLoggedAdmin = this.pdiService.isAdmin();
+    this.user = this.pdiService.getUserNameLogged();
   }
   cerrarSesion(): void {
     // Elimina la cookie llamada 'token'
     this.pdiService.logout();
-    this.id = "";
+    this.user = "";
   }
 }

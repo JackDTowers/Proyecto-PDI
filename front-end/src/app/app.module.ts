@@ -47,6 +47,7 @@ import { PlanesAsignadosComponent } from './components/planes-asignados/planes-a
 import { DialogComponent } from './components/dialog/dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { PipeNewLinePipe } from './pipes/pipe-new-line.pipe';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -96,7 +97,8 @@ import { PipeNewLinePipe } from './pipes/pipe-new-line.pipe';
     MatAutocompleteModule,
     MatTabsModule,
     MatChipsModule,
-    MatDialogModule
+    MatDialogModule,
+    MatTooltipModule
   ],
   providers: [],
   bootstrap: [AppComponent]

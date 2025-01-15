@@ -13,8 +13,14 @@
       </li>
     </ul>
     </div>
-    <div class="mx-10 text-white cursor-pointer" (click)="cerrarSesion()">
-      Cerrar Sesión
+    <div class="mx-10 text-white flex gap-2 items-center">
+      <mat-icon>
+        person
+      </mat-icon>
+      {{user}}
+      <mat-icon class="cursor-pointer ml-1" (click)="cerrarSesion()" aria-label="Cerrar Sesión" matTooltip="Cerrar Sesión">
+        logout
+      </mat-icon>
     </div>
 </nav>
 
