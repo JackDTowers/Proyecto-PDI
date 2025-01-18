@@ -2,7 +2,7 @@ import { Avance } from "./avance";
 import { PlanDeAccion } from "./plan";
 
 export interface Actividad {
-  act_id?: string;
+  act_id?: number;
   desc_act: string; //antes: nombre_actividad
   responsable: string;
   plazo: string;

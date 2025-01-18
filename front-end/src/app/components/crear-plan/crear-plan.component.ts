@@ -30,6 +30,10 @@ export class CrearPlanComponent{
   @ViewChild('input') input!: ElementRef<HTMLInputElement>;
   filteredUsers: Observable<User[]> = of([])
   id_obj: number = 0; //Suponiendo que no se crean ni editan ni borran más objetivos
+  actividadesId: number[] = [];
+  indicadoresId: number[] = [];
+  deletedActivities: number[] = [];
+  deletedIndicators: number[] = [];
 
   get indicadores() {
     return this.planForm.controls["indicadores"] as FormArray<FormGroup>;
@@ -132,14 +136,18 @@ export class CrearPlanComponent{
             indicadores: [],
             actividades: [],
           })
+          this.indicadoresId.push(indicadores[0].ind_plan_id!);
+          this.actividadesId.push(actividades[0].act_id!)
           if (indicadores.length > 1){
             indicadores.slice(1).map((indicador) => {
               this.agregarIndicador(indicador);
+              this.indicadoresId.push(indicador.ind_plan_id!)
             })
           }
           if (actividades.length > 1){
             actividades.slice(1).map((actividad) => {
               this.agregarActividad(actividad);
+              this.actividadesId.push(actividad.act_id!)
             })
           }
         })
@@ -247,10 +255,16 @@ export class CrearPlanComponent{
   }
 
   eliminarIndicador(indicadorIndex: number) {
+    if (this.indicadoresId.length > 0) {
+      this.deletedIndicators.push(this.indicadoresId[indicadorIndex + 1]); //Se suma 1 pq index empieza desde indicador 1
+    }
     this.indicadores.removeAt(indicadorIndex);
   }
 
   eliminarActividad(actividadIndex: number) {
+    if (this.actividadesId.length > 0) {
+      this.deletedActivities.push(this.actividadesId[actividadIndex + 1]); //Se suma 1 pq index empieza desde actividad 1
+    }
     this.actividades.removeAt(actividadIndex);
   }
 
@@ -349,6 +363,9 @@ export class CrearPlanComponent{
     }
     else if(this.aRouter.snapshot.routeConfig?.path?.split('/')[0] == 'editar-plan'){
       console.log(PLAN)
+      console.log(this.deletedActivities)
+      console.log(this.deletedIndicators)
+      console.log(this.indicadores.value)
     }
   }
 
