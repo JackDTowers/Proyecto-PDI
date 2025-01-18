@@ -1,5 +1,7 @@
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import localeEsCL from '@angular/common/locales/es-CL';
+import { registerLocaleData } from '@angular/common';
 // Import FormsModule and ReactiveFormsModule for handling forms
 import { FormsModule, ReactiveFormsModule, NgForm } from '@angular/forms';
 // Import ToastrModule for displaying toast notifications
@@ -25,6 +27,10 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatMomentDateModule, MomentDateAdapter, MAT_MOMENT_DATE_FORMATS, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 
 //Import components
 import { AppRoutingModule } from './app-routing.module';
@@ -45,9 +51,11 @@ import { CrearAvanceComponent } from './components/crear-avance/crear-avance.com
 import { ListaUsuariosComponent } from './components/lista-usuarios/lista-usuarios.component';
 import { PlanesAsignadosComponent } from './components/planes-asignados/planes-asignados.component';
 import { DialogComponent } from './components/dialog/dialog.component';
-import { MatDialogModule } from '@angular/material/dialog';
 import { PipeNewLinePipe } from './pipes/pipe-new-line.pipe';
-import { MatTooltipModule } from '@angular/material/tooltip';
+import 'moment/locale/es';
+
+// Registra el locale de Chile
+registerLocaleData(localeEsCL, 'es-CL');
 
 @NgModule({
   declarations: [
@@ -98,9 +106,19 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatTabsModule,
     MatChipsModule,
     MatDialogModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatMomentDateModule
   ],
-  providers: [],
+  providers: [
+    {provide: MAT_DATE_LOCALE, useValue: 'es-CL'},
+    {
+      provide: DateAdapter,
+      useClass: MomentDateAdapter,
+      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
+    },
+    {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS},
+    { provide: LOCALE_ID, useValue: 'es-CL' }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

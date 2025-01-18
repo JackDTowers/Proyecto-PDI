@@ -29,6 +29,7 @@ export class CrearPlanComponent{
   @ViewChild('actContainer', {read: ViewContainerRef, static: true}) actContainerr!: ViewContainerRef;
   @ViewChild('input') input!: ElementRef<HTMLInputElement>;
   filteredUsers: Observable<User[]> = of([])
+  id_obj: number = 0; //Suponiendo que no se crean ni editan ni borran más objetivos
 
   get indicadores() {
     return this.planForm.controls["indicadores"] as FormArray<FormGroup>;
@@ -77,8 +78,11 @@ export class CrearPlanComponent{
           if (!objetivo){
             this.router.navigate(['/mapa-estrategico']);
           }
-          this.planForm.get('codigo_obj')?.setValue(objetivo?.cod_obj, { emitEvent: false });
-          this.planForm.get('objetivo')?.setValue(objetivo?.nombre_obj, { emitEvent: false });
+          else {
+            this.id_obj = objetivo.obj_id!;
+            this.planForm.get('codigo_obj')?.setValue(objetivo.cod_obj, { emitEvent: false });
+            this.planForm.get('objetivo')?.setValue(objetivo.nombre_obj, { emitEvent: false });
+          }
         }
       }
     })
@@ -281,13 +285,32 @@ export class CrearPlanComponent{
           //Manejar errores
           //console.error('Error al crear el plan de acción:', error);
           this.toastr.error('Ha ocurrido un error', 'Plan de Acción no creado');
-          this.router.navigate(['/mapa-estrategico']);
+          if (this.id != null){
+            if (obj_id != null){
+              this.router.navigate(['/objetivo/' + obj_id ]);
+            }
+            else {
+              this.router.navigate(['/objetivo/' + this.id]);
+            }
+          }
+          else{
+            this.router.navigate(['/mapa-estrategico']);
+          }
           return EMPTY; // Retornamos un observable vacío para manejar el error y continuar el flujo
         })
       ).subscribe((resultados) => {
-        //console.log(resultados);
         this.toastr.success('Datos ingresados correctamente', 'Plan de Acción Creado!');
-        this.router.navigate(['/mapa-estrategico']);
+        if (this.id != null){
+          if (obj_id != null){
+            this.router.navigate(['/objetivo/' + obj_id ]);
+          }
+          else {
+            this.router.navigate(['/objetivo/' + this.id]);
+          }
+        }
+        else{
+          this.router.navigate(['/mapa-estrategico']);
+        }
       });
     }
   }
