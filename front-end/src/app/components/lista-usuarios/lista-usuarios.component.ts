@@ -46,8 +46,12 @@ export class ListaUsuariosComponent {
           });
         },
         (error) => {
-          this.toastr.error('Ha ocurrido un error al intentar eliminar el usuario', 'Usuario no eliminado');
-          //this.router.navigate(['/actividad/' + this.idActividad]);
+          if (error.status === 409){
+            this.toastr.error('No se puede eliminar el usuario porque tiene planes asociados', 'Usuario no eliminado');
+          }
+          else{
+            this.toastr.error('Ha ocurrido un error al intentar eliminar el usuario', 'Usuario no eliminado');
+          }
         });
       }
     });

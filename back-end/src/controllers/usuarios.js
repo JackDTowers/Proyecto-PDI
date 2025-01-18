@@ -96,6 +96,12 @@ export const eliminarUsuario = async (req,res) => {
     });
   }
   catch (error){
+    if (error.code === 'P2003' && error.meta.field_name === 'user_id') {
+      return res.status(409).json({
+        message: "El usuario cuenta con plan(es) de acción asociado(s), no se puede eliminar",
+        error: error.message
+      })
+    }
     return res.status(500).json({
       message:"No se pudo eliminar el usuario",
       error: error.message
