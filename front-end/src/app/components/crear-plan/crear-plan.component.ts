@@ -13,6 +13,8 @@ import { Actividad } from 'src/app/models/actividad';
 import { Observable, of, EMPTY } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogComponent } from '../dialog/dialog.component';
 
 @Component({
   selector: 'app-crear-plan',
@@ -30,10 +32,9 @@ export class CrearPlanComponent{
   @ViewChild('input') input!: ElementRef<HTMLInputElement>;
   filteredUsers: Observable<User[]> = of([])
   id_obj: number = 0; //Suponiendo que no se crean ni editan ni borran más objetivos
-  actividadesId: number[] = [];
-  indicadoresId: number[] = [];
   deletedActivities: number[] = [];
   deletedIndicators: number[] = [];
+  editing: boolean = false;
 
   get indicadores() {
     return this.planForm.controls["indicadores"] as FormArray<FormGroup>;
@@ -49,6 +50,7 @@ export class CrearPlanComponent{
     private router: Router,
     private pdiService: PdiService,
     private toastr: ToastrService,
+    private dialog: MatDialog,
   ) {
     this.planForm = this.formBuilder.group({
       nombre: ['', Validators.required],
@@ -112,6 +114,7 @@ export class CrearPlanComponent{
     //Avance de momento no se muestra en vista el responsable y tampoco si hay mas indicadores o actividades
     if (this.id != null){
       if (this.aRouter.snapshot.routeConfig?.path?.split('/')[0] == 'editar-plan'){
+        this.editing = true;
         this.titulo = "Edición Plan de Acción";
         this.pdiService.getPlan(parseInt(this.id)).subscribe(plan => {
           const indicadores = plan.indica_plan;
@@ -136,20 +139,12 @@ export class CrearPlanComponent{
             indicadores: [],
             actividades: [],
           })
-          this.indicadoresId.push(indicadores[0].ind_plan_id!);
-          this.actividadesId.push(actividades[0].act_id!)
-          if (indicadores.length > 1){
-            indicadores.slice(1).map((indicador) => {
-              this.agregarIndicador(indicador);
-              this.indicadoresId.push(indicador.ind_plan_id!)
-            })
-          }
-          if (actividades.length > 1){
-            actividades.slice(1).map((actividad) => {
-              this.agregarActividad(actividad);
-              this.actividadesId.push(actividad.act_id!)
-            })
-          }
+          indicadores.map((indicador) => {
+            this.agregarIndicador(indicador);
+          })
+          actividades.map((actividad) => {
+            this.agregarActividad(actividad);
+          })
         })
       }
     }
@@ -211,16 +206,29 @@ export class CrearPlanComponent{
   agregarIndicador(indicador?: IndicadorPlan){
     let indicadorForm: FormGroup;
     if (!indicador){
-      indicadorForm = this.formBuilder.group({
-        dindicador_plan: ['', Validators.required],
-        dformula: ['', Validators.required],
-        dmeta: ['', Validators.required],
-        dini_ind: ['', Validators.required],
-        dfin_ind: ['', Validators.required],
-      })
+      if (!this.editing){
+        indicadorForm = this.formBuilder.group({
+          dindicador_plan: ['', Validators.required],
+          dformula: ['', Validators.required],
+          dmeta: ['', Validators.required],
+          dini_ind: ['', Validators.required],
+          dfin_ind: ['', Validators.required],
+        })
+      }
+      else{
+        indicadorForm = this.formBuilder.group({
+          ind_plan_id: [-1],
+          dindicador_plan: ['', Validators.required],
+          dformula: ['', Validators.required],
+          dmeta: ['', Validators.required],
+          dini_ind: ['', Validators.required],
+          dfin_ind: ['', Validators.required],
+        })
+      }
     }
     else{
       indicadorForm = this.formBuilder.group({
+        ind_plan_id: [indicador.ind_plan_id],
         dindicador_plan: [indicador.desc_indicaplan, Validators.required],
         dformula: [indicador.form_calculo, Validators.required],
         dmeta: [indicador.meta_plazo, Validators.required],
@@ -234,16 +242,29 @@ export class CrearPlanComponent{
   agregarActividad(actividad?: Actividad){
     let actividadForm: FormGroup;
     if (!actividad){
-      actividadForm = this.formBuilder.group({
-        dactividad: ['', Validators.required],
-        dresponsable: ['', Validators.required],
-        dplazo: ['', Validators.required],
-        dini_act: ['', Validators.required],
-        dfin_act: ['', Validators.required],
-      })
+      if (!this.editing){
+        actividadForm = this.formBuilder.group({
+          dactividad: ['', Validators.required],
+          dresponsable: ['', Validators.required],
+          dplazo: ['', Validators.required],
+          dini_act: ['', Validators.required],
+          dfin_act: ['', Validators.required],
+        })
+      }
+      else {
+        actividadForm = this.formBuilder.group({
+          act_id: [-1],
+          dactividad: ['', Validators.required],
+          dresponsable: ['', Validators.required],
+          dplazo: ['', Validators.required],
+          dini_act: ['', Validators.required],
+          dfin_act: ['', Validators.required],
+        })
+      }
     }
     else {
       actividadForm = this.formBuilder.group({
+        act_id: [actividad.act_id],
         dactividad: [actividad.desc_act, Validators.required],
         dresponsable: [actividad.responsable, Validators.required],
         dplazo: [actividad.plazo, Validators.required],
@@ -254,18 +275,56 @@ export class CrearPlanComponent{
     this.actividades.push(actividadForm);
   }
 
-  eliminarIndicador(indicadorIndex: number) {
-    if (this.indicadoresId.length > 0) {
-      this.deletedIndicators.push(this.indicadoresId[indicadorIndex + 1]); //Se suma 1 pq index empieza desde indicador 1
+  eliminarIndicador(indicadorIndex: number, indicadorId?: number) {
+    if (indicadorId){
+      if (indicadorId != -1) {
+        const dialogRef = this.dialog.open(DialogComponent, {
+          width: '500px',
+          data: {
+            tittle: 'Eliminar Indicador', 
+            content: '¿Estás seguro de eliminar el indicador? Esta acción será irreversible.'
+          }
+        });
+        dialogRef.afterClosed().subscribe(result => {
+          if (result){
+            this.deletedIndicators.push(indicadorId);
+            this.indicadores.removeAt(indicadorIndex);
+          }
+        });
+      }
+      else {
+        this.indicadores.removeAt(indicadorIndex);
+      }
     }
-    this.indicadores.removeAt(indicadorIndex);
+    else {
+      this.indicadores.removeAt(indicadorIndex);
+    }
   }
 
-  eliminarActividad(actividadIndex: number) {
-    if (this.actividadesId.length > 0) {
-      this.deletedActivities.push(this.actividadesId[actividadIndex + 1]); //Se suma 1 pq index empieza desde actividad 1
+  eliminarActividad(actividadIndex: number, actividadId?: number) {
+    if (actividadId){
+      if (actividadId != -1) {
+        const dialogRef = this.dialog.open(DialogComponent, {
+          width: '500px',
+          data: {
+            tittle: 'Eliminar Actividad', 
+            content: '¿Estás seguro de eliminar la actividad y todos sus avances asociados? Esta acción será irreversible.'
+          }
+        });
+        dialogRef.afterClosed().subscribe(result => {
+          if (result){
+            this.deletedActivities.push(actividadId);
+            this.actividades.removeAt(actividadIndex);
+          }
+        });
+      }
+      else {
+        this.actividades.removeAt(actividadIndex);
+      }
     }
-    this.actividades.removeAt(actividadIndex);
+    else {
+      this.actividades.removeAt(actividadIndex);
+    }
   }
 
   ingresar(){
@@ -297,27 +356,66 @@ export class CrearPlanComponent{
     const actividadesform: any[] = this.planForm.get('actividades')?.value
     //Llenado de lista indicadoresextra con formato de objeto indicador
     indicadoresform.map((indicador) => {
-      indicadoresextra.push({
-        desc_indicaplan: indicador.dindicador_plan,
-        form_calculo: indicador.dformula,
-        meta_plazo: indicador.dmeta,
-        fecha_inicio: indicador.dini_ind,
-        fecha_fin: indicador.dfin_ind
-      })
+      if (!this.editing){
+        indicadoresextra.push({
+          desc_indicaplan: indicador.dindicador_plan,
+          form_calculo: indicador.dformula,
+          meta_plazo: indicador.dmeta,
+          fecha_inicio: indicador.dini_ind,
+          fecha_fin: indicador.dfin_ind
+        })
+      }
+      else {
+        indicadoresextra.push({
+          ind_plan_id: indicador.ind_plan_id,
+          desc_indicaplan: indicador.dindicador_plan,
+          form_calculo: indicador.dformula,
+          meta_plazo: indicador.dmeta,
+          fecha_inicio: indicador.dini_ind,
+          fecha_fin: indicador.dfin_ind
+        })
+      }
+      
     })
     //Llenado de lista actividadesextra con formato de objeto actividad
     actividadesform.map((actividad) => {
-      actividadesextra.push({
-        desc_act: actividad.dactividad,
-        responsable: actividad.dresponsable,
-        plazo: actividad.dplazo,
-        fecha_inicio: actividad.dini_act,
-        fecha_fin: actividad.dfin_act
-      })
+      if (!this.editing){
+        actividadesextra.push({
+          desc_act: actividad.dactividad,
+          responsable: actividad.dresponsable,
+          plazo: actividad.dplazo,
+          fecha_inicio: actividad.dini_act,
+          fecha_fin: actividad.dfin_act
+        })
+      }
+      else {
+        actividadesextra.push({
+          act_id: actividad.act_id,
+          desc_act: actividad.dactividad,
+          responsable: actividad.dresponsable,
+          plazo: actividad.dplazo,
+          fecha_inicio: actividad.dini_act,
+          fecha_fin: actividad.dfin_act
+        })
+      }
     })
     //Creación de listas de indicadores y actividades
-    const indicadores: IndicadorPlan[] = [...[indicador], ...indicadoresextra]
-    const actividades: Actividad[] = [...[actividad], ...actividadesextra]
+    let indicadores: IndicadorPlan[];
+    let actividades: Actividad[];
+    if (!this.editing){
+      indicadores = [...[indicador], ...indicadoresextra];
+      actividades= [...[actividad], ...actividadesextra];
+    }
+    else{
+      indicadores = [...indicadoresextra];
+      actividades = [...actividadesextra];
+    }
+    if (this.editing && (actividades.length == 0 || indicadores.length == 0)){
+      this.toastr.error('Debe contener al menos un indicador y una actividad', 'Plan de Acción no modificado');
+      this.planForm.enable();
+      this.planForm.updateValueAndValidity();
+      return
+    }
     //Objeto plan de acción con los datos necesarios para post (creacion)
     const PLAN: PlanDeAccion = {
       nombre_plan: this.planForm.get('nombre')?.value,
@@ -366,6 +464,7 @@ export class CrearPlanComponent{
       console.log(this.deletedActivities)
       console.log(this.deletedIndicators)
       console.log(this.indicadores.value)
+      console.log(this.actividades.value)
     }
   }
 

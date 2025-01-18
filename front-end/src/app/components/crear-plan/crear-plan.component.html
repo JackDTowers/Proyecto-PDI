@@ -70,7 +70,7 @@
       </div>
     </div>
     <p class="font-semibold font-sans">INDICADORES DE CUMPLIMIENTO</p>
-    <div class="flex flex-row gap-5">
+    <div *ngIf="!editing" class="flex flex-row gap-5">
       <div class="w-4/12">
         <p class="font-semibold font-sans text-xs">Indicador de cumplimiento</p>
         <mat-form-field appearance="outline" class="w-full" hideRequiredMarker="true" color="primary">
@@ -185,7 +185,9 @@
                 </mat-form-field>
               </div>
               <div class="w-2/12">
-                <mat-icon class="delete-btn cursor-pointer" color="warn" (click)="eliminarIndicador(i)">delete_forever</mat-icon>
+                <mat-icon *ngIf="!editing" class="delete-btn cursor-pointer" color="warn" (click)="eliminarIndicador(i)">delete_forever</mat-icon>
+                <mat-icon *ngIf="editing" class="delete-btn cursor-pointer" color="warn" 
+                (click)="eliminarIndicador(i, indicadorForm.controls['ind_plan_id'].value)">delete_forever</mat-icon>
               </div>
             </div>
           </div>
@@ -194,7 +196,7 @@
     </ng-container>
     <button mat-flat-button color="primary" (click)="agregarIndicador()" class="mb-8" type="button">AGREGAR INDICADOR</button>
     <p class="font-semibold font-sans">PRINCIPALES ACTIVIDADES</p>
-    <div class="flex flex-row gap-5">
+    <div *ngIf="!editing" class="flex flex-row gap-5">
       <div class="w-4/12">
         <p class="font-semibold font-sans text-xs">Actividad</p>
         <mat-form-field appearance="outline" class="w-full" hideRequiredMarker="true" color="primary">
@@ -309,7 +311,9 @@
                 </mat-form-field>
               </div>
               <div class="w-2/12">
-                <mat-icon class="delete-btn cursor-pointer" color="warn" (click)="eliminarActividad(j)">delete_forever</mat-icon>
+                <mat-icon *ngIf="!editing" class="delete-btn cursor-pointer" color="warn" (click)="eliminarActividad(j)">delete_forever</mat-icon>
+                <mat-icon *ngIf="editing" class="delete-btn cursor-pointer" color="warn"
+                 (click)="eliminarActividad(j, actividadForm.controls['act_id'].value)">delete_forever</mat-icon>
               </div>
             </div>
           </div>
@@ -328,7 +332,8 @@
     <div class="flex justify-center gap-3">
       <button mat-flat-button color="primary" class="mb-3" type="submit" [disabled]="!planForm.valid">GUARDAR PLAN DE ACCIÓN</button>
       <button *ngIf="!id" mat-flat-button color="warn"  class="mb-3" type="button" routerLink="/mapa-estrategico">CANCELAR</button>
-      <button *ngIf="id" mat-flat-button color="warn"  class="mb-3" type="button" routerLink="/objetivo/{{id_obj}}">CANCELAR</button>
+      <button *ngIf="id && !editing" mat-flat-button color="warn"  class="mb-3" type="button" routerLink="/objetivo/{{id_obj}}">CANCELAR</button>
+      <button *ngIf="id && editing" mat-flat-button color="warn"  class="mb-3" type="button" routerLink="/plan/{{id}}">CANCELAR</button>
     </div>
   </form>
 </div>
