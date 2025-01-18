@@ -88,6 +88,7 @@ export const getPlan = async (req,res) => {
         actividades: true,
         responsable: {
           select: {
+            id_cuenta: true,
             nombre: true,
             cargo: true
           }

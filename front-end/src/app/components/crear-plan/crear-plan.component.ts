@@ -108,9 +108,10 @@ export class CrearPlanComponent{
         this.pdiService.getPlan(parseInt(this.id)).subscribe(plan => {
           const indicadores = plan.indica_plan;
           const actividades = plan.actividades;
+          const user = this.usuarios.find(u => u.id_cuenta === plan.responsable?.id_cuenta);
           this.planForm.setValue({
             nombre: plan.nombre_plan,
-            responsable_plan: plan.responsable?.nombre,
+            responsable_plan: user,
             codigo_obj: plan.objetivo?.cod_obj,
             objetivo: plan.objetivo?.nombre_obj,
             observaciones: plan.observaciones,
@@ -298,5 +299,4 @@ export class CrearPlanComponent{
       viewContainerRef.createComponent(FormIndicadorPlanComponent);  // Carga el componente
     }
   }
-
 }
