@@ -1,0 +1,11 @@
+no se editan usuarios solo borrar
+se debería poder reasignar el responsable del plan
+lo dema ta bn
+obs bien
+borrar usuario bien
+si se puede editar y eliminar plan (solo admin)
+puede editar y borrar avance el usuario responsable y admin
+estado se hace con select me lo mandaran solo actividades
+de momento se quedara sin select el cargo
+
+Algo último el cliente pidio si en la tabla puede agregarse un resumen pa avance

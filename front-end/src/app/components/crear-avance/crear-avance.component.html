@@ -34,6 +34,7 @@
           </div>
           <div *ngIf="files.length > 1" class="mb-3">
             <div class="form-group sm:justify-center">
+              <p>Archivos a subir:</p>
               <div *ngFor="let file of files">
                 <span>{{file.name}}</span>
               </div>

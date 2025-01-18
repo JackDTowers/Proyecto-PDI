@@ -52,6 +52,8 @@ export class CrearAvanceComponent {
     if (this.files.length > 0) {
       if (this.files.length > MAXFILES) {
         this.toastr.error('Solo se pueden subir hasta ' + MAXFILES + ' archivos', 'Error');
+        this.avanceForm.enable() //Para que no pueda volver apretar el botón
+        this.avanceForm.updateValueAndValidity();
         return;
       }
       this.files.forEach((file) => {
