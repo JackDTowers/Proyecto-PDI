@@ -132,6 +132,16 @@ export class CrearPlanComponent{
             indicadores: [],
             actividades: [],
           })
+          if (indicadores.length > 1){
+            indicadores.slice(1).map((indicador) => {
+              this.agregarIndicador(indicador);
+            })
+          }
+          if (actividades.length > 1){
+            actividades.slice(1).map((actividad) => {
+              this.agregarActividad(actividad);
+            })
+          }
         })
       }
     }
@@ -190,25 +200,49 @@ export class CrearPlanComponent{
     }
   }
     
-  agregarIndicador(){
-    const indicadorForm = this.formBuilder.group({
-      dindicador_plan: ['', Validators.required],
-      dformula: ['', Validators.required],
-      dmeta: ['', Validators.required],
-      dini_ind: ['', Validators.required],
-      dfin_ind: ['', Validators.required],
-    })
+  agregarIndicador(indicador?: IndicadorPlan){
+    let indicadorForm: FormGroup;
+    if (!indicador){
+      indicadorForm = this.formBuilder.group({
+        dindicador_plan: ['', Validators.required],
+        dformula: ['', Validators.required],
+        dmeta: ['', Validators.required],
+        dini_ind: ['', Validators.required],
+        dfin_ind: ['', Validators.required],
+      })
+    }
+    else{
+      indicadorForm = this.formBuilder.group({
+        dindicador_plan: [indicador.desc_indicaplan, Validators.required],
+        dformula: [indicador.form_calculo, Validators.required],
+        dmeta: [indicador.meta_plazo, Validators.required],
+        dini_ind: [indicador.fecha_inicio, Validators.required],
+        dfin_ind: [indicador.fecha_fin, Validators.required],
+      })
+    }
     this.indicadores.push(indicadorForm);
   }
 
-  agregarActividad(){
-    const actividadForm = this.formBuilder.group({
-      dactividad: ['', Validators.required],
-      dresponsable: ['', Validators.required],
-      dplazo: ['', Validators.required],
-      dini_act: ['', Validators.required],
-      dfin_act: ['', Validators.required],
-    })
+  agregarActividad(actividad?: Actividad){
+    let actividadForm: FormGroup;
+    if (!actividad){
+      actividadForm = this.formBuilder.group({
+        dactividad: ['', Validators.required],
+        dresponsable: ['', Validators.required],
+        dplazo: ['', Validators.required],
+        dini_act: ['', Validators.required],
+        dfin_act: ['', Validators.required],
+      })
+    }
+    else {
+      actividadForm = this.formBuilder.group({
+        dactividad: [actividad.desc_act, Validators.required],
+        dresponsable: [actividad.responsable, Validators.required],
+        dplazo: [actividad.plazo, Validators.required],
+        dini_act: [actividad.fecha_inicio, Validators.required],
+        dfin_act: [actividad.fecha_fin, Validators.required],
+      })
+    }
     this.actividades.push(actividadForm);
   }
 
@@ -312,6 +346,9 @@ export class CrearPlanComponent{
           this.router.navigate(['/mapa-estrategico']);
         }
       });
+    }
+    else if(this.aRouter.snapshot.routeConfig?.path?.split('/')[0] == 'editar-plan'){
+      console.log(PLAN)
     }
   }
 
