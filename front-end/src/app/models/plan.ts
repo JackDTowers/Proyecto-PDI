@@ -15,4 +15,5 @@ export interface PlanDeAccion {
   observaciones?: string;
   responsable?: User;
   objetivo?: Objetivo;
+  estado?: string;
 }

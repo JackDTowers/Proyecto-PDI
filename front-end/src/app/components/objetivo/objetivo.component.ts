@@ -3,6 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { Objetivo } from 'src/app/models/objetivo';
 import { PdiService } from 'src/app/services/pdi.service';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogComponent } from '../dialog/dialog.component';
 
 @Component({
   selector: 'app-objetivo',
@@ -19,7 +21,8 @@ export class ObjetivoComponent {
   constructor(
     private aRouter: ActivatedRoute,
     private pdiService: PdiService,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog
   ){
     this.id = this.aRouter.snapshot.paramMap.get('id')
     this.firstUrl = this.router.url.split('/')[1];
@@ -47,6 +50,25 @@ export class ObjetivoComponent {
           })
         }
         this.isLoggedAdmin = this.pdiService.isAdmin();
+      }
+    });
+  }
+
+  editPlan(id: number){
+    this.router.navigate(['/editar-plan/' + id]);
+  }
+
+  eliminarPlan(id: number){
+    const dialogRef = this.dialog.open(DialogComponent, {
+      width: '500px',
+      data: {
+        tittle: 'Eliminar Plan de Acción', 
+        content: '¿Estás seguro de eliminar el plan de acción? Se borrará todo indicador y actividad asociada incluyendo sus avances y archivos. Esta acción es irreversible.'
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result){
+        console.log('deleted');
       }
     });
   }

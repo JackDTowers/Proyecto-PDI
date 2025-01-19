@@ -10,31 +10,27 @@
   </div>
 
   <div class="my-5 mx-16">{{objetivo.nombre_obj}}</div>
-  <!-- <div class="flex mt-8">
-    <div class="w-7/12">
-      <p class="font-semibold text-xl">Planes de Acción Estratégicos</p>
-      <div *ngFor="let plan of objetivo?.planes; let j = index" class="my-1 py-8 px-4 border-solid border border-black">
-        {{j+1}}. {{plan.nombre_plan}}
-      </div>
-    </div>
-    <div class="w-3/12 text-center">
-      <p class="font-semibold text-xl">Responsable</p>
-      <div *ngFor="let plan of objetivo?.planes" class="my-1 py-8 border-solid border border-black">
-        {{plan.responsable.nombre}}
-      </div>
-    </div>
-  </div> -->
-  <!-- Prueba -->
   <div class="flex mt-8 mx-16">
     <p class="font-semibold text-xl w-7/12">Planes de Acción Estratégicos</p>
     <p class="font-semibold text-xl w-3/12 text-center">Responsable</p>
+    <p *ngIf="isLoggedAdmin" class="font-semibold text-xl w-2/12 text-center">Acción</p>
   </div>
-  <div *ngFor="let plan of objetivo?.planes; let j = index" class="flex mx-16" routerLink="/plan/{{plan.plan_id}}">
-    <div class="w-7/12 my-0 py-8 px-4 border-solid border border-black cursor-pointer whitespace-pre-wrap break-words">
+  <div *ngFor="let plan of objetivo?.planes; let j = index" class="flex mx-16">
+    <div class="w-7/12 my-0 py-8 px-4 border-solid border border-black cursor-pointer whitespace-pre-wrap break-words"
+    routerLink="/plan/{{plan.plan_id}}">
       {{j+1}}. {{plan.nombre_plan}}
     </div>
-    <div class="flex items-center justify-center w-3/12 my-0 py-8 border-solid border border-black cursor-pointer  whitespace-pre-wrap break-words">
+    <div class="flex items-center justify-center w-3/12 my-0 py-8 border-solid border border-black cursor-pointer  whitespace-pre-wrap break-words"
+    routerLink="/plan/{{plan.plan_id}}">
       {{plan.responsable.nombre}}
+    </div>
+    <div *ngIf="isLoggedAdmin" class="flex w-2/12 items-center justify-center gap-3">
+      <div class="cursor-pointer bg-[#FFBF30] flex flex-col items-center justify-center p-2 opacity-80" (click)="editPlan(plan.plan_id)">
+        <mat-icon class="text-white">edit</mat-icon>
+      </div>
+      <div class="cursor-pointer bg-[#EA4335] flex flex-col items-center justify-center p-2 opacity-80" (click)="eliminarPlan(plan.plan_id)">
+        <mat-icon class="text-white">delete</mat-icon>
+      </div>
     </div>
   </div>
   <div *ngIf="isLoggedAdmin" class="w-10/12 text-center mx-16">
