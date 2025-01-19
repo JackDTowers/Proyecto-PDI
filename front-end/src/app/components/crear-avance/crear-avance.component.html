@@ -27,14 +27,29 @@
                   </mat-form-field>
               </div>
           </div>
+          <div *ngIf="editing && archivos.length != 0" class="mb-3 flex flex-col items-center">
+            <p class="font-semibold">Archivos subidos</p>
+            <div class="w-[75%] flex flex-col justify-center gap-2">
+              <ng-container *ngFor="let archivo of avance?.archivos; let i = index" >
+                <div class="flex justify-between items-center">
+                  <div class="w-[80%]">
+                    <div class="text-left break-words">{{archivo.nombre}}</div>
+                  </div>
+                  <mat-icon *ngIf="editing" class="delete-btn cursor-pointer" color="warn"
+                  (click)="eliminarArchivo(archivo.archivo_id, i)">delete_forever</mat-icon>
+                </div>
+              </ng-container>
+            </div>
+          </div>
           <div class="mb-3">
+            <p class="font-semibold">Añadir Archivos</p>
             <div class="form-group sm:justify-center">
               <input type="file" (change)="getFile($event)" multiple>
             </div>
           </div>
           <div *ngIf="files.length > 1" class="mb-3">
             <div class="form-group sm:justify-center">
-              <p>Archivos a subir:</p>
+              <p class="font-semibold">Archivos a subir:</p>
               <div *ngFor="let file of files">
                 <span>{{file.name}}</span>
               </div>

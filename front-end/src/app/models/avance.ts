@@ -7,7 +7,7 @@ export interface Avance {
   createdAt?: Date;
 }
 
-interface Archivo {
+export interface Archivo {
   archivo_id: number;
   avance_id: number;
   nombre: string;

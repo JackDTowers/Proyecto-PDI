@@ -27,6 +27,7 @@ const routes: Routes = [
   { path: 'crear-usuario', component: CrearUsuarioComponent, canActivate: [loginGuard, adminGuard] },
   { path: 'actividad/:id', component: AvancesActividadComponent, canActivate: [loginGuard] },
   { path: 'crear-avance/:id', component: CrearAvanceComponent, canActivate: [loginGuard] },
+  { path: 'editar-avance/:id', component: CrearAvanceComponent, canActivate: [loginGuard] },
   { path: 'ver-avance/:id', component: VerAvanceComponent, canActivate: [loginGuard] },
   { path: 'planes-asignados', component: PlanesAsignadosComponent, canActivate: [loginGuard], 
     children: [ {path : 'objetivo/:id', component: ObjetivoComponent, canActivate: [loginGuard] } ]
