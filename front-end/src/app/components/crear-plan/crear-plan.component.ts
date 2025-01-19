@@ -35,6 +35,7 @@ export class CrearPlanComponent{
   deletedActivities: number[] = [];
   deletedIndicators: number[] = [];
   editing: boolean = false;
+  objId: number | undefined;
 
   get indicadores() {
     return this.planForm.controls["indicadores"] as FormArray<FormGroup>;
@@ -117,6 +118,7 @@ export class CrearPlanComponent{
         this.editing = true;
         this.titulo = "Edición Plan de Acción";
         this.pdiService.getPlan(parseInt(this.id)).subscribe(plan => {
+          this.objId = plan.obj_id;
           const indicadores = plan.indica_plan;
           const actividades = plan.actividades;
           const user = this.usuarios.find(u => u.id_cuenta === plan.responsable?.id_cuenta);

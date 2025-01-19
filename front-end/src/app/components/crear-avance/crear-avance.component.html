@@ -57,7 +57,8 @@
           </div>
           <div class="mt-10 flex justify-center gap-4">
             <button mat-flat-button color="primary" class="mb-3" type="submit" [disabled]="!avanceForm.valid">Guardar</button>
-            <button mat-flat-button color="warn" class="mb-3" routerLink="/actividad/{{idActividad}}">Cancelar</button>
+            <button *ngIf="!editing" mat-flat-button color="warn" class="mb-3" routerLink="/actividad/{{idActividad}}">Cancelar</button>
+            <button *ngIf="editing" mat-flat-button color="warn" class="mb-3" routerLink="/actividad/{{avance?.act_id}}">Cancelar</button>
           </div>
       </form>
     </mat-card-content>

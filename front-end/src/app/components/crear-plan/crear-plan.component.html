@@ -333,7 +333,7 @@
       <button mat-flat-button color="primary" class="mb-3" type="submit" [disabled]="!planForm.valid">GUARDAR PLAN DE ACCIÓN</button>
       <button *ngIf="!id" mat-flat-button color="warn"  class="mb-3" type="button" routerLink="/mapa-estrategico">CANCELAR</button>
       <button *ngIf="id && !editing" mat-flat-button color="warn"  class="mb-3" type="button" routerLink="/objetivo/{{id_obj}}">CANCELAR</button>
-      <button *ngIf="id && editing" mat-flat-button color="warn"  class="mb-3" type="button" routerLink="/plan/{{id}}">CANCELAR</button>
+      <button *ngIf="id && editing" mat-flat-button color="warn"  class="mb-3" type="button" routerLink="/objetivo/{{objId}}">CANCELAR</button>
     </div>
   </form>
 </div>
