@@ -84,7 +84,7 @@ export class CrearAvanceComponent {
     if (this.files.length > 0) {
       if (this.files.length > MAXFILES) {
         this.toastr.error('Solo se pueden subir hasta ' + MAXFILES + ' archivos', 'Error');
-        this.avanceForm.enable() //Para que no pueda volver apretar el botón
+        this.avanceForm.enable();
         this.avanceForm.updateValueAndValidity();
         return;
       }
@@ -92,7 +92,7 @@ export class CrearAvanceComponent {
       const tamañoSuperado = this.files.find((file)=>file.size > 50*1024*1024);
       if (tamañoSuperado){
         this.toastr.error('Existe un archivo que supera los 50 MB de tamaño, intente subir archivos de nuevo', 'Error');
-        this.avanceForm.enable() //Para que no pueda volver apretar el botón
+        this.avanceForm.enable();
         this.avanceForm.updateValueAndValidity();
         return
       }
@@ -117,7 +117,18 @@ export class CrearAvanceComponent {
       );
     }
     else {
-      console.log(this.archivosEliminados)
+      REPORTEAVANCE.append('archivosEliminados', JSON.stringify(this.archivosEliminados));
+      this.pdiService.editarAvance(parseInt(this.idAvance!), REPORTEAVANCE).subscribe(
+        (response) => {
+          this.toastr.success('Datos ingresados correctamente', 'Reporte de Avance Actualizado!');
+          this.router.navigate(['/ver-avance/' + this.idAvance]);
+        },
+        (error) => {
+          this.toastr.error('Ha ocurrido un error', 'Avance No Actualizado');
+          this.avanceForm.enable();
+          this.avanceForm.updateValueAndValidity();
+        }
+      )
     }
   }
 

@@ -1,5 +1,5 @@
 Duplicar correo al crear, es decir ingresarlo nuevamente para que coincida con
-el de arriba.
-Crear avance con más de un archivo.
+el de arriba. LISTO
+Crear avance con más de un archivo. LISTO
 Admin tiene poder sobre todo.
 En usuario si se puede editar lo de avance igual

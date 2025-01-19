@@ -173,7 +173,7 @@ export const crearAvance = async (req,res) => {
         act_id: parsedId,
         nombre: nombre,
         descripcion: descripcion,
-        ...(archivos != undefined && archivos.lenght != 0) && {
+        ...(archivos != undefined && archivos.length != 0) && {
           //Pendiente
           archivos: {
             create: archivos.map((archivo) => {
@@ -189,6 +189,127 @@ export const crearAvance = async (req,res) => {
 
     return res.status(200).json({
       message: "Avance creado!"
+    });
+  } catch (error) {
+    if (req.files){
+      req.files.forEach((file) => {
+        //Eliminar de la ruta absoluta
+        const archivoPathAbs = path.resolve(file.path);
+        fs.unlink(archivoPathAbs, (err) => {
+          if (err) {
+            console.error('Error al eliminar los archivos:', err);
+          } else {
+            console.log('Archivos eliminados debido a un error en la base de datos.');
+          }
+        });
+      });
+    }
+    return res.status(500).json({
+      message:"Something goes wrong",
+      error: error.message
+    })
+  }
+}
+
+//Editar Avance
+export const editarAvance = async (req,res) => {
+  try {
+    const id = req.params.id
+
+    if (!id) {
+      return res.status(418).json({
+        message: "ID no proporcionado"
+      })
+    }
+
+    // Convertir el ID a un número y validar
+    const parsedId = parseInt(id);
+    if (isNaN(parsedId) || parsedId <= 0) {
+      return res.status(400).json({
+        message: "ID inválido"
+      })
+    }
+
+    const { nombre, descripcion } = await req.body;
+    const archivosEliminados = JSON.parse(req.body.archivosEliminados)
+    const archivos = req.files;
+
+    // Validación de los datos
+    if (!nombre || !descripcion) {
+      throw new Error('Todos los campos son requeridos (nombre, descripcion)');
+    }
+
+    const avance = await prisma.rEPORTEAVANCE.findUnique({
+      where: { avance_id: parsedId },
+      include: { 
+        actividad: { include: { plan: true } }
+      }
+    })
+
+    //Validación de permisos para crear reporte de avance
+    if (avance.actividad.plan.user_id != req.payloadDecoded.id_cuenta && req.payloadDecoded.is_admin != 1) {
+      return res.status(403).json({
+        message: "No tienes permisos para crear un avance en esta actividad"
+      })
+    }
+
+    let rutasAEliminar = null;
+
+    if (archivosEliminados != undefined && archivosEliminados.length != 0){
+      const archivosEliminar = await prisma.aRCHIVO.findMany({
+        where: {
+          archivo_id: {
+            in: archivosEliminados,
+          },
+        },
+        select: {
+          ruta: true,
+        },
+      });
+      
+      rutasAEliminar = archivosEliminar.map((archivo) => archivo.ruta);
+    }
+
+    await prisma.rEPORTEAVANCE.update({
+      where: { avance_id: parsedId },
+      data: {
+        nombre: nombre,
+        descripcion: descripcion,
+        ...(archivos != undefined && archivos.length != 0) && {
+          archivos: {
+            create: archivos.map((archivo) => {
+              return {
+                nombre: archivo.filename,
+                ruta: archivo.path
+              }
+            })
+          }
+        },
+        ...(archivosEliminados != undefined && archivosEliminados.length != 0) && {
+          archivos: {
+            delete: archivosEliminados.map((archivoE) => {
+              return {
+                archivo_id: archivoE
+              }
+            })
+          }
+        }
+      }
+    })
+
+    if (rutasAEliminar != null && rutasAEliminar.length > 0){
+      rutasAEliminar.forEach((ruta) => {
+        const archivoPathAbs = path.resolve(ruta);
+        fs.unlink(archivoPathAbs, (err) => {
+          if (err) {
+            console.error('Error al eliminar los archivos a borrar:', err);
+          }
+        });
+      })
+    }
+
+    return res.status(200).json({
+      message: "Avance editado!"
     });
   } catch (error) {
     if (req.files){

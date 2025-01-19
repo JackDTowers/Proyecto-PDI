@@ -49,6 +49,10 @@
               <a [routerLink]="['/ver-avance/' + avance.avance_id]">
                 <i class="fa-solid fa-eye text-[#4B77D1]"></i>
               </a>
+              <mat-icon *ngIf="isOwner || isLoggedAdmin" class="delete-btn cursor-pointer text-yellow-400" 
+              routerLink="/editar-avance/{{avance.avance_id}}">
+                edit
+              </mat-icon>
               <mat-icon *ngIf="isOwner || isLoggedAdmin" class="delete-btn cursor-pointer" color="warn" 
               (click)="eliminarAvance(avance.avance_id, avance.nombre)">
                 delete_forever

@@ -147,6 +147,10 @@ export class PdiService {
     return this.http.get(this.url + '/avances/file/' + id, {responseType: 'blob'});
   }
 
+  editarAvance(id: number, avance: FormData): Observable<any>{
+    return this.http.patch(this.url + '/avances/' + id, avance, this.createHeaders())
+  }
+
   eliminarAvance(id: number): Observable<any>{
     return this.http.delete(this.url + '/avances/' + id, this.createHeaders());
   }
