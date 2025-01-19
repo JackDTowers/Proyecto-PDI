@@ -270,32 +270,42 @@ export const editarAvance = async (req,res) => {
       rutasAEliminar = archivosEliminar.map((archivo) => archivo.ruta);
     }
 
-    await prisma.rEPORTEAVANCE.update({
-      where: { avance_id: parsedId },
-      data: {
-        nombre: nombre,
-        descripcion: descripcion,
-        ...(archivos != undefined && archivos.length != 0) && {
-          archivos: {
-            create: archivos.map((archivo) => {
-              return {
-                nombre: archivo.filename,
-                ruta: archivo.path
-              }
-            })
-          }
+    await prisma.$transaction(async (prisma) => {
+      // Actualizar los datos generales del reporte
+      await prisma.rEPORTEAVANCE.update({
+        where: { avance_id: parsedId },
+        data: {
+          nombre: nombre,
+          descripcion: descripcion,
         },
-        ...(archivosEliminados != undefined && archivosEliminados.length != 0) && {
-          archivos: {
-            delete: archivosEliminados.map((archivoE) => {
-              return {
-                archivo_id: archivoE
-              }
-            })
-          }
-        }
+      });
+      
+      // Crear nuevos archivos si se proporciona una lista de archivos
+      if (archivos != undefined && archivos.length > 0) {
+        await prisma.rEPORTEAVANCE.update({
+          where: { avance_id: parsedId },
+          data: {
+            archivos: {
+              create: archivos.map((archivo) => ({
+                nombre: archivo.filename,
+                ruta: archivo.path,
+              })),
+            },
+          },
+        });
       }
-    })
+
+      // Eliminar archivos si se proporciona una lista de IDs a eliminar
+      if (archivosEliminados != undefined && archivosEliminados.length > 0) {
+        await prisma.ARCHIVO.deleteMany({
+          where: {
+            archivo_id: {
+              in: archivosEliminados,
+            },
+          },
+        });
+      }
+    });
 
     if (rutasAEliminar != null && rutasAEliminar.length > 0){
       rutasAEliminar.forEach((ruta) => {
