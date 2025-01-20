@@ -128,7 +128,7 @@ export class PdiService {
   }
 
   eliminarPlan(id: number): Observable<any>{
-    return this.http.delete(this.url + '/planes' + id)
+    return this.http.delete(this.url + '/planes/' + id, this.createHeaders())
   }
 
   crearAvance(actividadId: string, reporteAvance: FormData): Observable<any>{

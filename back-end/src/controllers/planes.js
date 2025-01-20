@@ -1,4 +1,6 @@
 import { prisma } from '../config/db.js';
+import path from 'path';
+import fs from 'fs';
 
 //Obtener todos los planes
 export const getPlanes = async (req,res) => {
@@ -229,9 +231,41 @@ export const eliminarPlan = async (req,res) => {
       })
     }
 
+    const plan = await prisma.pLANDEACCION.findUnique({
+      where: { plan_id: parsedId },
+      include: {
+        actividades: {
+          include: {
+            avances: { include: { archivos: true } }
+          }
+        }
+      }
+    })
+
+    if (!plan){
+      return res.status(400).json({
+        message: "ID inválido, no existe el plan"
+      })
+    }
+
+    const archivos = plan.actividades.flatMap(actividad => 
+      actividad.avances.flatMap(avance => avance.archivos)
+    );
+
     await prisma.pLANDEACCION.delete({
       where: { plan_id: parsedId }
     });
+
+    if (archivos && archivos.length > 0){
+      archivos.forEach((archivo) => {
+        const archivoPathAbs = path.resolve(archivo.ruta);
+        fs.unlink(archivoPathAbs, (err) => {
+          if (err) {
+            console.error('Error al eliminar los archivos asociados al plan:', err);
+          }
+        });
+      })
+    }
 
     return res.status(200).json({
       message: "Plan de Acción eliminado"

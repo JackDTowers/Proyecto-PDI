@@ -39,7 +39,7 @@ router.get('/planes/usuario/:id', checkToken, whosUser, getPlanesxUsuario)
 router.get('/planes/:id', getPlan)
 router.post('/planes', checkToken, isAdmin, crearPlan)
 router.patch('/planes/:id', checkToken, editarObservaciones)
-router.delete('/planes/:id', eliminarPlan)
+router.delete('/planes/:id', checkToken, isAdmin, eliminarPlan)
 
 //Rutas Avance
 router.get('/actividades/:id', getAvances)
