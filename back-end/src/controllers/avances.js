@@ -249,7 +249,7 @@ export const editarAvance = async (req,res) => {
     //Validación de permisos para crear reporte de avance
     if (avance.actividad.plan.user_id != req.payloadDecoded.id_cuenta && req.payloadDecoded.is_admin != 1) {
       return res.status(403).json({
-        message: "No tienes permisos para crear un avance en esta actividad"
+        message: "No tienes permisos para editar un avance en esta actividad"
       })
     }
 
