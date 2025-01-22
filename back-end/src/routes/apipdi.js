@@ -4,7 +4,7 @@ import { getEjes, getEje, crearEje } from '../controllers/ejes.js';
 import { getObjetivos, getObjetivo, crearObjetivo, getObjetivoxUsuario } from '../controllers/objetivos.js';
 import { crearUsuario, eliminarUsuario, getUsers } from '../controllers/usuarios.js';
 import { getMapaEstrategico } from '../controllers/mapaestrategico.js';
-import { crearPlan, editarObservaciones, eliminarPlan, getPlan, getPlanes, getPlanesxUsuario } from '../controllers/planes.js';
+import { crearPlan, editarObservaciones, editarPlan, eliminarPlan, getPlan, getPlanes, getPlanesxUsuario } from '../controllers/planes.js';
 import { checkToken, isAdmin, login, whosUser } from '../controllers/auth.js';
 import { crearAvance, editarAvance, eliminarAvance, getArchivo, getAvance, getAvances, upload } from '../controllers/avances.js';
 
@@ -39,6 +39,7 @@ router.get('/planes/usuario/:id', checkToken, whosUser, getPlanesxUsuario)
 router.get('/planes/:id', getPlan)
 router.post('/planes', checkToken, isAdmin, crearPlan)
 router.patch('/planes/:id', checkToken, editarObservaciones)
+router.put('/planes/:id', checkToken, isAdmin, editarPlan)
 router.delete('/planes/:id', checkToken, isAdmin, eliminarPlan)
 
 //Rutas Avance

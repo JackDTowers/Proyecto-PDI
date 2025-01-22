@@ -310,7 +310,7 @@ export class CrearPlanComponent{
           width: '500px',
           data: {
             tittle: 'Eliminar Actividad', 
-            content: '¿Estás seguro de eliminar la actividad y todos sus avances asociados? Esta acción será irreversible.'
+            content: '¿Estás seguro de eliminar la actividad, se perderán todos sus avances y archivos asociados? Esta acción será irreversible.'
           }
         });
         dialogRef.afterClosed().subscribe(result => {
@@ -462,11 +462,31 @@ export class CrearPlanComponent{
       });
     }
     else if(this.aRouter.snapshot.routeConfig?.path?.split('/')[0] == 'editar-plan'){
-      console.log(PLAN)
-      console.log(this.deletedActivities)
-      console.log(this.deletedIndicators)
-      console.log(this.indicadores.value)
-      console.log(this.actividades.value)
+      const bodyReq = {
+        plan: PLAN,
+        indicadoresEliminados: this.deletedIndicators,
+        actividadesEliminadas: this.deletedActivities
+      }
+      this.pdiService.editarPlan(parseInt(this.id!), bodyReq).pipe(
+        catchError((error) => {
+          this.toastr.error('Ha ocurrido un error durante la modificación del Plan de Acción', 'Plan de Acción no actualizado');
+          if (obj_id != null){
+            this.router.navigate(['/objetivo/' + obj_id ]);
+          }
+          else{
+            this.router.navigate(['/mapa-estrategico']);
+          }
+          return EMPTY
+        })
+      ).subscribe((resultados) => {
+        this.toastr.success('Datos ingresados correctamente', 'Plan de Acción Actualizado!');
+        if (obj_id != null){
+          this.router.navigate(['/objetivo/' + obj_id ]);
+        }
+        else{
+          this.router.navigate(['/mapa-estrategico']);
+        }
+      })
     }
   }
 
