@@ -11,6 +11,7 @@ export interface Avance {
 export interface Archivo {
   archivo_id: number;
   avance_id: number;
+  nombreOriginal: string;
   nombre: string;
   archivo: string;
   createdAt: Date;

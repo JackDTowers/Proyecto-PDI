@@ -119,8 +119,8 @@ export const getArchivo = async (req,res) => {
         message: "ID inválido, no existe archivo"
       })
     }
-    res.setHeader('Content-Disposition', `attachment; filename="${archivo.nombre}"`);
-    return res.download(archivo.ruta);
+    const nombreArchivo = encodeURIComponent(archivo.nombreOriginal).replace(/%20/g, " ");
+    return res.download(archivo.ruta, nombreArchivo);
   } catch (error) {
     return res.status(500).json({
       message:"Error al efectuar la descarga del archivo",
@@ -179,6 +179,7 @@ export const crearAvance = async (req,res) => {
           archivos: {
             create: archivos.map((archivo) => {
               return {
+                nombreOriginal: archivo.originalname,
                 nombre: archivo.filename,
                 ruta: archivo.path
               }
@@ -289,6 +290,7 @@ export const editarAvance = async (req,res) => {
           data: {
             archivos: {
               create: archivos.map((archivo) => ({
+                nombreOriginal: archivo.originalname,
                 nombre: archivo.filename,
                 ruta: archivo.path,
               })),
