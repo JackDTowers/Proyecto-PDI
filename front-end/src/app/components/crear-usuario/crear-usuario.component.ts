@@ -38,12 +38,13 @@ export class CrearUsuarioComponent {
         nombre: ['', Validators.required],
         correo: ['', [Validators.required, Validators.email]],
         verify_correo: ['', [Validators.required, Validators.email]],
-        //contrasena: ['', Validators.required],
+        contrasena: ['', [Validators.required, Validators.minLength(8)]],
+        verify_pass: ['', [Validators.required, Validators.minLength(8)]],
         cargo: ['', Validators.required],
         admin: [0],
       },
       {
-        validators: [Validation.match('correo', 'verify_correo')]
+        validators: [Validation.match('correo', 'verify_correo'), Validation.match('contrasena', 'verify_pass')]
       }
     );
     this.id = this.aRouter.snapshot.paramMap.get('id')
@@ -67,7 +68,7 @@ export class CrearUsuarioComponent {
 
     const USER: User = {
       correo: this.userForm.get('correo')?.value,
-      contrasena: '12345',
+      contrasena: this.userForm.get('contrasena')?.value,
       nombre: this.userForm.get('nombre')?.value,
       cargo: this.userForm.get('cargo')?.value,
       isAdmin: is_admin

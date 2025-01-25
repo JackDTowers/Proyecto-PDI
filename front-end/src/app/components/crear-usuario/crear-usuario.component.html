@@ -47,7 +47,40 @@
                     </mat-error>
                 </mat-form-field>
             </div>
-        </div>
+          </div>
+          <div class="mb-3">
+            <div class="form-group sm:justify-center">
+                <span><i class="fa-solid fa-lock text-4xl px-5"></i></span>
+                <mat-form-field appearance="outline" class="w-9/12" hideRequiredMarker="true" color="primary">
+                    <mat-label>Contraseña</mat-label>
+                    <input type="password" matInput formControlName="contrasena" [errorStateMatcher]="matcher">
+                    <mat-error *ngIf="userForm.controls['contrasena'].hasError('minlength') && !userForm.controls['contrasena'].hasError('required')">
+                        Por favor ingrese una contraseña que contenga mínimo 8 carácteres
+                    </mat-error>
+                    <mat-error *ngIf="userForm.controls['contrasena'].hasError('required')">
+                        La contraseña confirmación es <strong>requerida</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+          </div>
+          <div class="mb-3">
+            <div class="form-group sm:justify-center">
+                <span><i class="fa-solid fa-lock text-4xl px-5"></i></span>
+                <mat-form-field appearance="outline" class="w-9/12" hideRequiredMarker="true" color="primary">
+                    <mat-label>Confirmación Contraseña</mat-label>
+                    <input type="password" matInput formControlName="verify_pass" [errorStateMatcher]="matcher">
+                    <mat-error *ngIf="userForm.controls['verify_pass'].hasError('minlength') && !userForm.controls['verify_pass'].hasError('required')">
+                        Por favor ingrese una contraseña que contenga mínimo 8 carácteres
+                    </mat-error>
+                    <mat-error *ngIf="userForm.controls['verify_pass'].hasError('required')">
+                        La contraseña confirmación es <strong>requerida</strong>
+                    </mat-error>
+                    <mat-error *ngIf="userForm.controls['verify_pass'].hasError('matching')">
+                        Las contraseñas no coinciden
+                    </mat-error>
+                </mat-form-field>
+            </div>
+          </div>
           <div class="mb-3">
             <div class="form-group sm:justify-center">
                 <span><i class="fa-solid fa-user-tie text-4xl px-5"></i></span>
