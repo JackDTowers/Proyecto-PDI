@@ -40,8 +40,6 @@ import { MapaEstrategicoComponent } from './components/mapa-estrategico/mapa-est
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CrearPlanComponent } from './components/crear-plan/crear-plan.component';
 import { CrearUsuarioComponent } from './components/crear-usuario/crear-usuario.component';
-import { FormIndicadorPlanComponent } from './components/form-indicador-plan/form-indicador-plan.component';
-import { ContainerpdiDirective } from './directives/containerpdi.directive';
 import { ObjetivoComponent } from './components/objetivo/objetivo.component';
 import { PlanAccionComponent } from './components/plan-accion/plan-accion.component';
 import { IniciarSesionComponent } from './components/iniciar-sesion/iniciar-sesion.component';
@@ -64,8 +62,6 @@ registerLocaleData(localeEsCL, 'es-CL');
     MapaEstrategicoComponent,
     CrearPlanComponent,
     CrearUsuarioComponent,
-    FormIndicadorPlanComponent,
-    ContainerpdiDirective,
     ObjetivoComponent,
     PlanAccionComponent,
     IniciarSesionComponent,

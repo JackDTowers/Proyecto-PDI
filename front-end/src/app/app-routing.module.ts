@@ -3,7 +3,6 @@ import { RouterModule, Routes, ExtraOptions } from '@angular/router';
 import { MapaEstrategicoComponent } from './components/mapa-estrategico/mapa-estrategico.component';
 import { CrearPlanComponent } from './components/crear-plan/crear-plan.component';
 import { CrearUsuarioComponent } from './components/crear-usuario/crear-usuario.component';
-import { FormIndicadorPlanComponent } from './components/form-indicador-plan/form-indicador-plan.component';
 import { ObjetivoComponent } from './components/objetivo/objetivo.component';
 import { PlanAccionComponent } from './components/plan-accion/plan-accion.component';
 import { IniciarSesionComponent } from './components/iniciar-sesion/iniciar-sesion.component';
@@ -32,7 +31,6 @@ const routes: Routes = [
   { path: 'planes-asignados', component: PlanesAsignadosComponent, canActivate: [loginGuard], 
     children: [ {path : 'objetivo/:id', component: ObjetivoComponent, canActivate: [loginGuard] } ]
   },
-  { path: 'indicador', component: FormIndicadorPlanComponent }, //Este no se usa
   { path: '', component: IniciarSesionComponent, pathMatch: 'full' },
   { path: '**', redirectTo: '/mapa-estrategico', pathMatch: 'full' },
 ];

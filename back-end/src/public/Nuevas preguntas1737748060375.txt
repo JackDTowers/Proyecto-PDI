@@ -1,0 +1,6 @@
+Cuando ocurre un error en avance lo mantiene en el formulario de avance 
+Cuando ocurre error en plan lo saca del formulario
+(lo mencionado arriba es al editar y crear, excepto para avance que al crear
+igual lo saca al haber error, solo mantiene en formulario al editar)
+Están bien los comportamientos?, cómo debería ser? debería mantener form
+al ocurrir error de edicion de plan?

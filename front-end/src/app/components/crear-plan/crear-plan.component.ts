@@ -1,10 +1,8 @@
-import { Component, ElementRef, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, ElementRef, ViewChild} from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PdiService } from 'src/app/services/pdi.service';
 import { MyErrorStateMatcher } from '../crear-usuario/crear-usuario.component';
-import { FormIndicadorPlanComponent } from '../form-indicador-plan/form-indicador-plan.component';
-import { ContainerpdiDirective } from 'src/app/directives/containerpdi.directive';
 import { Objetivo } from 'src/app/models/objetivo';
 import { User } from 'src/app/models/user';
 import { PlanDeAccion } from 'src/app/models/plan';
@@ -28,7 +26,6 @@ export class CrearPlanComponent{
   usuarios : User[] = []
   objetivos : Objetivo[] = []
   matcher = new MyErrorStateMatcher();
-  @ViewChild('actContainer', {read: ViewContainerRef, static: true}) actContainerr!: ViewContainerRef;
   @ViewChild('input') input!: ElementRef<HTMLInputElement>;
   filteredUsers: Observable<User[]> = of([])
   id_obj: number = 0; //Suponiendo que no se crean ni editan ni borran más objetivos
@@ -487,14 +484,6 @@ export class CrearPlanComponent{
           this.router.navigate(['/mapa-estrategico']);
         }
       })
-    }
-  }
-
-  cargarComponente() {
-    if (this.actContainerr){
-      const viewContainerRef = this.actContainerr;
-      //viewContainerRef.clear();  // Limpia cualquier componente previo
-      viewContainerRef.createComponent(FormIndicadorPlanComponent);  // Carga el componente
     }
   }
 }
