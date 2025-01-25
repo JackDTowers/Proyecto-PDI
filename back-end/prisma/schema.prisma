@@ -43,10 +43,10 @@ model PLANDEACCION {
   plan_id         Int @id @default(autoincrement())
   obj_id          Int
   user_id         Int
-  nombre_plan     String @unique
+  nombre_plan     String
   fecha_creacion  DateTime @default(now())
-  //updatedAt       DateTime @updatedAt //Agregar con tabla vacía
-  observaciones   String? @db.VarChar(500)
+  updatedAt       DateTime @updatedAt //Agregar con tabla vacía
+  observaciones   String? @db.VarChar(800)
   indica_plan     INDICADORPLAN[]
   plan_impa_ind   PLANIMPACTAINDICADOR[]
   actividades     ACTIVIDAD[]
@@ -89,6 +89,7 @@ model ACTIVIDAD {
   desc_act      String
   responsable   String
   plazo         String
+  estado        String
   fecha_inicio  DateTime
   fecha_fin     DateTime
   avances       REPORTEAVANCE[]
@@ -98,18 +99,21 @@ model ACTIVIDAD {
 model REPORTEAVANCE {
   avance_id   Int @id @default(autoincrement())
   act_id      Int
-  nombre      String 
-  descripcion String
-  archivos    ARCHIVO[] //De momento solo almacena la ruta del archivo
+  nombre      String
+  resumen     String
+  descripcion String @db.VarChar(500)
+  archivos    ARCHIVO[]
   createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
   actividad   ACTIVIDAD @relation(fields: [act_id], references: [act_id], onDelete: Cascade)
 }
 
 model ARCHIVO {
-  archivo_id  Int @id @default(autoincrement())
-  avance_id   Int
-  nombre      String
-  ruta        String //De momento se almacena la ruta absoluta del archivo
-  createdAt   DateTime @default(now())
-  avance      REPORTEAVANCE @relation(fields: [avance_id], references: [avance_id], onDelete: Cascade)
+  archivo_id      Int @id @default(autoincrement())
+  avance_id       Int
+  nombreOriginal  String
+  nombre          String
+  ruta            String //De momento se almacena la ruta absoluta del archivo
+  createdAt       DateTime @default(now())
+  avance          REPORTEAVANCE @relation(fields: [avance_id], references: [avance_id], onDelete: Cascade)
 }
