@@ -5,7 +5,6 @@
       <form class="mt-5" [formGroup]="avanceForm" (ngSubmit)="ingresar()">
           <div class="mb-3">
               <div class="form-group sm:justify-center">
-                  <!-- <span><i class="fa-solid fa-user text-4xl px-5"></i></span> -->
                   <mat-form-field appearance="outline" class="w-9/12" hideRequiredMarker="true" color="primary">
                       <mat-label>Nombre de Avance</mat-label>
                       <input type="text" matInput formControlName="nombre" [errorStateMatcher]="matcher">
@@ -16,8 +15,18 @@
               </div>
           </div>
           <div class="mb-3">
+            <div class="form-group sm:justify-center">
+                <mat-form-field appearance="outline" class="w-9/12" hideRequiredMarker="true" color="primary">
+                    <mat-label>Resumen</mat-label>
+                    <textarea cdkTextareaAutosize type="text" matInput formControlName="resumen" [errorStateMatcher]="matcher"></textarea>
+                    <mat-error *ngIf="avanceForm.controls['resumen'].hasError('required')">
+                        El resumen es <strong>requerido</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+          </div>
+          <div class="mb-3">
               <div class="form-group sm:justify-center">
-                  <!-- <span><i class="fa-regular fa-envelope text-4xl px-5"></i></span> -->
                   <mat-form-field appearance="outline" class="w-9/12" hideRequiredMarker="true" color="primary">
                       <mat-label>Descripción</mat-label>
                       <textarea cdkTextareaAutosize type="text" matInput formControlName="descripcion" [errorStateMatcher]="matcher"></textarea>

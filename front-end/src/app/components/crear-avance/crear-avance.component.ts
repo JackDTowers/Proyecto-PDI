@@ -36,6 +36,7 @@ export class CrearAvanceComponent {
   ) {
     this.avanceForm = this.formBuilder.group({
       nombre: ['', Validators.required],
+      resumen: ['', Validators.required],
       descripcion: ['', [Validators.required]],
     })
     this.idActividad = this.aRouter.snapshot.paramMap.get('id');
@@ -80,7 +81,7 @@ export class CrearAvanceComponent {
 
     REPORTEAVANCE.append('nombre', this.avanceForm.get('nombre')?.value);
     REPORTEAVANCE.append('descripcion', this.avanceForm.get('descripcion')?.value);
-    console.log(this.files)
+    REPORTEAVANCE.append('resumen', this.avanceForm.get('resumen')?.value);
     if (this.files.length > 0) {
       if (this.files.length > MAXFILES) {
         this.toastr.error('Solo se pueden subir hasta ' + MAXFILES + ' archivos', 'Error');
@@ -146,6 +147,7 @@ export class CrearAvanceComponent {
         }
         this.avanceForm.setValue({
           nombre: avance.nombre,
+          resumen: avance.resumen,
           descripcion: avance.descripcion
         })
       })

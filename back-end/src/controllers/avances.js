@@ -148,11 +148,11 @@ export const crearAvance = async (req,res) => {
       })
     }
 
-    const { nombre, descripcion } = await req.body;
+    const { nombre, descripcion, resumen } = await req.body;
     const archivos = req.files;
 
     // Validación de los datos
-    if (!nombre || !descripcion) {
+    if (!nombre || !descripcion || !resumen) {
       throw new Error('Todos los campos son requeridos (nombre, descripcion)');
     }
 
@@ -173,6 +173,7 @@ export const crearAvance = async (req,res) => {
         act_id: parsedId,
         nombre: nombre,
         descripcion: descripcion,
+        resumen: resumen,
         ...(archivos != undefined && archivos.length != 0) && {
           //Pendiente
           archivos: {
@@ -230,12 +231,12 @@ export const editarAvance = async (req,res) => {
       })
     }
 
-    const { nombre, descripcion } = await req.body;
+    const { nombre, descripcion, resumen } = await req.body;
     const archivosEliminados = JSON.parse(req.body.archivosEliminados)
     const archivos = req.files;
 
     // Validación de los datos
-    if (!nombre || !descripcion) {
+    if (!nombre || !descripcion || !resumen) {
       throw new Error('Todos los campos son requeridos (nombre, descripcion)');
     }
 
@@ -277,6 +278,7 @@ export const editarAvance = async (req,res) => {
         data: {
           nombre: nombre,
           descripcion: descripcion,
+          resumen: resumen
         },
       });
       
