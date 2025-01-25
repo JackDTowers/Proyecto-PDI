@@ -50,6 +50,7 @@ import { ListaUsuariosComponent } from './components/lista-usuarios/lista-usuari
 import { PlanesAsignadosComponent } from './components/planes-asignados/planes-asignados.component';
 import { DialogComponent } from './components/dialog/dialog.component';
 import { PipeNewLinePipe } from './pipes/pipe-new-line.pipe';
+import { PercentPipe } from './pipes/percent.pipe';
 import 'moment/locale/es';
 
 // Registra el locale de Chile
@@ -71,7 +72,8 @@ registerLocaleData(localeEsCL, 'es-CL');
     ListaUsuariosComponent,
     PlanesAsignadosComponent,
     DialogComponent,
-    PipeNewLinePipe
+    PipeNewLinePipe,
+    PercentPipe
   ],
   imports: [
     BrowserModule,

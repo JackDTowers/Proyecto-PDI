@@ -23,10 +23,14 @@
       <p class="font-semibold">Fecha Límite</p>
       <p>{{actividad.fecha_fin | date}}</p>
     </div>
+    <div>
+      <p class="font-semibold">Estado</p>
+      <p>{{actividad.estado! | percent}}</p>
+    </div>
   </div>
   <div class="flex justify-between">
     <p class="font-semibold">Avances</p>
-    <button *ngIf="isOwner || isLoggedAdmin" mat-flat-button color="primary" class="mb-3" aria-label="Crear Avance" 
+    <button *ngIf="(isOwner || isLoggedAdmin) && !isCompleted" mat-flat-button color="primary" class="mb-3" aria-label="Crear Avance" 
     routerLink="/crear-avance/{{id}}">
       Crear Avance
     </button>
@@ -49,11 +53,11 @@
               <a [routerLink]="['/ver-avance/' + avance.avance_id]">
                 <i class="fa-solid fa-eye text-[#4B77D1]"></i>
               </a>
-              <mat-icon *ngIf="isOwner || isLoggedAdmin" class="delete-btn cursor-pointer text-yellow-400" 
+              <mat-icon *ngIf="(isOwner || isLoggedAdmin) && !isCompleted" class="delete-btn cursor-pointer text-yellow-400" 
               routerLink="/editar-avance/{{avance.avance_id}}">
                 edit
               </mat-icon>
-              <mat-icon *ngIf="isOwner || isLoggedAdmin" class="delete-btn cursor-pointer" color="warn" 
+              <mat-icon *ngIf="(isOwner || isLoggedAdmin) && !isCompleted" class="delete-btn cursor-pointer" color="warn" 
               (click)="eliminarAvance(avance.avance_id, avance.nombre)">
                 delete_forever
               </mat-icon>

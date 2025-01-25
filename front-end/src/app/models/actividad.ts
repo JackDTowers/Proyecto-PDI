@@ -8,6 +8,7 @@ export interface Actividad {
   plazo: string;
   fecha_inicio: Date;
   fecha_fin: Date;
+  estado?: string;
   plan?: PlanDeAccion;
   avances?: Avance[];
 }

@@ -19,6 +19,7 @@ export class AvancesActividadComponent {
   actividad: Actividad | null = null;
   displayedColumns : string[] = ['Nombre', 'Fecha de Creación', 'Acciones'];
   avances : Avance[] | undefined;
+  isCompleted = false;
 
   constructor(
     private aRouter: ActivatedRoute,
@@ -32,6 +33,10 @@ export class AvancesActividadComponent {
       this.actividad = actividad;
       this.avances = actividad.avances;
       this.isOwner = this.pdiService.isOwner(this.actividad?.plan?.user_id!);
+      if (actividad.estado == '100' || actividad.estado?.toLowerCase() == 'completo'
+      || actividad.estado?.toLowerCase() == 'completado' || actividad.estado?.toLowerCase() == 'listo'){
+        this.isCompleted = true;
+      }
     })
     this.isLoggedAdmin = this.pdiService.isAdmin();
   }

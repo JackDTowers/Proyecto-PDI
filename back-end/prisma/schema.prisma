@@ -89,7 +89,7 @@ model ACTIVIDAD {
   desc_act      String
   responsable   String
   plazo         String
-  estado        String
+  estado        String @db.VarChar(20)
   fecha_inicio  DateTime
   fecha_fin     DateTime
   avances       REPORTEAVANCE[]

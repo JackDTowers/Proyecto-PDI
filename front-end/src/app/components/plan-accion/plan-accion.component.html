@@ -94,8 +94,7 @@
       <div class="flex w-4/12">
         <div class="border-r border-black py-2 px-4 w-4/12">{{actividad.fecha_inicio | date}}</div>
         <div class="border-r border-black py-2 px-4 w-4/12">{{actividad.fecha_fin | date}}</div>
-        <div class="py-2 px-4 w-4/12 flex justify-between">
-        </div>
+        <div class="py-2 px-4 w-4/12 flex justify-between">{{actividad.estado! | percent}}</div>
       </div>
     </div>
   </div>
