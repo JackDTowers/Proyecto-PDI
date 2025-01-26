@@ -439,6 +439,10 @@ export const editarEstado = async (req,res) => {
       throw new Error('El estado es requerido');
     }
 
+    if (estado.length > 20){
+      throw new Error('El estado sobrepasa los 20 caracteres');
+    }
+
     const actividad = await prisma.aCTIVIDAD.findUnique({
       where: { act_id: parsedId },
       include: { plan: true }

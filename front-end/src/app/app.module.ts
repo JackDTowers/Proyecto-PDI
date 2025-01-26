@@ -29,6 +29,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatMenuModule } from '@angular/material/menu';
 import { MatMomentDateModule, MomentDateAdapter, MAT_MOMENT_DATE_FORMATS, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 
@@ -105,7 +106,8 @@ registerLocaleData(localeEsCL, 'es-CL');
     MatChipsModule,
     MatDialogModule,
     MatTooltipModule,
-    MatMomentDateModule
+    MatMomentDateModule,
+    MatMenuModule
   ],
   providers: [
     {provide: MAT_DATE_LOCALE, useValue: 'es-CL'},

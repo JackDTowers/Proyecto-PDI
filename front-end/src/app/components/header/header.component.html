@@ -14,13 +14,29 @@
     </ul>
     </div>
     <div class="mx-10 text-white flex gap-2 items-center">
-      <mat-icon>
-        person
-      </mat-icon>
-      {{user}}
+      <div class="flex cursor-pointer" [matMenuTriggerFor]="menu">
+        <mat-icon>
+          person
+        </mat-icon>
+        {{user}}
+      </div>
       <mat-icon class="cursor-pointer ml-1" (click)="cerrarSesion()" aria-label="Cerrar Sesión" matTooltip="Cerrar Sesión">
         logout
       </mat-icon>
+      <mat-menu #menu="matMenu">
+        <div mat-menu-item class="flex items-center">
+          <mat-icon>
+            key
+          </mat-icon>
+          <span class="flex items-center text-sm">Cambiar Contraseña</span>
+        </div>
+        <div mat-menu-item class="flex items-center" (click)="cerrarSesion()">
+          <mat-icon>
+            logout
+          </mat-icon>
+          <span class="flex items-center text-sm">Cerrar Sesión</span>
+        </div>
+      </mat-menu>
     </div>
 </nav>
 

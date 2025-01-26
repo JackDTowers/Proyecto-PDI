@@ -58,14 +58,31 @@ export class AvancesActividadComponent {
     this.fetching = true;
     this.formActividad.disable();
     this.formActividad.updateValueAndValidity();
-    this.pdiService.editarEstadoActividad( parseInt(this.id!), this.formActividad.value.estado).subscribe(() => {
-      this.pdiService.getAvances(this.id!).subscribe((actividad) => {
-        this.actividad = actividad;
+    if (this.formActividad.value.estado == ''){
+      this.editingStat = false;
+      this.fetching = false;
+      this.formActividad.enable();
+      this.toastr.error('El estado no puedo quedar vacío', 'Error');
+      return;
+    }
+    this.pdiService.editarEstadoActividad( parseInt(this.id!), this.formActividad.value.estado).subscribe({
+      next: () => {
         this.editingStat = false;
         this.fetching = false;
         this.formActividad.enable();
-      })
-    })
+        this.toastr.success('El estado se ha actualizado con éxito', 'Estado Actualizado');
+        // Navegar a la misma ruta para reiniciar el componente
+        this.router.navigateByUrl('/act', { skipLocationChange: true }).then(() => {
+          this.router.navigate(['/actividad/' + this.id]);
+        });
+      },
+      error: (error) => {
+        this.editingStat = false;
+        this.fetching = false;
+        this.formActividad.enable();
+        this.toastr.error('Ha ocurrido un error al intentar actualizar el estado', 'Error');
+      }
+    });
   }
   
   cancelStat(){
