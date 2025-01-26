@@ -6,6 +6,7 @@ import { Avance } from 'src/app/models/avance';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../dialog/dialog.component';
 import { ToastrService } from 'ngx-toastr';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-avances-actividad',
@@ -20,14 +21,21 @@ export class AvancesActividadComponent {
   displayedColumns : string[] = ['Nombre', 'Resumen', 'Fecha de Creación', 'Acciones'];
   avances : Avance[] | undefined;
   isCompleted = false;
+  formActividad: FormGroup;
+  editingStat = false;
+  fetching = false;
 
   constructor(
     private aRouter: ActivatedRoute,
     private pdiService: PdiService,
     private dialog: MatDialog,
     private toastr: ToastrService,
-    private router: Router
+    private router: Router,
+    private formBuilder: FormBuilder
   ){
+    this.formActividad = this.formBuilder.group({
+      estado: ['', Validators.required]
+    })
     this.id = this.aRouter.snapshot.paramMap.get('id');
     this.pdiService.getAvances(this.id!).subscribe((actividad) => {
       this.actividad = actividad;
@@ -39,6 +47,29 @@ export class AvancesActividadComponent {
       }
     })
     this.isLoggedAdmin = this.pdiService.isAdmin();
+  }
+
+  editStat(){
+    this.editingStat = true;
+    this.formActividad.setValue({estado: this.actividad?.estado});
+  }
+
+  saveStat(){
+    this.fetching = true;
+    this.formActividad.disable();
+    this.formActividad.updateValueAndValidity();
+    this.pdiService.editarEstadoActividad( parseInt(this.id!), this.formActividad.value.estado).subscribe(() => {
+      this.pdiService.getAvances(this.id!).subscribe((actividad) => {
+        this.actividad = actividad;
+        this.editingStat = false;
+        this.fetching = false;
+        this.formActividad.enable();
+      })
+    })
+  }
+  
+  cancelStat(){
+    this.editingStat = false;
   }
 
   eliminarAvance(id: number, nombre: string) {

@@ -412,3 +412,65 @@ export const eliminarAvance = async (req,res) => {
     })
   }
 }
+
+//Editar el estado de una actividad
+export const editarEstado = async (req,res) => {
+  try {
+    const id = req.params.id
+
+    if (!id) {
+      return res.status(418).json({
+        message: "ID no proporcionado"
+      })
+    }
+
+    // Convertir el ID a un número y validar
+    const parsedId = parseInt(id);
+    if (isNaN(parsedId) || parsedId <= 0) {
+      return res.status(400).json({
+        message: "ID inválido"
+      })
+    }
+
+    const { estado } = await req.body;
+
+    // Validación de los datos
+    if (!estado) {
+      throw new Error('El estado es requerido');
+    }
+
+    const actividad = await prisma.aCTIVIDAD.findUnique({
+      where: { act_id: parsedId },
+      include: { plan: true }
+    });
+
+    if (!actividad) {
+      return res.status(418).json({
+        message: "La actividad no existe"
+      })
+    }
+
+    //Realizar validación de que el usuario sea el dueño del plan o que pueda editar solo admin si es que se requiere
+    //Validación de permisos para editar observaciones
+    if (actividad.plan.user_id != req.payloadDecoded.id_cuenta && req.payloadDecoded.is_admin != 1) {
+      return res.status(403).json({
+        message: "No tienes permisos para editar el estado de esta actividad."
+      })
+    }
+
+    await prisma.aCTIVIDAD.update({
+      where: { act_id: parsedId },
+      data: {
+        estado: estado,
+      }
+    });
+    return res.status(200).json({
+      message: "Estado de actividad actualizado!"
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message:"Something goes wrong",
+      error: error.message
+    })
+  }
+}

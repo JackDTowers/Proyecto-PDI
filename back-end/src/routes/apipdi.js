@@ -6,7 +6,7 @@ import { crearUsuario, eliminarUsuario, getUsers } from '../controllers/usuarios
 import { getMapaEstrategico } from '../controllers/mapaestrategico.js';
 import { crearPlan, editarObservaciones, editarPlan, eliminarPlan, getPlan, getPlanes, getPlanesxUsuario } from '../controllers/planes.js';
 import { checkToken, isAdmin, login, whosUser } from '../controllers/auth.js';
-import { crearAvance, editarAvance, eliminarAvance, getArchivo, getAvance, getAvances, upload } from '../controllers/avances.js';
+import { crearAvance, editarAvance, editarEstado, eliminarAvance, getArchivo, getAvance, getAvances, upload } from '../controllers/avances.js';
 
 const router = Router();
 const MAXFILES = 10;
@@ -41,6 +41,9 @@ router.post('/planes', checkToken, isAdmin, crearPlan)
 router.patch('/planes/:id', checkToken, editarObservaciones)
 router.put('/planes/:id', checkToken, isAdmin, editarPlan)
 router.delete('/planes/:id', checkToken, isAdmin, eliminarPlan)
+
+//Ruta Actividad
+router.patch('/actividades/:id', checkToken, editarEstado)
 
 //Rutas Avance
 router.get('/actividades/:id', getAvances)

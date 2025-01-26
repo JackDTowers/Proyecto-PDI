@@ -24,8 +24,25 @@
       <p>{{actividad.fecha_fin | date}}</p>
     </div>
     <div>
-      <p class="font-semibold">Estado</p>
-      <p>{{actividad.estado! | percent}}</p>
+      <div class="flex gap-2">
+        <p class="font-semibold">Estado</p>
+        <mat-icon class="text-white hover:text-black/55 text-base cursor-pointer" (click)="editStat()">edit</mat-icon>
+      </div>
+      <p *ngIf="!editingStat">{{actividad.estado! | percent}}</p>
+      <div *ngIf="editingStat" class="flex gap-2">
+        <form [formGroup]="formActividad">
+          <mat-form-field appearance="outline" class="w-full" hideRequiredMarker="true" color="primary">
+            <input type="text" matInput formControlName="estado">
+          </mat-form-field>
+          <mat-error *ngIf="formActividad.controls['estado'].hasError('required')">
+            El estado es <strong>requerido</strong>
+          </mat-error>
+        </form>
+        <div class="flex gap-1">
+          <mat-icon *ngIf="!fetching" class="text-[#4B77D1]" (click)="saveStat()">save</mat-icon>
+          <mat-icon *ngIf="!fetching" class="text-[#EA4335]" (click)="cancelStat()">cancel</mat-icon>
+        </div>
+      </div>
     </div>
   </div>
   <div class="flex justify-between">

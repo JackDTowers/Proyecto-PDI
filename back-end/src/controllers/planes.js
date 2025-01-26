@@ -166,62 +166,6 @@ export const crearPlan = async (req,res) => {
   }
 }
 
-//Editar el estado de una actividad
-export const editarEstado = async (req,res) => {
-  try {
-    const id = req.params.id
-
-    if (!id) {
-      return res.status(418).json({
-        message: "ID no proporcionado"
-      })
-    }
-
-    // Convertir el ID a un número y validar
-    const parsedId = parseInt(id);
-    if (isNaN(parsedId) || parsedId <= 0) {
-      return res.status(400).json({
-        message: "ID inválido"
-      })
-    }
-
-    const { observaciones } = await req.body;
-
-    const plan = await prisma.pLANDEACCION.findUnique({
-      where: { plan_id: parsedId },
-    });
-
-    if (!plan) {
-      return res.status(418).json({
-        message: "El plan de acción no existe"
-      })
-    }
-
-    //Realizar validación de que el usuario sea el dueño del plan o que pueda editar solo admin si es que se requiere
-    //Validación de permisos para editar observaciones
-    if (plan.user_id != req.payloadDecoded.id_cuenta && req.payloadDecoded.is_admin != 1) {
-      return res.status(403).json({
-        message: "No tienes permisos para editar el estado de esta actividad."
-      })
-    }
-
-    // await prisma.pLANDEACCION.update({
-    //   where: { plan_id: parsedId },
-    //   data: {
-    //     observaciones: observaciones,
-    //   }
-    // });
-    return res.status(200).json({
-      message: "Estado de actividad actualizado!"
-    });
-  } catch (error) {
-    return res.status(500).json({
-      message:"Something goes wrong",
-      error: error.message
-    })
-  }
-}
-
 //Editar las observaciones de un plan de acción
 export const editarObservaciones = async (req,res) => {
   try {
@@ -439,6 +383,7 @@ export const editarPlan = async (req, res) => {
                 plazo: actividad.plazo,
                 fecha_inicio: actividad.fecha_inicio,
                 fecha_fin: actividad.fecha_fin,
+                estado: '0'
               })),
             },
           }
