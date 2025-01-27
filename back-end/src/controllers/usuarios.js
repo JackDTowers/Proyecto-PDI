@@ -1,5 +1,5 @@
 import { prisma } from '../config/db.js';
-import { hash } from 'bcrypt';
+import { hash, compare } from 'bcrypt';
 import { Prisma } from '@prisma/client';
 
 //Obtener todos los usuarios
@@ -34,6 +34,9 @@ export const crearUsuario = async (req, res) => {
     }
 
     // Aquí podrías agregar más validaciones, como formato de email, longitud de contraseña, etc.
+    if (contrasena.length < 8){
+      throw new Error('La contraseña debe contener como mínimo 8 caracteres');
+    }
 
     await prisma.uSUARIO.create({
       data: {
@@ -67,6 +70,77 @@ export const crearUsuario = async (req, res) => {
       message: "Something goes wrong",
       error: e.message
     });
+  }
+}
+
+//Cambiar contraseña
+export const cambiarClave = async (req, res) => {
+  try {
+    const id = req.params.id
+    if (!id) {
+      return res.status(418).json({
+        message: "ID no proporcionado"
+      })
+    }
+
+    // Convertir el ID a un número y validar
+    const parsedId = parseInt(id);
+    if (isNaN(parsedId) || parsedId <= 0) {
+      return res.status(400).json({
+        message: "ID inválido"
+      })
+    }
+
+    const { claveAntigua, claveNueva, claveRepetida } = await req.body;
+
+    //Realizar validación de que el usuario sea el dueño de la cuenta (está logueado)
+    if (parsedId != req.payloadDecoded.id_cuenta) {
+      return res.status(403).json({
+        message: "No tienes permisos para editar la clave de esta cuenta!"
+      })
+    }
+
+    // Validación de los datos
+    if (!claveAntigua || !claveNueva || !claveRepetida) {
+      throw new Error('Todos los campos son requeridos');
+    }
+
+    if (claveNueva.length < 8){
+      throw new Error('La contraseña debe contener 8 carácteres como mínimo');
+    }
+
+    if (claveNueva != claveRepetida){
+      throw new Error('La nueva contraseña no coincide con su confirmación');
+    }
+
+    const user = await prisma.uSUARIO.findUnique({
+      where: { id_cuenta: parsedId }
+    })
+
+    const passwordIsValid = await compare(claveAntigua, user.contrasena)
+
+    if(!passwordIsValid){
+      return res.status(400).json({
+        message: "La clave antigua proporcionada no es correcta."
+      })
+    }
+
+    await prisma.uSUARIO.update({
+      where: { id_cuenta: parsedId },
+      data: {
+        contrasena: await hash(claveNueva, 10)
+      }
+    });
+
+    return res.status(200).json({
+      message: "Contraseña actualizada con éxito"
+    });
+  }
+  catch (error){
+    return res.status(500).json({
+      message:"No se pudo cambiar la contraseña",
+      error: error.message
+    })
   }
 }
 

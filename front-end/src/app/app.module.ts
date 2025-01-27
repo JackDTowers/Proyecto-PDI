@@ -50,6 +50,7 @@ import { CrearAvanceComponent } from './components/crear-avance/crear-avance.com
 import { ListaUsuariosComponent } from './components/lista-usuarios/lista-usuarios.component';
 import { PlanesAsignadosComponent } from './components/planes-asignados/planes-asignados.component';
 import { DialogComponent } from './components/dialog/dialog.component';
+import { DialogContraComponent } from './components/header/dialog-contra/dialog-contra.component';
 import { PipeNewLinePipe } from './pipes/pipe-new-line.pipe';
 import { PercentPipe } from './pipes/percent.pipe';
 import 'moment/locale/es';
@@ -73,6 +74,7 @@ registerLocaleData(localeEsCL, 'es-CL');
     ListaUsuariosComponent,
     PlanesAsignadosComponent,
     DialogComponent,
+    DialogContraComponent,
     PipeNewLinePipe,
     PercentPipe
   ],

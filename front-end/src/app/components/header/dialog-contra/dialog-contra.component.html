@@ -1,0 +1,36 @@
+<h1 mat-dialog-title>Cambio de Contraseña</h1>
+<div mat-dialog-content>
+  <form [formGroup]="contraForm">
+    <p class="text-sm">Antigua contraseña</p>
+    <mat-form-field appearance="outline" class="w-full" hideRequiredMarker="true" color="primary">
+      <input type="password" matInput formControlName="old_pass">
+      <mat-error *ngIf="contraForm.controls['old_pass'].hasError('required')" class="text-xs">
+        La contraseña antigua es <strong>requerida</strong>
+      </mat-error>
+    </mat-form-field>
+    <p class="text-sm">Nueva contraseña</p>
+    <mat-form-field appearance="outline" class="w-full" hideRequiredMarker="true" color="primary">
+      <input type="password" matInput formControlName="new_pass">
+      <mat-error *ngIf="contraForm.controls['new_pass'].hasError('minlength') && !contraForm.controls['new_pass'].hasError('required')" class="text-xs">
+        Por favor ingrese una contraseña que contenga mínimo 8 carácteres
+      </mat-error>
+      <mat-error *ngIf="contraForm.controls['new_pass'].hasError('required')" class="text-xs">
+        La contraseña nueva es <strong>requerida</strong>
+      </mat-error>
+    </mat-form-field>
+    <p class="text-sm">Repita nueva contraseña</p>
+    <mat-form-field appearance="outline" class="w-full" hideRequiredMarker="true" color="primary">
+      <input type="password" matInput formControlName="rep_new_pass">
+      <mat-error *ngIf="contraForm.controls['rep_new_pass'].hasError('required')" class="text-xs">
+        La confirmación de contraseña es <strong>requerida</strong>
+      </mat-error>
+      <mat-error *ngIf="contraForm.controls['rep_new_pass'].hasError('matching')" class="text-xs">
+        Las contraseñas no coinciden
+      </mat-error>
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions class="flex justify-end">
+  <button mat-button [mat-dialog-close]="false">Cancelar</button>
+  <button [disabled]="contraForm.invalid || fetching" mat-button (click)="cambiarContra()">Cambiar Contraseña</button>
+</div>

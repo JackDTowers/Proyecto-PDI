@@ -93,6 +93,10 @@ export class PdiService {
     return this.http.post(this.url + '/usuarios', user, this.createHeaders())
   }
 
+  cambiarClave(claveForm: any, id: number): Observable<any>{
+    return this.http.patch(this.url + '/usuarios/' + id, claveForm, this.createHeaders())
+  }
+
   eliminarUsuario(id: number): Observable<any>{
     return this.http.delete(this.url + '/usuarios/' + id, this.createHeaders())
   }
