@@ -17,6 +17,8 @@ export class IniciarSesionComponent {
   portada = '../../../assets/img/portada.png';
   loginForm : FormGroup;
   matcher = new MyErrorStateMatcher();
+  typeForm = 'password';
+  iconView = 'visibility_off';
 
   constructor(
     private formBuilder: FormBuilder,
@@ -29,6 +31,17 @@ export class IniciarSesionComponent {
       contrasena: ['', Validators.required],
     });
     localStorage.removeItem('token'); //por si se devuelve al login cierra sesión
+  }
+
+  changeType(): void{
+    if(this.typeForm == 'password'){
+      this.typeForm = 'text';
+      this.iconView = 'visibility';
+    }
+    else{
+      this.typeForm = 'password';
+      this.iconView = 'visibility_off';
+    }
   }
 
   ingresar(){

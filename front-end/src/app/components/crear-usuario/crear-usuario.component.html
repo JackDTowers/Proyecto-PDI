@@ -53,7 +53,10 @@
                 <span><i class="fa-solid fa-lock text-4xl px-5"></i></span>
                 <mat-form-field appearance="outline" class="w-9/12" hideRequiredMarker="true" color="primary">
                     <mat-label>Contraseña</mat-label>
-                    <input type="password" matInput formControlName="contrasena" [errorStateMatcher]="matcher">
+                    <input type={{types[0].typeForm}} matInput formControlName="contrasena" [errorStateMatcher]="matcher">
+                    <button matSuffix type="button" mat-icon-button aria-label="view" (click)="changeType(0)">
+                        <mat-icon class="text-[#64748b]">{{types[0].iconView}}</mat-icon>
+                    </button>
                     <mat-error *ngIf="userForm.controls['contrasena'].hasError('minlength') && !userForm.controls['contrasena'].hasError('required')">
                         Por favor ingrese una contraseña que contenga mínimo 8 carácteres
                     </mat-error>
@@ -68,7 +71,10 @@
                 <span><i class="fa-solid fa-lock text-4xl px-5"></i></span>
                 <mat-form-field appearance="outline" class="w-9/12" hideRequiredMarker="true" color="primary">
                     <mat-label>Confirmación Contraseña</mat-label>
-                    <input type="password" matInput formControlName="verify_pass" [errorStateMatcher]="matcher">
+                    <input type={{types[1].typeForm}} matInput formControlName="verify_pass" [errorStateMatcher]="matcher">
+                    <button matSuffix type="button" mat-icon-button aria-label="view" (click)="changeType(1)">
+                        <mat-icon class="text-[#64748b]">{{types[1].iconView}}</mat-icon>
+                    </button>
                     <mat-error *ngIf="userForm.controls['verify_pass'].hasError('minlength') && !userForm.controls['verify_pass'].hasError('required')">
                         Por favor ingrese una contraseña que contenga mínimo 8 carácteres
                     </mat-error>

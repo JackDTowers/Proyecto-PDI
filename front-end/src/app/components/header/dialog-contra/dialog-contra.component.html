@@ -3,14 +3,20 @@
   <form [formGroup]="contraForm">
     <p class="text-sm">Antigua contraseña</p>
     <mat-form-field appearance="outline" class="w-full" hideRequiredMarker="true" color="primary">
-      <input type="password" matInput formControlName="old_pass">
+      <input type={{types[0].typeForm}} matInput formControlName="old_pass">
+      <button matSuffix type="button" mat-icon-button aria-label="view" (click)="changeType(0)">
+        <mat-icon class="text-[#64748b]">{{types[0].iconView}}</mat-icon>
+      </button>
       <mat-error *ngIf="contraForm.controls['old_pass'].hasError('required')" class="text-xs">
         La contraseña antigua es <strong>requerida</strong>
       </mat-error>
     </mat-form-field>
     <p class="text-sm">Nueva contraseña</p>
     <mat-form-field appearance="outline" class="w-full" hideRequiredMarker="true" color="primary">
-      <input type="password" matInput formControlName="new_pass">
+      <input type={{types[1].typeForm}} matInput formControlName="new_pass">
+      <button matSuffix type="button" mat-icon-button aria-label="view" (click)="changeType(1)">
+        <mat-icon class="text-[#64748b]">{{types[1].iconView}}</mat-icon>
+      </button>
       <mat-error *ngIf="contraForm.controls['new_pass'].hasError('minlength') && !contraForm.controls['new_pass'].hasError('required')" class="text-xs">
         Por favor ingrese una contraseña que contenga mínimo 8 carácteres
       </mat-error>
@@ -20,7 +26,10 @@
     </mat-form-field>
     <p class="text-sm">Repita nueva contraseña</p>
     <mat-form-field appearance="outline" class="w-full" hideRequiredMarker="true" color="primary">
-      <input type="password" matInput formControlName="rep_new_pass">
+      <input type={{types[2].typeForm}} matInput formControlName="rep_new_pass">
+      <button matSuffix type="button" mat-icon-button aria-label="view" (click)="changeType(2)">
+        <mat-icon class="text-[#64748b]">{{types[2].iconView}}</mat-icon>
+      </button>
       <mat-error *ngIf="contraForm.controls['rep_new_pass'].hasError('required')" class="text-xs">
         La confirmación de contraseña es <strong>requerida</strong>
       </mat-error>

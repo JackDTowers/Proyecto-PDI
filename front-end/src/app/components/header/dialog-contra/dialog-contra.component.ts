@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { PdiService } from 'src/app/services/pdi.service';
 import Validation from '../../../utils/validation';
-import { MyErrorStateMatcher } from '../../crear-usuario/crear-usuario.component';
+import { MyErrorStateMatcher, TypeForm } from '../../crear-usuario/crear-usuario.component';
 
 interface FormatContraForm {
   claveAntigua: string;
@@ -22,6 +22,7 @@ export class DialogContraComponent {
   matcher = new MyErrorStateMatcher();
   id: number = 0;
   fetching = false;
+  types: TypeForm[] = [];
 
   constructor(
     public dialogRef: MatDialogRef<DialogContraComponent>,
@@ -40,6 +41,20 @@ export class DialogContraComponent {
       }
     )
     this.id = this.pdiService.getUserIdLogged();
+    for (let i = 0; i < 3; i++){
+      this.types.push({typeForm: 'password', iconView: 'visibility_off'})
+    }
+  }
+
+  changeType(index: number): void{
+    if(this.types[index].typeForm == 'password'){
+      this.types[index].typeForm = 'text';
+      this.types[index].iconView = 'visibility';
+    }
+    else{
+      this.types[index].typeForm = 'password';
+      this.types[index].iconView = 'visibility_off';
+    }
   }
 
   cambiarContra(){

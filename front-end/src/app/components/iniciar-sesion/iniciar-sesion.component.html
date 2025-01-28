@@ -25,7 +25,10 @@
       </mat-form-field>
       <mat-form-field appearance="outline" class="w-full mt-2" hideRequiredMarker="true" color="primary">
         <mat-label>Contraseña</mat-label>
-        <input type="password" matInput formControlName="contrasena" [errorStateMatcher]="matcher">
+        <input type={{typeForm}} matInput formControlName="contrasena" [errorStateMatcher]="matcher">
+        <button matSuffix type="button" mat-icon-button aria-label="view" (click)="changeType()">
+          <mat-icon class="text-[#64748b]">{{iconView}}</mat-icon>
+        </button>
         <mat-error *ngIf="loginForm.controls['contrasena'].hasError('required')">
           La contraseña es <strong>requerida</strong>
         </mat-error>

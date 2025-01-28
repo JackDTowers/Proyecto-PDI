@@ -15,6 +15,11 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   }
 }
 
+export interface TypeForm {
+  typeForm: string;
+  iconView: string;
+}
+
 @Component({
   selector: 'app-crear-usuario',
   templateUrl: './crear-usuario.component.html',
@@ -25,6 +30,7 @@ export class CrearUsuarioComponent {
   id: string | null;
   userForm : FormGroup
   matcher = new MyErrorStateMatcher();
+  types: TypeForm[] = [];
 
   constructor( 
     private formBuilder: FormBuilder,
@@ -47,16 +53,26 @@ export class CrearUsuarioComponent {
         validators: [Validation.match('correo', 'verify_correo'), Validation.match('contrasena', 'verify_pass')]
       }
     );
-    this.id = this.aRouter.snapshot.paramMap.get('id')
+    this.id = this.aRouter.snapshot.paramMap.get('id');
+    this.types = [{typeForm: 'password', iconView: 'visibility_off'}, {typeForm: 'password', iconView: 'visibility_off'}]
   }
 
   ngOnInit(): void{
     this.esEditar();
   }
 
-  ingresar(){
-    //Faltan aún más validaciones a este nivel y a nivel back
+  changeType(index: number): void{
+    if(this.types[index].typeForm == 'password'){
+      this.types[index].typeForm = 'text';
+      this.types[index].iconView = 'visibility';
+    }
+    else{
+      this.types[index].typeForm = 'password';
+      this.types[index].iconView = 'visibility_off';
+    }
+  }
 
+  ingresar(){
     this.userForm.disable() //Para que no pueda volver apretar el botón
     this.userForm.updateValueAndValidity();
 
