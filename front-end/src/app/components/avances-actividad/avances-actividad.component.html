@@ -26,7 +26,7 @@
     <div>
       <div class="flex gap-2">
         <p class="font-semibold">Estado</p>
-        <mat-icon class="text-white hover:text-black/55 text-base cursor-pointer" (click)="editStat()">edit</mat-icon>
+        <mat-icon *ngIf="isLoggedAdmin || isOwner" class="text-white hover:text-black/55 text-base cursor-pointer" (click)="editStat()">edit</mat-icon>
       </div>
       <p *ngIf="!editingStat">{{actividad.estado! | percent}}</p>
       <div *ngIf="editingStat" class="flex gap-2">
