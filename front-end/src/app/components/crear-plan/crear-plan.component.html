@@ -185,9 +185,9 @@
                 </mat-form-field>
               </div>
               <div class="w-2/12">
-                <mat-icon *ngIf="!editing" class="delete-btn cursor-pointer" color="warn" (click)="eliminarIndicador(i)">delete_forever</mat-icon>
-                <mat-icon *ngIf="editing" class="delete-btn cursor-pointer" color="warn" 
-                (click)="eliminarIndicador(i, indicadorForm.controls['ind_plan_id'].value)">delete_forever</mat-icon>
+                <mat-icon *ngIf="!editing" class="delete-btn cursor-pointer" color="warn" (click)="eliminarIndicador(i)" matTooltip="Eliminar Indicador">delete_forever</mat-icon>
+                <mat-icon *ngIf="editing" class="delete-btn cursor-pointer" color="warn" matTooltip="Eliminar Indicador"
+                (click)="eliminarIndicador(i, indicadorForm.controls['ind_plan_id'].value)" >delete_forever</mat-icon>
               </div>
             </div>
           </div>
@@ -311,8 +311,8 @@
                 </mat-form-field>
               </div>
               <div class="w-2/12">
-                <mat-icon *ngIf="!editing" class="delete-btn cursor-pointer" color="warn" (click)="eliminarActividad(j)">delete_forever</mat-icon>
-                <mat-icon *ngIf="editing" class="delete-btn cursor-pointer" color="warn"
+                <mat-icon *ngIf="!editing" class="delete-btn cursor-pointer" color="warn" (click)="eliminarActividad(j)" matTooltip="Eliminar Actividad">delete_forever</mat-icon>
+                <mat-icon *ngIf="editing" class="delete-btn cursor-pointer" color="warn" matTooltip="Eliminar Actividad"
                  (click)="eliminarActividad(j, actividadForm.controls['act_id'].value)">delete_forever</mat-icon>
               </div>
             </div>

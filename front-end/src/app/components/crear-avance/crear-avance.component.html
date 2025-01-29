@@ -44,7 +44,7 @@
                   <div class="w-[80%]">
                     <div class="text-left break-words">{{archivo.nombre}}</div>
                   </div>
-                  <mat-icon *ngIf="editing" class="delete-btn cursor-pointer" color="warn"
+                  <mat-icon *ngIf="editing" class="delete-btn cursor-pointer" color="warn" matTooltip="Eliminar Archivo"
                   (click)="eliminarArchivo(archivo.archivo_id, i)">delete_forever</mat-icon>
                 </div>
               </ng-container>
