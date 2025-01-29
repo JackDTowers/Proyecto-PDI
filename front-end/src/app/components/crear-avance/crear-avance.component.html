@@ -42,7 +42,7 @@
               <ng-container *ngFor="let archivo of avance?.archivos; let i = index" >
                 <div class="flex justify-between items-center">
                   <div class="w-[80%]">
-                    <div class="text-left break-words">{{archivo.nombre}}</div>
+                    <div class="text-left break-words">{{archivo.nombreOriginal}}</div>
                   </div>
                   <mat-icon *ngIf="editing" class="delete-btn cursor-pointer" color="warn" matTooltip="Eliminar Archivo"
                   (click)="eliminarArchivo(archivo.archivo_id, i)">delete_forever</mat-icon>

@@ -20,7 +20,7 @@
       <p class="font-semibold">Archivos</p>
       <div *ngFor="let archivo of avance.archivos">
         <p>{{archivo.nombreOriginal}}</p>
-        <button mat-flat-button color="primary" class="mb-3" aria-label="Descargar Archivo" (click)="descargarArchivo(archivo.nombre, archivo.archivo_id)">
+        <button mat-flat-button color="primary" class="mb-3" aria-label="Descargar Archivo" (click)="descargarArchivo(archivo.nombreOriginal, archivo.archivo_id)">
           Descargar Archivo
         </button>
       </div>
