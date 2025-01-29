@@ -1,0 +1,3 @@
+detalles:
+quiero que al actualizar plan navegue al mismo plan o dependiendo del id
+ver contraseña

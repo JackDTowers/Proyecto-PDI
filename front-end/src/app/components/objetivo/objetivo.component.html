@@ -25,16 +25,16 @@
       {{plan.responsable.nombre}}
     </div>
     <div *ngIf="isLoggedAdmin" class="flex w-2/12 items-center justify-center gap-3">
-      <div class="cursor-pointer bg-[#FFBF30] flex flex-col items-center justify-center p-2 opacity-80" (click)="editPlan(plan.plan_id)">
+      <div class="cursor-pointer bg-[#FFBF30] flex flex-col items-center justify-center p-2 opacity-80" (click)="editPlan(plan.plan_id)" matTooltip="Editar Plan">
         <mat-icon class="text-white">edit</mat-icon>
       </div>
-      <div class="cursor-pointer bg-[#EA4335] flex flex-col items-center justify-center p-2 opacity-80" (click)="eliminarPlan(plan.plan_id)">
+      <div class="cursor-pointer bg-[#EA4335] flex flex-col items-center justify-center p-2 opacity-80" (click)="eliminarPlan(plan.plan_id)" matTooltip="Eliminar Plan">
         <mat-icon class="text-white">delete</mat-icon>
       </div>
     </div>
   </div>
   <div *ngIf="isLoggedAdmin" class="w-10/12 text-center mx-16">
-    <button mat-mini-fab color="primary" aria-label="Crear Plan" routerLink="/crear-plan/{{objetivo.cod_obj}}">
+    <button mat-mini-fab color="primary" aria-label="Crear Plan" routerLink="/crear-plan/{{objetivo.cod_obj}}" matTooltip="Crear Plan">
       <mat-icon>add</mat-icon>
     </button>
   </div>

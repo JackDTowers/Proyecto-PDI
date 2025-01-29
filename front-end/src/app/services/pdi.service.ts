@@ -5,7 +5,6 @@ import { User } from '../models/user';
 import { Objetivo } from '../models/objetivo';
 import { PlanDeAccion } from '../models/plan';
 import { Avance } from '../models/avance';
-import { Action } from 'rxjs/internal/scheduler/Action';
 import { Actividad } from '../models/actividad';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';

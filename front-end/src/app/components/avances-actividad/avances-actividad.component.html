@@ -26,7 +26,7 @@
     <div>
       <div class="flex gap-2">
         <p class="font-semibold">Estado</p>
-        <mat-icon *ngIf="isLoggedAdmin || isOwner" class="text-white hover:text-black/55 text-base cursor-pointer" (click)="editStat()">edit</mat-icon>
+        <mat-icon *ngIf="isLoggedAdmin || isOwner" class="text-white hover:text-black/55 text-base cursor-pointer" (click)="editStat()" matTooltip="Editar estado">edit</mat-icon>
       </div>
       <p *ngIf="!editingStat">{{actividad.estado! | percent}}</p>
       <div *ngIf="editingStat" class="flex gap-2">
@@ -39,8 +39,8 @@
           </mat-error>
         </form>
         <div class="flex gap-1">
-          <mat-icon *ngIf="!fetching" class="text-[#4B77D1]" (click)="saveStat()">save</mat-icon>
-          <mat-icon *ngIf="!fetching" class="text-[#EA4335]" (click)="cancelStat()">cancel</mat-icon>
+          <mat-icon *ngIf="!fetching" class="text-[#4B77D1] cursor-pointer" (click)="saveStat()" matTooltip="Guardar">save</mat-icon>
+          <mat-icon *ngIf="!fetching" class="text-[#EA4335] cursor-pointer" (click)="cancelStat()" matTooltip="Cancelar">cancel</mat-icon>
         </div>
       </div>
     </div>
@@ -71,15 +71,15 @@
           <th mat-header-cell *matHeaderCellDef> Acciones </th>
           <td mat-cell *matCellDef="let avance">
             <div class="flex items-center gap-3">
-              <a [routerLink]="['/ver-avance/' + avance.avance_id]">
+              <a [routerLink]="['/ver-avance/' + avance.avance_id]" matTooltip="Ver">
                 <i class="fa-solid fa-eye text-[#4B77D1]"></i>
               </a>
               <mat-icon *ngIf="(isOwner || isLoggedAdmin) && !isCompleted" class="delete-btn cursor-pointer text-yellow-400" 
-              routerLink="/editar-avance/{{avance.avance_id}}">
+              routerLink="/editar-avance/{{avance.avance_id}}" matTooltip="Editar">
                 edit
               </mat-icon>
               <mat-icon *ngIf="(isOwner || isLoggedAdmin) && !isCompleted" class="delete-btn cursor-pointer" color="warn" 
-              (click)="eliminarAvance(avance.avance_id, avance.nombre)">
+              (click)="eliminarAvance(avance.avance_id, avance.nombre)" matTooltip="Eliminar">
                 delete_forever
               </mat-icon>
             </div>

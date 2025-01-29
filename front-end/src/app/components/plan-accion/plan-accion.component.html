@@ -102,7 +102,7 @@
     <div class="border-b border-black bg-[#717171]/30 py-2 px-4 font-medium flex justify-between items-center">
       OBSERVACIONES
       <div *ngIf="isLoggedAdmin || isOwner">
-        <div class="cursor-pointer bg-[#FBBC04] flex flex-col items-center justify-center p-1" (click)="addObs()">
+        <div class="cursor-pointer bg-[#FBBC04] flex flex-col items-center justify-center p-1" (click)="addObs()" matTooltip="Editar Observaciones">
           <mat-icon class="text-white">edit</mat-icon>
         </div>
       </div>
@@ -117,10 +117,10 @@
     <div class="border-b border-black bg-[#717171]/30 px-4 font-medium flex justify-between items-center">
       OBSERVACIONES
       <div *ngIf="isLoggedAdmin || isOwner" class="flex gap-2">
-        <div *ngIf="!fetching" class="cursor-pointer bg-red-600 flex flex-col items-center justify-center p-1 my-1" (click)="cancelObs()">
+        <div *ngIf="!fetching" class="cursor-pointer bg-red-600 flex flex-col items-center justify-center p-1 my-1" (click)="cancelObs()" matTooltip="Cancelar">
           <mat-icon class="text-white" aria-label="cancelar">close</mat-icon>
         </div>
-        <div *ngIf="!fetching" class="cursor-pointer bg-[#4B77D1] flex flex-col items-center justify-center p-1 my-1" (click)="saveObs()">
+        <div *ngIf="!fetching" class="cursor-pointer bg-[#4B77D1] flex flex-col items-center justify-center p-1 my-1" (click)="saveObs()" matTooltip="Guardar">
           <mat-icon class="text-white" aria-label="guardar">save</mat-icon>
         </div>
       </div>
