@@ -121,7 +121,6 @@ export class CrearUsuarioComponent {
         cargo: this.userForm.get('cargo')?.value,
         isAdmin: is_admin
       };
-      console.log(this.id)
       this.pdiService.editarUsuario(USER, parseInt(this.id!)).subscribe(
         (response) => {
           this.toastr.success('Datos ingresados correctamente', 'Usuario Actualizado!');
