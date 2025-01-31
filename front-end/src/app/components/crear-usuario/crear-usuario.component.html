@@ -31,7 +31,7 @@
               </div>
           </div>
           <div class="mb-3">
-            <div class="form-group sm:justify-center">
+            <div *ngIf="!isEditar" class="form-group sm:justify-center">
                 <span><i class="fa-regular fa-envelope text-4xl px-5"></i></span>
                 <mat-form-field appearance="outline" class="w-9/12" hideRequiredMarker="true" color="primary">
                     <mat-label>Confirmación Correo</mat-label>
@@ -52,7 +52,7 @@
             <div class="form-group sm:justify-center">
                 <span><i class="fa-solid fa-lock text-4xl px-5"></i></span>
                 <mat-form-field appearance="outline" class="w-9/12" hideRequiredMarker="true" color="primary">
-                    <mat-label>Contraseña</mat-label>
+                    <mat-label>{{contraLabel}}</mat-label>
                     <input type={{types[0].typeForm}} matInput formControlName="contrasena" [errorStateMatcher]="matcher">
                     <button matSuffix type="button" mat-icon-button aria-label="view" (click)="changeType(0)">
                         <mat-icon class="text-[#64748b]">{{types[0].iconView}}</mat-icon>
@@ -60,7 +60,7 @@
                     <mat-error *ngIf="userForm.controls['contrasena'].hasError('minlength') && !userForm.controls['contrasena'].hasError('required')">
                         Por favor ingrese una contraseña que contenga mínimo 8 carácteres
                     </mat-error>
-                    <mat-error *ngIf="userForm.controls['contrasena'].hasError('required')">
+                    <mat-error *ngIf="!isEditar && userForm.controls['contrasena'].hasError('required')">
                         La contraseña confirmación es <strong>requerida</strong>
                     </mat-error>
                 </mat-form-field>
@@ -78,7 +78,7 @@
                     <mat-error *ngIf="userForm.controls['verify_pass'].hasError('minlength') && !userForm.controls['verify_pass'].hasError('required')">
                         Por favor ingrese una contraseña que contenga mínimo 8 carácteres
                     </mat-error>
-                    <mat-error *ngIf="userForm.controls['verify_pass'].hasError('required')">
+                    <mat-error *ngIf="!isEditar && userForm.controls['verify_pass'].hasError('required')">
                         La contraseña confirmación es <strong>requerida</strong>
                     </mat-error>
                     <mat-error *ngIf="userForm.controls['verify_pass'].hasError('matching')">

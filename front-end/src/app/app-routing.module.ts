@@ -24,6 +24,7 @@ const routes: Routes = [
   { path: 'editar-plan/:id', component: CrearPlanComponent, canActivate: [loginGuard, adminGuard] },
   { path: 'gestion-usuarios', component: ListaUsuariosComponent, canActivate: [loginGuard, adminGuard] },
   { path: 'crear-usuario', component: CrearUsuarioComponent, canActivate: [loginGuard, adminGuard] },
+  { path: 'editar-usuario/:id', component: CrearUsuarioComponent, canActivate: [loginGuard, adminGuard] },
   { path: 'actividad/:id', component: AvancesActividadComponent, canActivate: [loginGuard] },
   { path: 'crear-avance/:id', component: CrearAvanceComponent, canActivate: [loginGuard] },
   { path: 'editar-avance/:id', component: CrearAvanceComponent, canActivate: [loginGuard] },

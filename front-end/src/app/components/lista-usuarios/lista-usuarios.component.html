@@ -41,10 +41,10 @@
         <ng-container matColumnDef="Acciones">
           <th mat-header-cell *matHeaderCellDef> Acciones </th>
           <td mat-cell *matCellDef="let usuario">
-            <!-- <a [routerLink]="['/ver-usuario/' + usuario.id_cuenta]">
-              <i class="fa-solid fa-eye"></i>
-            </a> -->
-            <mat-icon class="delete-btn cursor-pointer" color="warn" (click)="eliminarUsuario(usuario.id_cuenta, usuario.correo)" matTooltip="Eliminar Cuenta">person_remove</mat-icon>
+            <div class="flex gap-2 w-full">
+              <mat-icon class="delete-btn cursor-pointer text-yellow-400" routerLink="/editar-usuario/{{usuario.id_cuenta}}"  matTooltip="Editar Cuenta">edit</mat-icon>
+              <mat-icon class="delete-btn cursor-pointer" color="warn" (click)="eliminarUsuario(usuario.id_cuenta, usuario.correo)" matTooltip="Eliminar Cuenta">person_remove</mat-icon>
+            </div>
           </td>
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

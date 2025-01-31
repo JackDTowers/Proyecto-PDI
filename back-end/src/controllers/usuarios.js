@@ -23,6 +23,43 @@ export const getUsers = async (req,res) => {
   }
 }
 
+//Obtener Usuario
+export const getUser = async (req,res) => {
+  try {
+    const id = req.params.id
+    if (!id) {
+      return res.status(418).json({
+        message: "ID no proporcionado"
+      })
+    }
+
+    // Convertir el ID a un número y validar
+    const parsedId = parseInt(id);
+    if (isNaN(parsedId) || parsedId <= 0) {
+      return res.status(400).json({
+        message: "ID inválido"
+      })
+    }
+
+    const users = await prisma.uSUARIO.findUnique({
+      where: { id_cuenta : parsedId },
+      select: {
+        id_cuenta: true,
+        correo: true,
+        nombre: true,
+        cargo: true,
+        is_admin: true,
+      }
+    })
+
+    return res.json(users)
+  } catch (error) {
+    return res.status(500).json({
+      message:"Something goes wrong"
+    })
+  }
+}
+
 //Crear Usuario
 export const crearUsuario = async (req, res) => {
   try {
@@ -70,6 +107,60 @@ export const crearUsuario = async (req, res) => {
       message: "Something goes wrong",
       error: e.message
     });
+  }
+}
+
+//Editar Usuario
+export const editarUsuario = async (req, res) => {
+  try {
+    const id = req.params.id
+    if (!id) {
+      return res.status(418).json({
+        message: "ID no proporcionado"
+      })
+    }
+
+    // Convertir el ID a un número y validar
+    const parsedId = parseInt(id);
+    if (isNaN(parsedId) || parsedId <= 0) {
+      return res.status(400).json({
+        message: "ID inválido"
+      })
+    }
+
+    const { contrasena, nombre, cargo, isAdmin } = await req.body;
+
+    // Validación de los datos
+    if (!nombre || !cargo) {
+      throw new Error('Todos los campos son requeridos');
+    }
+
+    // Aquí podrías agregar más validaciones, como formato de email, longitud de contraseña, etc.
+    if (contrasena && contrasena != '' && contrasena.length < 8){
+      throw new Error('La contraseña debe contener como mínimo 8 caracteres');
+    }
+
+    await prisma.uSUARIO.update({
+      where: { id_cuenta: parsedId },
+      data: {
+        nombre: nombre,
+        cargo: cargo,
+        is_admin: isAdmin,
+        ...(contrasena && contrasena != '' ) && {
+          contrasena: await hash(contrasena, 10)
+        }
+      }
+    });
+
+    return res.status(200).json({
+      message: "Usuario actualizado con éxito"
+    });
+  }
+  catch (error){
+    return res.status(500).json({
+      message:"No se pudo actualizar los datos del usuario",
+      error: error.message
+    })
   }
 }
 

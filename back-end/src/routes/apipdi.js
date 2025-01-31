@@ -2,7 +2,7 @@
 import { Router } from 'express'
 import { getEjes, getEje, crearEje } from '../controllers/ejes.js';
 import { getObjetivos, getObjetivo, crearObjetivo, getObjetivoxUsuario } from '../controllers/objetivos.js';
-import { cambiarClave, crearUsuario, eliminarUsuario, getUsers } from '../controllers/usuarios.js';
+import { cambiarClave, crearUsuario, editarUsuario, eliminarUsuario, getUser, getUsers } from '../controllers/usuarios.js';
 import { getMapaEstrategico } from '../controllers/mapaestrategico.js';
 import { crearPlan, editarObservaciones, editarPlan, eliminarPlan, getPlan, getPlanes, getPlanesxUsuario } from '../controllers/planes.js';
 import { checkToken, isAdmin, login, whosUser } from '../controllers/auth.js';
@@ -27,8 +27,10 @@ router.post('/objetivos', crearObjetivo)
 
 //Rutas Usuario
 router.get('/usuarios', checkToken, isAdmin, getUsers)
+router.get('/usuarios/:id', checkToken, isAdmin, getUser)
 router.post('/usuarios', checkToken, isAdmin, crearUsuario)
-router.patch('/usuarios/:id', checkToken, cambiarClave)
+router.patch('/usuarios/:id', checkToken, isAdmin, editarUsuario)
+router.put('/usuarios/:id', checkToken, cambiarClave)
 router.delete('/usuarios/:id', checkToken, isAdmin, eliminarUsuario)
 
 //Ruta Mapa Estrategico

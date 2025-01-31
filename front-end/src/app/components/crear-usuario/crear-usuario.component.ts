@@ -33,6 +33,7 @@ export class CrearUsuarioComponent {
   types: TypeForm[] = [];
   contraLabel = 'Contraseña';
   isEditar = false;
+  userData:  | null = null;
 
   constructor( 
     private formBuilder: FormBuilder,
@@ -84,33 +85,54 @@ export class CrearUsuarioComponent {
       is_admin = 1
     }
 
-    const USER: User = {
-      correo: this.userForm.get('correo')?.value,
-      contrasena: this.userForm.get('contrasena')?.value,
-      nombre: this.userForm.get('nombre')?.value,
-      cargo: this.userForm.get('cargo')?.value,
-      isAdmin: is_admin
-    };
-
-    this.pdiService.crearUsuario(USER).subscribe(
-      (response) => {
-        // Manejar la respuesta del middleware, por ejemplo, mostrar una confirmación al usuario.
-        //console.log('Usuario creado con éxito:', response);
-        this.toastr.success('Datos ingresados correctamente', 'Usuario Registrado!');
-        this.router.navigate(['/gestion-usuarios']);
-      },
-      (error) => {
-        // Manejar errores, como mostrar un mensaje de error al usuario.
-        if (error.status == 400){
-          this.toastr.error('El correo ya está registrado', 'Usuario No Registrado');
+    if (!this.isEditar){
+      const USER: User = {
+        correo: this.userForm.get('correo')?.value,
+        contrasena: this.userForm.get('contrasena')?.value,
+        nombre: this.userForm.get('nombre')?.value,
+        cargo: this.userForm.get('cargo')?.value,
+        isAdmin: is_admin
+      };
+  
+      this.pdiService.crearUsuario(USER).subscribe(
+        (response) => {
+          // Manejar la respuesta del middleware, por ejemplo, mostrar una confirmación al usuario.
+          //console.log('Usuario creado con éxito:', response);
+          this.toastr.success('Datos ingresados correctamente', 'Usuario Registrado!');
+          this.router.navigate(['/gestion-usuarios']);
+        },
+        (error) => {
+          // Manejar errores, como mostrar un mensaje de error al usuario.
+          if (error.status == 400){
+            this.toastr.error('El correo ya está registrado', 'Usuario No Registrado');
+            this.router.navigate(['/gestion-usuarios']);
+          }
+          else{
+            this.toastr.error('Ha ocurrido un error', 'Usuario No Registrado');
+            this.router.navigate(['/gestion-usuarios']);
+          }
+        }
+      );
+    }
+    else {
+      const USER: any = {
+        contrasena: this.userForm.get('contrasena')?.value,
+        nombre: this.userForm.get('nombre')?.value,
+        cargo: this.userForm.get('cargo')?.value,
+        isAdmin: is_admin
+      };
+      console.log(this.id)
+      this.pdiService.editarUsuario(USER, parseInt(this.id!)).subscribe(
+        (response) => {
+          this.toastr.success('Datos ingresados correctamente', 'Usuario Actualizado!');
+          this.router.navigate(['/gestion-usuarios']);
+        },
+        (error) => {
+          this.toastr.error('Ha ocurrido un error', 'Usuario No Actualizado');
           this.router.navigate(['/gestion-usuarios']);
         }
-        else{
-          this.toastr.error('Ha ocurrido un error', 'Usuario No Registrado');
-          this.router.navigate(['/gestion-usuarios']);
-        }
-      }
-    );
+      );
+    }
   }
 
   esEditar(){
@@ -118,6 +140,44 @@ export class CrearUsuarioComponent {
       this.titulo = "Editar Datos de Usuario";
       this.isEditar = true;
       this.contraLabel = 'Nueva Contraseña';
+      this.pdiService.getUsuario(parseInt(this.id)).subscribe((user) => {
+        this.userData = user;
+        if(this.userData == null){
+          this.router.navigate(['/mapa-estrategico']);
+          return;
+        }
+
+        //Desactivar forms no usados:
+        this.userForm.removeControl('verify_correo');
+        this.userForm.get('contrasena')?.clearValidators();  // Limpiar validadores anteriores
+        this.userForm.get('contrasena')?.setValidators([Validators.minLength(8)]);  // Aplicar nuevo validador
+        this.userForm.get('contrasena')?.updateValueAndValidity();  // Actualizar el estado del control
+        
+        this.userForm.get('verify_pass')?.clearValidators();  // Limpiar validadores anteriores
+        this.userForm.get('verify_pass')?.setValidators([Validators.minLength(8)]);  // Aplicar nuevo validador
+        this.userForm.get('verify_pass')?.updateValueAndValidity();  // Actualizar el estado del control
+        this.userForm.setValidators([
+          Validation.match('contrasena', 'verify_pass')  // Solo mantener el validador de contraseñas
+        ]);
+        
+        this.userForm.updateValueAndValidity();
+        
+        const admini = user.is_admin
+        var isAdmina = false
+        if (admini == 1){
+          isAdmina = true
+        }
+        this.userForm.patchValue({
+          nombre: user.nombre,
+          correo: user.correo,
+          cargo: user.cargo,
+          admin: isAdmina
+        })
+        this.userForm.get('correo')?.clearValidators();
+        this.userForm.get('correo')?.updateValueAndValidity();  // Actualizar el estado de validez del control
+        this.userForm.get('correo')?.disable(); 
+        this.userForm.updateValueAndValidity();
+      })
     }
   }
 }

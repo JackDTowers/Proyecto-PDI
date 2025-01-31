@@ -88,12 +88,20 @@ export class PdiService {
     return this.http.get<User[]>(this.url + '/usuarios', this.createHeaders())
   }
 
+  getUsuario(id: number): Observable<any>{
+    return this.http.get<any>(this.url + '/usuarios/' + id, this.createHeaders());
+  }
+
   crearUsuario(user: User): Observable<any>{
     return this.http.post(this.url + '/usuarios', user, this.createHeaders())
   }
 
+  editarUsuario(dataForm: any, id: number): Observable<any>{
+    return this.http.patch(this.url + '/usuarios/' + id, dataForm, this.createHeaders())
+  }
+
   cambiarClave(claveForm: any, id: number): Observable<any>{
-    return this.http.patch(this.url + '/usuarios/' + id, claveForm, this.createHeaders())
+    return this.http.put(this.url + '/usuarios/' + id, claveForm, this.createHeaders())
   }
 
   eliminarUsuario(id: number): Observable<any>{
