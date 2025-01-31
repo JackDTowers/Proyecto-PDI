@@ -114,37 +114,44 @@ export class CrearPlanComponent{
       if (this.aRouter.snapshot.routeConfig?.path?.split('/')[0] == 'editar-plan'){
         this.editing = true;
         this.titulo = "Edición Plan de Acción";
-        this.pdiService.getPlan(parseInt(this.id)).subscribe(plan => {
-          this.objId = plan.obj_id;
-          const indicadores = plan.indica_plan;
-          const actividades = plan.actividades;
-          const user = this.usuarios.find(u => u.id_cuenta === plan.responsable?.id_cuenta);
-          this.planForm.setValue({
-            nombre: plan.nombre_plan,
-            responsable_plan: user,
-            codigo_obj: plan.objetivo?.cod_obj,
-            objetivo: plan.objetivo?.nombre_obj,
-            observaciones: plan.observaciones,
-            indicador_plan: indicadores[0].desc_indicaplan,
-            formula: indicadores[0].form_calculo,
-            meta: indicadores[0].meta_plazo,
-            responsable: actividades[0].responsable,
-            plazo: actividades[0].plazo,
-            actividad: actividades[0].desc_act,
-            ini_ind: indicadores[0].fecha_inicio,
-            fin_ind: indicadores[0].fecha_fin,
-            ini_act: actividades[0].fecha_inicio,
-            fin_act: actividades[0].fecha_fin,
-            indicadores: [],
-            actividades: [],
-          })
-          indicadores.map((indicador) => {
-            this.agregarIndicador(indicador);
-          })
-          actividades.map((actividad) => {
-            this.agregarActividad(actividad);
-          })
-        })
+        this.pdiService.getPlan(parseInt(this.id)).subscribe({
+          next: (plan) => {
+            this.objId = plan.obj_id;
+            const indicadores = plan.indica_plan;
+            const actividades = plan.actividades;
+            const user = this.usuarios.find(u => u.id_cuenta === plan.responsable?.id_cuenta);
+            this.planForm.setValue({
+              nombre: plan.nombre_plan,
+              responsable_plan: user,
+              codigo_obj: plan.objetivo?.cod_obj,
+              objetivo: plan.objetivo?.nombre_obj,
+              observaciones: plan.observaciones,
+              indicador_plan: indicadores[0].desc_indicaplan,
+              formula: indicadores[0].form_calculo,
+              meta: indicadores[0].meta_plazo,
+              responsable: actividades[0].responsable,
+              plazo: actividades[0].plazo,
+              actividad: actividades[0].desc_act,
+              ini_ind: indicadores[0].fecha_inicio,
+              fin_ind: indicadores[0].fecha_fin,
+              ini_act: actividades[0].fecha_inicio,
+              fin_act: actividades[0].fecha_fin,
+              indicadores: [],
+              actividades: [],
+            })
+            indicadores.map((indicador) => {
+              this.agregarIndicador(indicador);
+            })
+            actividades.map((actividad) => {
+              this.agregarActividad(actividad);
+            })
+          },
+          error: (error) => {
+            this.toastr.error(error.error.message, 'Error')
+            this.router.navigate(['/mapa-estrategico']);
+          }
+        }
+        )
       }
     }
   }

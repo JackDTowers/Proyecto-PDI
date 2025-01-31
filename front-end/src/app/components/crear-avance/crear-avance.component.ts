@@ -140,11 +140,11 @@ export class CrearAvanceComponent {
       this.idAvance = this.aRouter.snapshot.paramMap.get('id');
       this.pdiService.getAvance(this.idAvance!).subscribe((avance) => {
         this.avance = avance;
-        this.archivos = avance.archivos!;
         if (!avance){
           this.router.navigate(['/mapa-estrategico']);
           return;
         }
+        this.archivos = avance.archivos!;
         this.avanceForm.setValue({
           nombre: avance.nombre,
           resumen: avance.resumen,

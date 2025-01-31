@@ -31,6 +31,8 @@ export class CrearUsuarioComponent {
   userForm : FormGroup
   matcher = new MyErrorStateMatcher();
   types: TypeForm[] = [];
+  contraLabel = 'Contraseña';
+  isEditar = false;
 
   constructor( 
     private formBuilder: FormBuilder,
@@ -113,7 +115,9 @@ export class CrearUsuarioComponent {
 
   esEditar(){
     if (this.id != null){
-      this.titulo = "Editar Datos de Usuario"
+      this.titulo = "Editar Datos de Usuario";
+      this.isEditar = true;
+      this.contraLabel = 'Nueva Contraseña';
     }
   }
 }
