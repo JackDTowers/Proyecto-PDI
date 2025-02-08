@@ -1,5 +1,5 @@
 import { prisma } from '../config/db.js';
-import { hash, compare } from 'bcrypt';
+import bcrypt from 'bcryptjs';
 import { Prisma } from '@prisma/client';
 
 //Obtener todos los usuarios
@@ -78,7 +78,7 @@ export const crearUsuario = async (req, res) => {
     await prisma.uSUARIO.create({
       data: {
         correo: correo,
-        contrasena: await hash(contrasena, 10),
+        contrasena: await bcrypt.hash(contrasena, 10),
         nombre: nombre,
         cargo: cargo,
         is_admin: isAdmin,
@@ -147,7 +147,7 @@ export const editarUsuario = async (req, res) => {
         cargo: cargo,
         is_admin: isAdmin,
         ...(contrasena && contrasena != '' ) && {
-          contrasena: await hash(contrasena, 10)
+          contrasena: await bcrypt.hash(contrasena, 10)
         }
       }
     });
@@ -208,7 +208,7 @@ export const cambiarClave = async (req, res) => {
       where: { id_cuenta: parsedId }
     })
 
-    const passwordIsValid = await compare(claveAntigua, user.contrasena)
+    const passwordIsValid = await bcrypt.compare(claveAntigua, user.contrasena)
 
     if(!passwordIsValid){
       return res.status(400).json({
@@ -219,7 +219,7 @@ export const cambiarClave = async (req, res) => {
     await prisma.uSUARIO.update({
       where: { id_cuenta: parsedId },
       data: {
-        contrasena: await hash(claveNueva, 10)
+        contrasena: await bcrypt.hash(claveNueva, 10)
       }
     });
 

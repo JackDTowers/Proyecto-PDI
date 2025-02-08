@@ -4,10 +4,10 @@ import router from './routes/apipdi.js';
 
 const app = express();
 
-app.use(cors())
 app.use(express.json())
 
 app.use('/api', router)
 
-app.listen(4000);
-console.log('El servidor está corriendo en http://localhost:4000')
+app.listen(3000, () => {
+  console.log('El servidor está corriendo en el puerto 3000');
+});
