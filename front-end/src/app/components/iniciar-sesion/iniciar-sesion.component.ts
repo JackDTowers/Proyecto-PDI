@@ -13,8 +13,8 @@ import { catchError } from 'rxjs/operators';
   styleUrls: ['./iniciar-sesion.component.css']
 })
 export class IniciarSesionComponent {
-  logo = 'assets/iconogrande.png';
-  portada = './assets/portada.png';
+  logo = '../../../assets/img/iconogrande.png';
+  portada = '../../../assets/img/portada.png';
   loginForm : FormGroup;
   matcher = new MyErrorStateMatcher();
   typeForm = 'password';

@@ -6,7 +6,6 @@
 
 generator client {
   provider = "prisma-client-js"
-  binaryTargets = ["debian-openssl-1.0.x", "native"]
 }
 
 datasource db {
@@ -20,8 +19,6 @@ model EJEESTRATEGICO {
   numero_eje  Int @unique
   nombre_eje  String
   objetivos    OBJETIVOESTRATEGICO[]
-
-  @@map("ejeestrategico")
 }
 
 model OBJETIVOESTRATEGICO {
@@ -32,8 +29,6 @@ model OBJETIVOESTRATEGICO {
   indica_objetivo INDICADOROBJETIVO[]
   planes          PLANDEACCION[]
   eje             EJEESTRATEGICO @relation(fields: [eje_id], references: [eje_id], onDelete: Cascade)
-
-  @@map("objetivoestrategico")
 }
 
 model INDICADOROBJETIVO {
@@ -42,8 +37,6 @@ model INDICADOROBJETIVO {
   desc_indicaobj  String
   plan_impa_ind   PLANIMPACTAINDICADOR[]
   objetivo        OBJETIVOESTRATEGICO @relation(fields: [obj_id], references: [obj_id], onDelete: Cascade)
-
-  @@map("indicadorobjetivo")
 }
 
 model PLANDEACCION {
@@ -59,8 +52,6 @@ model PLANDEACCION {
   actividades     ACTIVIDAD[]
   responsable     USUARIO @relation(fields: [user_id], references: [id_cuenta])
   objetivo        OBJETIVOESTRATEGICO @relation(fields: [obj_id], references: [obj_id], onDelete: Cascade)
-
-  @@map("plandeaccion")
 }
 
 model USUARIO {
@@ -71,8 +62,6 @@ model USUARIO {
   cargo       String
   is_admin    Int
   planes      PLANDEACCION[]
-
-  @@map("usuario")
 }
 
 model PLANIMPACTAINDICADOR {
@@ -81,8 +70,6 @@ model PLANIMPACTAINDICADOR {
   plan_id         Int
   plan            PLANDEACCION @relation(fields: [plan_id], references: [plan_id], onDelete: Cascade)
   objetivo        INDICADOROBJETIVO @relation(fields: [ind_obj_id], references: [ind_obj_id], onDelete: Cascade)
-
-  @@map("planimpactaindicador")
 }
 
 model INDICADORPLAN {
@@ -94,8 +81,6 @@ model INDICADORPLAN {
   fecha_inicio    DateTime
   fecha_fin       DateTime
   plan            PLANDEACCION @relation(fields: [plan_id], references: [plan_id], onDelete: Cascade)
-
-  @@map("indicadorplan")
 }
 
 model ACTIVIDAD {
@@ -109,8 +94,6 @@ model ACTIVIDAD {
   fecha_fin     DateTime
   avances       REPORTEAVANCE[]
   plan          PLANDEACCION @relation(fields: [plan_id], references: [plan_id], onDelete: Cascade)
-
-  @@map("actividad")
 }
 
 model REPORTEAVANCE {
@@ -123,8 +106,6 @@ model REPORTEAVANCE {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   actividad   ACTIVIDAD @relation(fields: [act_id], references: [act_id], onDelete: Cascade)
-
-  @@map("reporteavance")
 }
 
 model ARCHIVO {
@@ -135,6 +116,4 @@ model ARCHIVO {
   ruta            String //De momento se almacena la ruta absoluta del archivo
   createdAt       DateTime @default(now())
   avance          REPORTEAVANCE @relation(fields: [avance_id], references: [avance_id], onDelete: Cascade)
-
-  @@map("archivo")
 }

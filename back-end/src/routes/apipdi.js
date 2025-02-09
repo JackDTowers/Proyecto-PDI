@@ -34,7 +34,7 @@ router.put('/usuarios/:id', checkToken, cambiarClave)
 router.delete('/usuarios/:id', checkToken, isAdmin, eliminarUsuario)
 
 //Ruta Mapa Estrategico
-router.get('/mapaestrategico', checkToken, getMapaEstrategico)
+router.get('/mapa-estrategico', checkToken, getMapaEstrategico)
 
 //Rutas Plan de Accion
 router.get('/planes', getPlanes)

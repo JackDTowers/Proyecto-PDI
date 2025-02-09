@@ -11,7 +11,7 @@ import { DialogContraComponent } from './dialog-contra/dialog-contra.component';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit{
-  logo = 'assets/FACULTAD ODONTOLOGIA-02-modified.png';
+  logo = '../../../assets/img/FACULTAD ODONTOLOGIA-02-modified.png';
   isLoggedAdmin = false;
   user = ''
 

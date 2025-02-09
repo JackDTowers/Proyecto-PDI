@@ -13,7 +13,7 @@ import { ToastrService } from 'ngx-toastr';
   providedIn: 'root'
 })
 export class PdiService {
-  private url = "/api"
+  private url = 'http://localhost:4000/api'
 
   constructor(private http: HttpClient, private router: Router, private toastService: ToastrService) { }
 
@@ -81,7 +81,7 @@ export class PdiService {
 
   //PDI Services
   getMapaEstrategico(): Observable<any[]>{
-    return this.http.get<any[]>(this.url + '/mapaestrategico', this.createHeaders());
+    return this.http.get<any[]>(this.url + '/mapa-estrategico', this.createHeaders());
   }
 
   getUsuarios(): Observable<User[]>{

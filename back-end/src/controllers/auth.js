@@ -1,5 +1,5 @@
 import { prisma } from '../config/db.js';
-import bcrypt from 'bcryptjs';
+import { compare } from 'bcrypt';
 import pkg from 'jsonwebtoken';
 
 //Función de autenticación
@@ -10,7 +10,7 @@ async function verifyUser(correo, contrasena) {
   if (!user) {
     return null;
   }
-  const passwordIsValid = await bcrypt.compare(contrasena, user.contrasena)
+  const passwordIsValid = await compare(contrasena, user.contrasena)
   return passwordIsValid ? user : null;
 }
 
