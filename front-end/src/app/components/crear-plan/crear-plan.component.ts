@@ -34,6 +34,8 @@ export class CrearPlanComponent{
   editing: boolean = false;
   objId: number | undefined;
 
+  MAXLENGTH_ACT_IND = 500;
+
   get indicadores() {
     return this.planForm.controls["indicadores"] as FormArray<FormGroup>;
   }

@@ -88,9 +88,9 @@ model PLANIMPACTAINDICADOR {
 model INDICADORPLAN {
   ind_plan_id     Int @id @default(autoincrement())
   plan_id         Int
-  form_calculo    String
+  form_calculo    String @db.VarChar(400)
   meta_plazo      String
-  desc_indicaplan String
+  desc_indicaplan String @db.VarChar(500)
   fecha_inicio    DateTime
   fecha_fin       DateTime
   plan            PLANDEACCION @relation(fields: [plan_id], references: [plan_id], onDelete: Cascade)
@@ -101,7 +101,7 @@ model INDICADORPLAN {
 model ACTIVIDAD {
   act_id        Int @id @default(autoincrement())
   plan_id       Int
-  desc_act      String
+  desc_act      String @db.VarChar(500)
   responsable   String
   plazo         String
   estado        String @db.VarChar(20)
