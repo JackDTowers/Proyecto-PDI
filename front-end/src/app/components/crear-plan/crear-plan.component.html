@@ -75,7 +75,7 @@
         <p class="font-semibold font-sans text-xs">Indicador de cumplimiento</p>
         <mat-form-field appearance="outline" class="w-full" hideRequiredMarker="true" color="primary">
           <mat-label>Ingrese indicador de cumplimiento</mat-label>
-          <textarea cdkTextareaAutosize type="text" matInput formControlName="indicador_plan" [errorStateMatcher]="matcher"></textarea>
+          <textarea cdkTextareaAutosize type="text" matInput formControlName="indicador_plan" [errorStateMatcher]="matcher" maxLength="{{MAXLENGTH_ACT_IND}}"></textarea>
           <mat-error *ngIf="planForm.controls['indicador_plan'].hasError('required')">
             El indicador de cumplimiento es <strong>requerido</strong>
           </mat-error>
@@ -85,7 +85,7 @@
         <p class="font-semibold font-sans text-xs">Fórmula de cálculo</p>
         <mat-form-field appearance="outline" class="w-full" hideRequiredMarker="true" color="primary">
           <mat-label>Ingrese fórmula</mat-label>
-          <textarea cdkTextareaAutosize type="text" matInput formControlName="formula" [errorStateMatcher]="matcher"></textarea>
+          <textarea cdkTextareaAutosize type="text" matInput formControlName="formula" [errorStateMatcher]="matcher" maxLength="{{MAXLENGTH_ACT_IND}}"></textarea>
           <mat-error *ngIf="planForm.controls['formula'].hasError('required')">
             La fórmula es <strong>requerida</strong>
           </mat-error>
@@ -201,7 +201,7 @@
         <p class="font-semibold font-sans text-xs">Actividad</p>
         <mat-form-field appearance="outline" class="w-full" hideRequiredMarker="true" color="primary">
           <mat-label>Ingrese nombre de actividad</mat-label>
-          <textarea cdkTextareaAutosize type="text" matInput formControlName="actividad" [errorStateMatcher]="matcher"></textarea>
+          <textarea cdkTextareaAutosize type="text" matInput formControlName="actividad" [errorStateMatcher]="matcher" maxLength="{{MAXLENGTH_ACT_IND}}"></textarea>
           <mat-error *ngIf="planForm.controls['actividad'].hasError('required')">
             El nombre de actividad es <strong>requerido</strong>
           </mat-error>
